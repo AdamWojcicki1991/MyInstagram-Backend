@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyinstagramApplication {
+public class MyInstagramApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyinstagramApplication.class, args);
+        SpringApplication.run(MyInstagramApplication.class, args);
     }
 
 }
