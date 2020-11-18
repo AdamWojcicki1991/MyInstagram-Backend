@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public final class RoleService {
+public final class RoleServiceDb {
     private final RoleRepository roleRepository;
 
     public List<Role> getAllRoles() {

@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Builder
@@ -19,16 +18,18 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public final class Role {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
+    @Column(name = "ID")
     private Long id;
 
     @NotBlank(message = "Role name is required !")
     @Column(name = "ROLE_NAME")
     private String roleName;
 
-    @OneToMany(
-            targetEntity = UserRole.class,
-            mappedBy = "role",
-            fetch = LAZY
+    @ManyToMany
+    @JoinTable(
+            name = "USER_ROLES",
+            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}
     )
-    private Set<UserRole> userRoles;
+    private Set<User> users;
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public final class CommentService {
+public final class CommentServiceDb {
     private final CommentRepository commentRepository;
 
     public List<Comment> getAllComments() {

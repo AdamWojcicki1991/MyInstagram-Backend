@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public final class UserService {
+public final class UserServiceDb {
     private final UserRepository userRepository;
 
     public List<User> getAllUsers() {
@@ -39,5 +39,9 @@ public final class UserService {
 
     public void deleteUserById(final Long id) {
         userRepository.deleteById(id);
+    }
+
+    public void assignUserRole(final Long roleId, final Long userId) {
+        userRepository.assignUserRole(roleId, userId);
     }
 }

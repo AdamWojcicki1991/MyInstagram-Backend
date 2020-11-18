@@ -29,6 +29,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public final class User {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
+    @Column(name = "ID")
     private Long id;
 
     @NotBlank(message = "User name is required !")
@@ -74,10 +75,9 @@ public final class User {
     )
     private List<Post> posts;
 
-    @OneToMany(
-            targetEntity = UserRole.class,
-            mappedBy = "user",
-            fetch = EAGER
-    )
-    private Set<UserRole> userRoles;
+    @ManyToMany(
+            targetEntity = Role.class,
+            mappedBy = "users",
+            fetch = EAGER)
+    private Set<Role> roles;
 }
