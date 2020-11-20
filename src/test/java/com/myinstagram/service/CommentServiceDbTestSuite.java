@@ -2,7 +2,6 @@ package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
-import com.myinstagram.domain.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +27,8 @@ public class CommentServiceDbTestSuite {
     @Test
     public void shouldGetAllComments() {
         // GIVEN
-        commentServiceDb.saveComment(setUpData());
+        Post post = postServiceDb.savePost(createPost(userServiceDb.saveUser(createUser())));
+        commentServiceDb.saveComment(createComment(post));
         // WHEN
         List<Comment> comments = commentServiceDb.getAllComments();
         // THEN
@@ -38,17 +38,22 @@ public class CommentServiceDbTestSuite {
     @Test
     public void shouldGetCommentById() {
         // GIVEN
-        Comment comment = commentServiceDb.saveComment(setUpData());
+        Post post = postServiceDb.savePost(createPost(userServiceDb.saveUser(createUser())));
+        Comment comment = commentServiceDb.saveComment(createComment(post));
         // WHEN
         Comment saveComment = commentServiceDb.getCommentById(comment.getId()).get();
         // THEN
-        assertEquals(comment, saveComment);
+        assertEquals(comment.getId(), saveComment.getId());
+        assertEquals(comment.getCommentName(), saveComment.getCommentName());
+        assertEquals(comment.getContent(), saveComment.getContent());
+        assertEquals(comment.getCommentDate(), saveComment.getCommentDate());
     }
 
     @Test
     public void shouldSaveComment() {
         // GIVEN
-        Comment comment = setUpData();
+        Post post = postServiceDb.savePost(createPost(userServiceDb.saveUser(createUser())));
+        Comment comment = commentServiceDb.saveComment(createComment(post));
         // WHEN
         Comment saveComment = commentServiceDb.saveComment(comment);
         // THEN
@@ -58,18 +63,11 @@ public class CommentServiceDbTestSuite {
     @Test
     public void shouldDeleteCommentById() {
         //GIVEN
-        Long commentId = commentServiceDb.saveComment(setUpData()).getId();
+        Post post = postServiceDb.savePost(createPost(userServiceDb.saveUser(createUser())));
+        Long commentId = commentServiceDb.saveComment(createComment(post)).getId();
         //WHEN
         commentServiceDb.deleteCommentById(commentId);
         //THEN
         assertEquals(Optional.empty(), commentServiceDb.getCommentById(commentId));
-    }
-
-    private Comment setUpData() {
-        User user = createUser();
-        Post post = createPost(user);
-        userServiceDb.saveUser(user);
-        postServiceDb.savePost(post);
-        return createComment(post);
     }
 }
