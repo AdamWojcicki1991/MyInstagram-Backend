@@ -1,11 +1,13 @@
 package com.myinstagram.domain.entity;
 
+import com.myinstagram.domain.util.RoleType;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Builder
@@ -18,12 +20,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public final class Role {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
-    @Column(name = "ID")
     private Long id;
 
-    @NotBlank(message = "Role name is required !")
-    @Column(name = "ROLE_NAME")
-    private String roleName;
+    @NotNull(message = "Role type cannot be Null !")
+    @Enumerated(STRING)
+    @Column(name = "ROLE_TYPE")
+    private RoleType roleType;
 
     @ManyToMany
     @JoinTable(
@@ -32,4 +34,12 @@ public final class Role {
             inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}
     )
     private Set<User> users;
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public void removeUser(User user) {
+        users.remove(user);
+    }
 }

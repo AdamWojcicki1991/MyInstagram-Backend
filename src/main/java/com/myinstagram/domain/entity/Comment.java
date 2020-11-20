@@ -21,7 +21,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public final class Comment {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
-    @Column(name = "ID")
     private Long id;
 
     @NotBlank(message = "Comment name is required !")

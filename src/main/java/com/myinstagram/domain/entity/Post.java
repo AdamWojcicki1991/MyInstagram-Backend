@@ -23,7 +23,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public final class Post {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
-    @Column(name = "ID")
     private Long id;
 
     @NotBlank(message = "Post name is required !")

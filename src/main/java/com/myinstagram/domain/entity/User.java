@@ -29,7 +29,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public final class User {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
-    @Column(name = "ID")
     private Long id;
 
     @NotBlank(message = "User name is required !")
