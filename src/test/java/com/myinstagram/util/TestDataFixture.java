@@ -4,8 +4,11 @@ import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
+import com.myinstagram.domain.util.RoleType;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import static com.myinstagram.domain.util.UserStatus.ACTIVE;
 
@@ -16,41 +19,45 @@ public final class TestDataFixture {
 
     public static User createUser() {
         return User.builder()
-                .createDate(LocalDate.now())
-                .description("Description")
-                .email("email@gmail.com")
-                .enabled(true)
+                .userName("User")
                 .login("login")
                 .password("Password")
-                .userName("User")
+                .email("email@gmail.com")
+                .description("Description")
+                .createDate(LocalDate.now())
                 .userStatus(ACTIVE)
+                .enabled(true)
+                .posts(new ArrayList<>())
+                .roles(new HashSet<>())
                 .build();
     }
 
     public static Post createPost(User user) {
         return Post.builder()
+                .postName("Post")
                 .caption("Sign")
+                .url("URL")
                 .imageSerialNumber(0L)
                 .likesCount(0L)
                 .postDate(LocalDate.now())
-                .postName("Post")
-                .url("URL")
                 .user(user)
+                .comments(new ArrayList<>())
                 .build();
     }
 
     public static Comment createComment(Post post) {
         return Comment.builder()
-                .commentDate(LocalDate.now())
                 .commentName("Comment")
                 .content("Content")
+                .commentDate(LocalDate.now())
                 .post(post)
                 .build();
     }
 
-    public static Role createRole() {
+    public static Role createRole(RoleType roleType) {
         return Role.builder()
-                .roleName("Role")
+                .roleType(roleType)
+                .users(new HashSet<>())
                 .build();
     }
 }
