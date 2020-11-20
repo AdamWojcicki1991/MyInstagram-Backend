@@ -33,15 +33,11 @@ public final class UserServiceDb {
         return userRepository.findByLogin(login);
     }
 
-    User saveUser(final User user) {
+    public User saveUser(final User user) {
         return userRepository.save(user);
     }
 
     public void deleteUserById(final Long id) {
         userRepository.deleteById(id);
-    }
-
-    public void assignUserRole(final Long roleId, final Long userId) {
-        userRepository.assignUserRole(roleId, userId);
     }
 }

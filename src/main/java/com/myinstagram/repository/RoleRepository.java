@@ -1,6 +1,7 @@
 package com.myinstagram.repository;
 
 import com.myinstagram.domain.entity.Role;
+import com.myinstagram.domain.util.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @Override
     Optional<Role> findById(final Long id);
 
-    Optional<Role> findByRoleName(final String roleName);
+    Optional<Role> findByRoleType(final RoleType roleType);
 
     @Override
     Role save(final Role role);

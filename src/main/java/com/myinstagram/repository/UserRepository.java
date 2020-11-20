@@ -2,8 +2,6 @@ package com.myinstagram.repository;
 
 import com.myinstagram.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -30,7 +28,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     void deleteById(final Long id);
-
-    @Query(value = "INSERT INTO USER_ROLES (ROLE_ID, USER_ID) VALUES (:roleId, :userId)", nativeQuery = true)
-    void assignUserRole(@Param("roleId") Long roleId, @Param("userId") Long userId);
 }

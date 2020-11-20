@@ -1,6 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Role;
+import com.myinstagram.domain.util.RoleType;
 import com.myinstagram.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public final class RoleServiceDb {
         return roleRepository.findById(id);
     }
 
-    public Optional<Role> getRoleByRoleName(final String roleName) {
-        return roleRepository.findByRoleName(roleName);
+    public Optional<Role> getRoleByRoleType(final RoleType roleType) {
+        return roleRepository.findByRoleType(roleType);
     }
 
     public Role saveRole(final Role role) {
