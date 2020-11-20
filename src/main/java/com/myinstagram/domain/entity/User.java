@@ -23,6 +23,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Getter
 @Entity
 @Table(name = "USERS")
@@ -45,7 +46,7 @@ public final class User {
 
     @Email
     @NotEmpty(message = "Email is required !")
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Nullable

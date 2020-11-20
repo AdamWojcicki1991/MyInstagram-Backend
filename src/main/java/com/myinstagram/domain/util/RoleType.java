@@ -2,6 +2,7 @@ package com.myinstagram.domain.util;
 
 public enum RoleType {
     ADMIN,
+    USER,
     GUEST,
-    USER
+    NO_ROLE
 }

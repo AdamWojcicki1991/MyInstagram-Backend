@@ -31,6 +31,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.postgresql:postgresql'
     runtimeOnly 'com.h2database:h2'
+    testImplementation "com.google.guava:guava:30.0-jre"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation "org.junit.jupiter:junit-jupiter-api"

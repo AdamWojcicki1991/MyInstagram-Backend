@@ -9,6 +9,7 @@ import com.myinstagram.domain.util.RoleType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import static com.myinstagram.domain.util.UserStatus.ACTIVE;
 
@@ -17,12 +18,12 @@ public final class TestDataFixture {
     private TestDataFixture() {
     }
 
-    public static User createUser() {
+    public static User createUser(String login, String mail) {
         return User.builder()
                 .userName("User")
-                .login("login")
+                .login(login)
                 .password("Password")
-                .email("email@gmail.com")
+                .email(mail)
                 .description("Description")
                 .createDate(LocalDate.now())
                 .userStatus(ACTIVE)
@@ -32,14 +33,14 @@ public final class TestDataFixture {
                 .build();
     }
 
-    public static Post createPost(User user) {
+    public static Post createPost(User user, LocalDate postDate) {
         return Post.builder()
                 .postName("Post")
                 .caption("Sign")
                 .url("URL")
                 .imageSerialNumber(0L)
                 .likesCount(0L)
-                .postDate(LocalDate.now())
+                .postDate(postDate)
                 .user(user)
                 .comments(new ArrayList<>())
                 .build();
@@ -54,10 +55,10 @@ public final class TestDataFixture {
                 .build();
     }
 
-    public static Role createRole(RoleType roleType) {
+    public static Role createRole(RoleType roleType, User... users) {
         return Role.builder()
                 .roleType(roleType)
-                .users(new HashSet<>())
+                .users(new HashSet<>(Set.of(users)))
                 .build();
     }
 }

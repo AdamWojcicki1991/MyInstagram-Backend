@@ -17,17 +17,15 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAll();
 
     // @Query("SELECT P FROM Post P ORDER BY P.postDate DESC")
-    @Query(
-            value = "SELECT P FROM POSTS P ORDER BY P.POST_DATE DESC", nativeQuery = true
-    )
-    List<Post> findAllSorted();
+    @Query(value = "SELECT * FROM POSTS ORDER BY POST_DATE DESC", nativeQuery = true)
+    List<Post> findAllSortedDescending();
 
-    // @Query("SELECT P FROM User U JOIN Post P ON U.id = P.user.id WHERE U.login = :login ORDER BY P.postDate DESC")
+    //    @Query("SELECT P FROM Post P JOIN User U ON P.user.id = U.id WHERE U.login = :login ORDER BY P.postDate DESC")
     @Query(
-            value = "SELECT P FROM USERS U JOIN POSTS P ON U.ID = P.USER_ID WHERE U.LOGIN = :login ORDER BY P.POST_DATE DESC",
+            value = "SELECT * FROM POSTS P JOIN USERS U ON P.USER_ID = U.ID WHERE U.LOGIN = :login ORDER BY P.POST_DATE DESC",
             nativeQuery = true
     )
-    List<Post> findAllByLoginSorted(@Param("login") final String login);
+    List<Post> findAllByLoginSortedDescending(@Param("login") final String login);
 
     @Override
     Optional<Post> findById(final Long id);

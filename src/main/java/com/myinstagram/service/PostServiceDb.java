@@ -17,12 +17,12 @@ public final class PostServiceDb {
         return postRepository.findAll();
     }
 
-    public List<Post> getAllPostsSorted() {
-        return postRepository.findAllSorted();
+    public List<Post> getAllPostsSortedDescending() {
+        return postRepository.findAllSortedDescending();
     }
 
-    public List<Post> getAllPostsByLoginSorted(final String login) {
-        return postRepository.findAllByLoginSorted(login);
+    public List<Post> getAllPostsByLoginSortedDescending(final String login) {
+        return postRepository.findAllByLoginSortedDescending(login);
     }
 
     public Optional<Post> getPostById(final Long id) {

@@ -17,10 +17,11 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Getter
 @Entity
 @Table(name = "POSTS")
-public final class Post {
+public final class Post implements Comparable<Post> {
     @Id
     @GeneratedValue(strategy = SEQUENCE)
     private Long id;
@@ -59,4 +60,9 @@ public final class Post {
             fetch = LAZY
     )
     private List<Comment> comments;
+
+    @Override
+    public int compareTo(Post post) {
+        return this.postDate.compareTo(post.postDate);
+    }
 }
