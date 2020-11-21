@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentRepository {
-    void createComment(Post post, String login, String content);
+    void createComment(Post post, String commentName, String content);
 }
