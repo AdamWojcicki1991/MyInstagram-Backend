@@ -1,7 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.repository.UserRepository;
+import com.myinstagram.repository.UserDbRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,33 +11,33 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public final class UserServiceDb {
-    private final UserRepository userRepository;
+    private final UserDbRepository userDbRepository;
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userDbRepository.findAll();
     }
 
     public List<User> getAllUsersByLoginContaining(final String login) {
-        return userRepository.findAllByLoginContaining(login);
+        return userDbRepository.findAllByLoginContaining(login);
     }
 
     public Optional<User> getUserById(final Long id) {
-        return userRepository.findById(id);
+        return userDbRepository.findById(id);
     }
 
     public Optional<User> getUserByEmail(final String email) {
-        return userRepository.findByEmail(email);
+        return userDbRepository.findByEmail(email);
     }
 
     public Optional<User> getUserByLogin(final String login) {
-        return userRepository.findByLogin(login);
+        return userDbRepository.findByLogin(login);
     }
 
     public User saveUser(final User user) {
-        return userRepository.save(user);
+        return userDbRepository.save(user);
     }
 
     public void deleteUserById(final Long id) {
-        userRepository.deleteById(id);
+        userDbRepository.deleteById(id);
     }
 }

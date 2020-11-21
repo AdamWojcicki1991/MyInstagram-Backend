@@ -1,7 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Comment;
-import com.myinstagram.repository.CommentRepository;
+import com.myinstagram.repository.CommentDbRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +11,21 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public final class CommentServiceDb {
-    private final CommentRepository commentRepository;
+    private final CommentDbRepository commentDbRepository;
 
     public List<Comment> getAllComments() {
-        return commentRepository.findAll();
+        return commentDbRepository.findAll();
     }
 
     public Optional<Comment> getCommentById(final Long id) {
-        return commentRepository.findById(id);
+        return commentDbRepository.findById(id);
     }
 
     public Comment saveComment(final Comment comment) {
-        return commentRepository.save(comment);
+        return commentDbRepository.save(comment);
     }
 
     public void deleteCommentById(final Long id) {
-        commentRepository.deleteById(id);
+        commentDbRepository.deleteById(id);
     }
 }

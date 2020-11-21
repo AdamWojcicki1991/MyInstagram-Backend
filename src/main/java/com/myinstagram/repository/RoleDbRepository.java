@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleDbRepository extends JpaRepository<Role, Long> {
     @Override
     List<Role> findAll();
 

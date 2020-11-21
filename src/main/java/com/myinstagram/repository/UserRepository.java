@@ -1,31 +1,20 @@
 package com.myinstagram.repository;
 
 import com.myinstagram.domain.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import java.util.HashMap;
 
-@Transactional
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    @Override
-    List<User> findAll();
+public interface UserRepository {
+    User createUser(String name, String login, String email);
 
-    List<User> findAllByLoginContaining(final String Login);
+    User updateUser(User user, HashMap<String, String> request);
 
-    @Override
-    Optional<User> findById(final Long id);
+    String createUserImage(MultipartFile multipartFile, Long userImageId);
 
-    Optional<User> findByEmail(final String email);
+    void updateUserPassword(User user, String newPassword);
 
-    Optional<User> findByLogin(final String login);
-
-    @Override
-    User save(final User user);
-
-    @Override
-    void deleteById(final Long id);
+    void resetUserPassword(User user);
 }

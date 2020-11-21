@@ -2,7 +2,7 @@ package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.util.RoleType;
-import com.myinstagram.repository.RoleRepository;
+import com.myinstagram.repository.RoleDbRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,25 +12,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public final class RoleServiceDb {
-    private final RoleRepository roleRepository;
+    private final RoleDbRepository roleDbRepository;
 
     public List<Role> getAllRoles() {
-        return roleRepository.findAll();
+        return roleDbRepository.findAll();
     }
 
     public Optional<Role> getRoleById(final Long id) {
-        return roleRepository.findById(id);
+        return roleDbRepository.findById(id);
     }
 
     public Optional<Role> getRoleByRoleType(final RoleType roleType) {
-        return roleRepository.findByRoleType(roleType);
+        return roleDbRepository.findByRoleType(roleType);
     }
 
     public Role saveRole(final Role role) {
-        return roleRepository.save(role);
+        return roleDbRepository.save(role);
     }
 
     public void deleteRoleById(final Long id) {
-        roleRepository.deleteById(id);
+        roleDbRepository.deleteById(id);
     }
 }
