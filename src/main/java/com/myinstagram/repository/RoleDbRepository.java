@@ -1,7 +1,7 @@
 package com.myinstagram.repository;
 
 import com.myinstagram.domain.entity.Role;
-import com.myinstagram.domain.util.RoleType;
+import com.myinstagram.domain.enums.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

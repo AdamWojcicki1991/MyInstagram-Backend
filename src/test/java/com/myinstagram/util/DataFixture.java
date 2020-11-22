@@ -4,18 +4,18 @@ import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.domain.util.RoleType;
+import com.myinstagram.domain.enums.RoleType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.myinstagram.domain.util.UserStatus.ACTIVE;
+import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
 
-public final class TestDataFixture {
+public final class DataFixture {
 
-    private TestDataFixture() {
+    private DataFixture() {
     }
 
     public static User createUser(String login, String mail) {

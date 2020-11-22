@@ -1,4 +1,4 @@
-package com.myinstagram.domain.util;
+package com.myinstagram.domain.enums;
 
 public enum RoleType {
     ADMIN,

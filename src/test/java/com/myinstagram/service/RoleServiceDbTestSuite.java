@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static com.myinstagram.domain.util.RoleType.*;
-import static com.myinstagram.util.TestDataFixture.createRole;
-import static com.myinstagram.util.TestDataFixture.createUser;
+import static com.myinstagram.domain.enums.RoleType.*;
+import static com.myinstagram.util.DataFixture.createRole;
+import static com.myinstagram.util.DataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional

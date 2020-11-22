@@ -13,8 +13,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.myinstagram.util.TestDataFixture.createPost;
-import static com.myinstagram.util.TestDataFixture.createUser;
+import static com.myinstagram.util.DataFixture.createPost;
+import static com.myinstagram.util.DataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional

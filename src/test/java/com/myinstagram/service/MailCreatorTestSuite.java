@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import static com.myinstagram.util.TestDataFixture.createUser;
+import static com.myinstagram.util.DataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

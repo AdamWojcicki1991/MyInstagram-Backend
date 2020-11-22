@@ -1,6 +1,6 @@
 package com.myinstagram.domain.entity;
 
-import com.myinstagram.domain.util.RoleType;
+import com.myinstagram.domain.enums.RoleType;
 import lombok.*;
 
 import javax.persistence.*;

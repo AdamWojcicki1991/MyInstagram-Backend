@@ -1,6 +1,6 @@
 package com.myinstagram.domain.entity;
 
-import com.myinstagram.domain.util.UserStatus;
+import com.myinstagram.domain.enums.UserStatus;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.Nullable;

@@ -1,7 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Role;
-import com.myinstagram.domain.util.RoleType;
+import com.myinstagram.domain.enums.RoleType;
 import com.myinstagram.repository.RoleDbRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
