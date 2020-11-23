@@ -52,7 +52,11 @@ public class MailCreatorTestSuite {
     @Test
     public void shouldCreateMimeMessage() {
         //GIVEN
-        Mail mail = new Mail("email@gmail.com", "Test Subject", "Text Template");
+        Mail mail = new Mail.MailBuilder()
+                .mailTo("email@gmail.com")
+                .subject("Test Subject")
+                .text("Text Template")
+                .build();
         //WHEN
         MimeMessagePreparator mimeMessage = mailCreationService.createMimeMessage(mail);
         //THEN

@@ -27,9 +27,11 @@ public class MailSenderServiceTestSuite {
     @Test
     public void shouldSendEmail() {
         //GIVEN
-        Mail mail = new Mail("email@gmail.com", "Test Subject",
-                             mailCreationService.createNewUserEmail(
-                                     User.builder().build(), "Password"));
+        Mail mail = new Mail.MailBuilder()
+                .mailTo("email@gmail.com")
+                .subject("Test Subject")
+                .text(mailCreationService.createNewUserEmail(User.builder().build(), "Password"))
+                .build();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
