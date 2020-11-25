@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public final class PostServiceDb {
+public class PostServiceDb {
     private final PostDbRepository postDbRepository;
 
     public List<Post> getAllPosts() {

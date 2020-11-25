@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public final class InstagramConfig {
+public final class MyInstagramConfig {
     @Value("${info.api.name}")
     private String instagramName;
 

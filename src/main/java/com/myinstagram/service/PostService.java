@@ -20,14 +20,14 @@ public class PostService {
 
     public Post createPost(final User user, final HashMap<String, String> request, final String postName) {
         return postServiceDb.savePost(Post.builder()
-                                          .postName(postName)
-                                          .caption(request.get("caption"))
-                                          .url(request.get("url"))
-                                          .imageSerialNumber(user.getId())
-                                          .likesCount(0L)
-                                          .postDate(LocalDate.now())
-                                          .user(user)
-                                          .comments(new ArrayList<>())
-                                          .build());
+                                              .postName(postName)
+                                              .caption(request.get("caption"))
+                                              .url(request.get("url"))
+                                              .imageSerialNumber(user.getId())
+                                              .likesCount(0L)
+                                              .postDate(LocalDate.now())
+                                              .user(user)
+                                              .comments(new ArrayList<>())
+                                              .build());
     }
 }

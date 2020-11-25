@@ -1,6 +1,6 @@
 package com.myinstagram.service;
 
-import com.myinstagram.config.InstagramConfig;
+import com.myinstagram.config.MyInstagramConfig;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.mail.Mail;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,13 @@ import java.util.Objects;
 public class MailCreationService {
     private final Environment environment;
     private final TemplateEngine templateEngine;
-    private final InstagramConfig instagramConfig;
+    private final MyInstagramConfig myInstagramConfig;
 
     public String createNewUserEmail(final User user, final String password) {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("password", password);
-        context.setVariable("instagram_config", instagramConfig);
+        context.setVariable("instagram_config", myInstagramConfig);
         return templateEngine.process("newUserEmailTemplate", context);
     }
 
@@ -35,14 +35,14 @@ public class MailCreationService {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("password", password);
-        context.setVariable("instagram_config", instagramConfig);
+        context.setVariable("instagram_config", myInstagramConfig);
         return templateEngine.process("resetPasswordEmailTemplate", context);
     }
 
     public String createUpdateUserProfileEmail(final User user) {
         Context context = new Context();
         context.setVariable("user", user);
-        context.setVariable("instagram_config", instagramConfig);
+        context.setVariable("instagram_config", myInstagramConfig);
         return templateEngine.process("updateUserProfileEmailTemplate", context);
     }
 

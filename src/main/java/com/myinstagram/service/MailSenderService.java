@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public final class MailSenderService {
+public class MailSenderService {
     private final MailCreationService mailCreationService;
     private final JavaMailSender javaMailSender;
 

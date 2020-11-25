@@ -29,38 +29,53 @@ public class UserService {
     private final MailCreationService mailCreationService;
     private final PasswordProcessorService passwordProcessorService;
 
+    public User createUserWithRole(final String name, final String login,
+                                   final String email, final String encryptedPassword) {
+        User user = userServiceDb.saveUser(User.builder()
+                                                   .userName(name)
+                                                   .login(login)
+                                                   .password(encryptedPassword)
+                                                   .email(email)
+                                                   .description("")
+                                                   .createDate(LocalDate.now())
+                                                   .userStatus(ACTIVE)
+                                                   .enabled(true)
+                                                   .posts(new ArrayList<>())
+                                                   .roles(new HashSet<>())
+                                                   .build());
+        roleServiceDb.saveRole(Role.builder()
+                                       .roleType(USER)
+                                       .users(new HashSet<>(Set.of(user)))
+                                       .build());
+        return user;
+    }
+
     public User registerUser(final String name, final String login, final String email) {
         String password = passwordProcessorService.generateRandomPassword();
         String encryptedPassword = passwordProcessorService.encryptPassword(password);
         User userWithRole = createUserWithRole(name, login, email, encryptedPassword);
         imageService.loadDefaultUserImage(userWithRole);
-        mailSenderService.sendPersonalizedEmail(
-                email,
-                NEW_USER_EMAIL,
-                mailCreationService.createNewUserEmail(userWithRole, password));
+        mailSenderService.sendPersonalizedEmail(email, NEW_USER_EMAIL,
+                                                mailCreationService.createNewUserEmail(userWithRole, password));
         return userWithRole;
     }
 
     public User updateUserProfile(final User user, final HashMap<String, String> request) {
         User updatedUser = userServiceDb.saveUser(user.toBuilder()
-                .userName(request.get("userName"))
-                .email(request.get("email"))
-                .description(request.get("description"))
-                .build());
-        mailSenderService.sendPersonalizedEmail(
-                user.getEmail(),
-                UPDATE_USER_EMAIL,
-                mailCreationService.createUpdateUserProfileEmail(updatedUser));
+                                                          .userName(request.get("userName"))
+                                                          .email(request.get("email"))
+                                                          .description(request.get("description"))
+                                                          .build());
+        mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_EMAIL,
+                                                mailCreationService.createUpdateUserProfileEmail(updatedUser));
         return updatedUser;
     }
 
     public User updateUserPassword(final User user, final String newPassword) {
         String encryptedPassword = passwordProcessorService.encryptPassword(newPassword);
         User userWithUpdatePassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
-        mailSenderService.sendPersonalizedEmail(
-                user.getEmail(),
-                UPDATE_USER_PASSWORD_EMAIL,
-                mailCreationService.createResetPasswordEmail(user, newPassword));
+        mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_PASSWORD_EMAIL,
+                                                mailCreationService.createResetPasswordEmail(user, newPassword));
         return userWithUpdatePassword;
     }
 
@@ -68,31 +83,8 @@ public class UserService {
         String password = passwordProcessorService.generateRandomPassword();
         String encryptedPassword = passwordProcessorService.encryptPassword(password);
         User userWithResetPassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
-        mailSenderService.sendPersonalizedEmail(
-                user.getEmail(),
-                RESET_USER_PASSWORD_EMAIL,
-                mailCreationService.createResetPasswordEmail(user, password));
+        mailSenderService.sendPersonalizedEmail(user.getEmail(), RESET_USER_PASSWORD_EMAIL,
+                                                mailCreationService.createResetPasswordEmail(user, password));
         return userWithResetPassword;
-    }
-
-    private User createUserWithRole(final String name, final String login,
-                                    final String email, final String encryptedPassword) {
-        User user = userServiceDb.saveUser(User.builder()
-                .userName(name)
-                .login(login)
-                .password(encryptedPassword)
-                .email(email)
-                .description("")
-                .createDate(LocalDate.now())
-                .userStatus(ACTIVE)
-                .enabled(true)
-                .posts(new ArrayList<>())
-                .roles(new HashSet<>())
-                .build());
-        roleServiceDb.saveRole(Role.builder()
-                .roleType(USER)
-                .users(new HashSet<>(Set.of(user)))
-                .build());
-        return user;
     }
 }

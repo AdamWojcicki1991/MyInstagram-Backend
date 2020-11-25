@@ -16,10 +16,10 @@ public class CommentService {
 
     public Comment createComment(final Post post, final String commentName, final String content) {
         return commentServiceDb.saveComment(Comment.builder()
-                                                   .commentName(commentName)
-                                                   .content(content)
-                                                   .commentDate(LocalDate.now())
-                                                   .post(post)
-                                                   .build());
+                                                    .commentName(commentName)
+                                                    .content(content)
+                                                    .commentDate(LocalDate.now())
+                                                    .post(post)
+                                                    .build());
     }
 }

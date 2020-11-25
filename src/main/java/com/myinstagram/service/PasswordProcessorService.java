@@ -12,7 +12,7 @@ import static com.myinstagram.domain.util.Constants.CREATE_PASSWORD_SUCCESS;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public final class PasswordProcessorService {
+public class PasswordProcessorService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String generateRandomPassword() {

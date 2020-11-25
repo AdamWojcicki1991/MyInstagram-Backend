@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public final class RoleServiceDb {
+public class RoleServiceDb {
     private final RoleDbRepository roleDbRepository;
 
     public List<Role> getAllRoles() {
