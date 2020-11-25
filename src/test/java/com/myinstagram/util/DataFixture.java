@@ -18,7 +18,7 @@ public final class DataFixture {
     private DataFixture() {
     }
 
-    public static User createUser(String login, String mail) {
+    public static User createUser(final String login, final String mail) {
         return User.builder()
                 .userName("User")
                 .login(login)
@@ -33,7 +33,7 @@ public final class DataFixture {
                 .build();
     }
 
-    public static Post createPost(User user, LocalDate postDate) {
+    public static Post createPost(final User user, final LocalDate postDate) {
         return Post.builder()
                 .postName("Post")
                 .caption("Sign")
@@ -46,7 +46,7 @@ public final class DataFixture {
                 .build();
     }
 
-    public static Comment createComment(Post post) {
+    public static Comment createComment(final Post post) {
         return Comment.builder()
                 .commentName("Comment")
                 .content("Content")
@@ -55,7 +55,7 @@ public final class DataFixture {
                 .build();
     }
 
-    public static Role createRole(RoleType roleType, User... users) {
+    public static Role createRole(final RoleType roleType, final User... users) {
         return Role.builder()
                 .roleType(roleType)
                 .users(new HashSet<>(Set.of(users)))

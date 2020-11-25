@@ -14,12 +14,12 @@ import java.time.LocalDate;
 public class CommentService {
     private final CommentServiceDb commentServiceDb;
 
-    public void createComment(final Post post, final String commentName, final String content) {
-        commentServiceDb.saveComment(Comment.builder()
-                                             .commentName(commentName)
-                                             .content(content)
-                                             .commentDate(LocalDate.now())
-                                             .post(post)
-                                             .build());
+    public Comment createComment(final Post post, final String commentName, final String content) {
+        return commentServiceDb.saveComment(Comment.builder()
+                                                   .commentName(commentName)
+                                                   .content(content)
+                                                   .commentDate(LocalDate.now())
+                                                   .post(post)
+                                                   .build());
     }
 }

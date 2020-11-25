@@ -54,23 +54,25 @@ public class UserService {
         return updatedUser;
     }
 
-    public void updateUserPassword(final User user, final String newPassword) {
+    public User updateUserPassword(final User user, final String newPassword) {
         String encryptedPassword = passwordProcessorService.encryptPassword(newPassword);
-        userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
+        User userWithUpdatePassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
         mailSenderService.sendPersonalizedEmail(
                 user.getEmail(),
                 UPDATE_USER_PASSWORD_EMAIL,
                 mailCreationService.createResetPasswordEmail(user, newPassword));
+        return userWithUpdatePassword;
     }
 
-    public void resetUserPassword(final User user) {
+    public User resetUserPassword(final User user) {
         String password = passwordProcessorService.generateRandomPassword();
         String encryptedPassword = passwordProcessorService.encryptPassword(password);
-        userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
+        User userWithResetPassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
         mailSenderService.sendPersonalizedEmail(
                 user.getEmail(),
                 RESET_USER_PASSWORD_EMAIL,
                 mailCreationService.createResetPasswordEmail(user, password));
+        return userWithResetPassword;
     }
 
     private User createUserWithRole(final String name, final String login,
