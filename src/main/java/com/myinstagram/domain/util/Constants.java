@@ -10,6 +10,7 @@ public final class Constants {
     public static final String CREATE_POST_IMAGE_SUCCESS = "Photo saved successfully!";
     public static final String PICTURE_SAVED_TO_SERVER = "User picture saved in server!";
     public static final String PICTURE_SAVED = "User picture Saved!";
+    public static final String CREATE_PASSWORD_SUCCESS = "Password was successfully generated!";
 
     private Constants() {
     }
