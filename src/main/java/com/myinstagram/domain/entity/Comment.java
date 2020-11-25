@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode

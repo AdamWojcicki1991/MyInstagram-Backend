@@ -41,4 +41,22 @@ public class MailSenderServiceTestSuite {
         //THEN
         verify(javaMailSender, times(0)).send(mailMessage);
     }
+
+    @Test
+    public void shouldSendPersonalizedEmail() {
+        //GIVEN
+        Mail mail = new Mail.MailBuilder()
+                .mailTo("email@gmail.com")
+                .subject("Test Subject")
+                .text(mailCreationService.createNewUserEmail(User.builder().build(), "Password"))
+                .build();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getText());
+        //WHEN
+        mailSenderService.sendPersonalizedEmail(mail.getMailTo(), mail.getSubject(), mail.getText());
+        //THEN
+        verify(javaMailSender, times(0)).send(mailMessage);
+    }
 }

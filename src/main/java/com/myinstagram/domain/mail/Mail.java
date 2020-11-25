@@ -1,5 +1,7 @@
 package com.myinstagram.domain.mail;
 
+import java.util.Objects;
+
 public final class Mail {
     private final String mailTo;
     private final String subject;
@@ -46,6 +48,21 @@ public final class Mail {
 
     public String getText() {
         return text;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mail mail = (Mail) o;
+        return Objects.equals(mailTo, mail.mailTo) &&
+                Objects.equals(subject, mail.subject) &&
+                Objects.equals(text, mail.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mailTo, subject, text);
     }
 
     @Override

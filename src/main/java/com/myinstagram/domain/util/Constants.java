@@ -10,7 +10,13 @@ public final class Constants {
     public static final String CREATE_POST_IMAGE_SUCCESS = "Photo saved successfully!";
     public static final String PICTURE_SAVED_TO_SERVER = "User picture saved in server!";
     public static final String PICTURE_SAVED = "User picture Saved!";
+    public static final String DEFAULT_PICTURE_SAVED = "User default picture Saved!";
+    public static final String DEFAULT_PICTURE_SET_ERROR = "User default picture is not set!";
     public static final String CREATE_PASSWORD_SUCCESS = "Password was successfully generated!";
+    public static final String NEW_USER_EMAIL = "MyInstagram - New User Created";
+    public static final String UPDATE_USER_EMAIL = "MyInstagram - Update User Profile";
+    public static final String UPDATE_USER_PASSWORD_EMAIL = "MyInstagram - Update User Password";
+    public static final String RESET_USER_PASSWORD_EMAIL = "MyInstagram - Reset User Password";
 
     private Constants() {
     }

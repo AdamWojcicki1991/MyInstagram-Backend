@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
 import static com.myinstagram.util.DataFixture.createUser;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class MailCreatorTestSuite {
@@ -46,7 +45,7 @@ public class MailCreatorTestSuite {
         String updateUserProfileEmailTemplate = mailCreationService.createUpdateUserProfileEmail(user);
         //THEN
         assertNotNull(updateUserProfileEmailTemplate);
-        assertTrue(updateUserProfileEmailTemplate.contains("MyInstagram - Update Password"));
+        assertTrue(updateUserProfileEmailTemplate.contains("MyInstagram - Update Profile"));
     }
 
     @Test
@@ -61,5 +60,20 @@ public class MailCreatorTestSuite {
         MimeMessagePreparator mimeMessage = mailCreationService.createMimeMessage(mail);
         //THEN
         assertNotNull(mimeMessage);
+    }
+
+    @Test
+    public void shouldCreateMail() {
+        //GIVEN
+        Mail mail = new Mail.MailBuilder()
+                .mailTo("email@gmail.com")
+                .subject("Test Subject")
+                .text("Text Template")
+                .build();
+        //WHEN
+        Mail createdMail = mailCreationService.createMail(mail.getMailTo(), mail.getSubject(), mail.getText());
+        //THEN
+        assertNotNull(createdMail);
+        assertEquals(mail, createdMail);
     }
 }

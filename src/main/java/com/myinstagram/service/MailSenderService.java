@@ -23,4 +23,8 @@ public final class MailSenderService {
             log.error("Failed to process email sending: ", e.getMessage(), e);
         }
     }
+
+    public void sendPersonalizedEmail(final String email, final String subject, final String text) {
+        sendEmail(mailCreationService.createMail(email, subject, text));
+    }
 }

@@ -56,4 +56,12 @@ public class MailCreationService {
             mimeMessageHelper.setFrom(new InternetAddress(Objects.requireNonNull(environment.getProperty("support.mail"))));
         };
     }
+
+    public Mail createMail(final String email, final String subject, final String text) {
+        return new Mail.MailBuilder()
+                .mailTo(email)
+                .subject(subject)
+                .text(text)
+                .build();
+    }
 }
