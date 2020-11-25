@@ -3,7 +3,6 @@ package com.myinstagram.service;
 import com.myinstagram.config.InstagramConfig;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.mail.Mail;
-import com.myinstagram.repository.MailCreatorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -19,7 +18,7 @@ import java.util.Objects;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class MailCreationService implements MailCreatorRepository {
+public class MailCreationService {
     private final Environment environment;
     private final TemplateEngine templateEngine;
     private final InstagramConfig instagramConfig;

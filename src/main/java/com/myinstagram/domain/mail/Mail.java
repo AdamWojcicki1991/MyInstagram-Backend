@@ -10,17 +10,17 @@ public final class Mail {
         private String subject;
         private String text;
 
-        public MailBuilder mailTo(String mailTo) {
+        public MailBuilder mailTo(final String mailTo) {
             this.mailTo = mailTo;
             return this;
         }
 
-        public MailBuilder subject(String subject) {
+        public MailBuilder subject(final String subject) {
             this.subject = subject;
             return this;
         }
 
-        public MailBuilder text(String text) {
+        public MailBuilder text(final String text) {
             this.text = text;
             return this;
         }

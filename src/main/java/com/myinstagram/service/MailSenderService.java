@@ -1,7 +1,6 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.mail.Mail;
-import com.myinstagram.repository.MailSenderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class MailSenderService implements MailSenderRepository {
+public final class MailSenderService {
     private final MailCreationService mailCreationService;
     private final JavaMailSender javaMailSender;
 

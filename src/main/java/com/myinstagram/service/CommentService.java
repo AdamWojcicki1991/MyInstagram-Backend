@@ -2,7 +2,6 @@ package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
-import com.myinstagram.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +11,10 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class CommentService implements CommentRepository {
+public class CommentService {
     private final CommentServiceDb commentServiceDb;
 
-    @Override
-    public void createComment(Post post, String commentName, String content) {
+    public void createComment(final Post post, final String commentName, final String content) {
         commentServiceDb.saveComment(Comment.builder()
                                              .commentName(commentName)
                                              .content(content)

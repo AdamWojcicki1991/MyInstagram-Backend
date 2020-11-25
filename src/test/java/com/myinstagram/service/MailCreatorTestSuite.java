@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 public class MailCreatorTestSuite {
     @Autowired
-    MailCreationService mailCreationService;
+    private MailCreationService mailCreationService;
 
     @Test
     public void shouldCreateNewUserEmail() {

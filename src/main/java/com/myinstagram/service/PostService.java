@@ -3,7 +3,6 @@ package com.myinstagram.service;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.util.Constants;
-import com.myinstagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,11 +25,10 @@ import static com.myinstagram.domain.util.Constants.CREATE_POST_IMAGE_SUCCESS;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class PostService implements PostRepository {
+public class PostService {
     private final PostServiceDb postServiceDb;
 
-    @Override
-    public Post createPost(User user, HashMap<String, String> request, String postName) {
+    public Post createPost(final User user, final HashMap<String, String> request, final String postName) {
         return postServiceDb.savePost(Post.builder()
                                               .postName(postName)
                                               .caption(request.get("caption"))
@@ -43,8 +41,7 @@ public class PostService implements PostRepository {
                                               .build());
     }
 
-    @Override
-    public String createPostImage(MultipartFile multipartFile, String fileName) {
+    public String createPostImage(final MultipartFile multipartFile, final String fileName) {
         try {
             Path path = Paths.get(Constants.POST_FOLDER + fileName + ".png");
             Files.write(path, multipartFile.getBytes(), StandardOpenOption.CREATE);

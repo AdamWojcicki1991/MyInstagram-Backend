@@ -1,7 +1,6 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,17 +19,15 @@ import static com.myinstagram.domain.util.Constants.*;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class UserService implements UserRepository {
+public class UserService {
     private final UserServiceDb userServiceDb;
     private final RoleServiceDb roleServiceDb;
 
-    @Override
-    public User createUser(String name, String login, String email) {
+    public User createUser(final String name, final String login, final String email) {
         return null;
     }
 
-    @Override
-    public User updateUser(User user, HashMap<String, String> request) {
+    public User updateUser(final User user, final HashMap<String, String> request) {
         return userServiceDb.saveUser(User.builder()
                                               .id(user.getId())
                                               .userName(request.get("userName"))
@@ -46,8 +43,15 @@ public class UserService implements UserRepository {
                                               .build());
     }
 
-    @Override
-    public String createUserImage(MultipartFile multipartFile, Long userImageId) {
+    public void updateUserPassword(final User user, final String newPassword) {
+
+    }
+
+    public void resetUserPassword(final User user) {
+
+    }
+
+    public String createUserImage(final MultipartFile multipartFile,final Long userImageId) {
         try {
             Files.deleteIfExists(Paths.get(USER_FOLDER + "/" + userImageId + ".png"));
             Path path = Paths.get(USER_FOLDER + userImageId + ".png");
@@ -58,15 +62,5 @@ public class UserService implements UserRepository {
         }
         log.info(PICTURE_SAVED_TO_SERVER);
         return PICTURE_SAVED_TO_SERVER;
-    }
-
-    @Override
-    public void updateUserPassword(User user, String newPassword) {
-
-    }
-
-    @Override
-    public void resetUserPassword(User user) {
-
     }
 }

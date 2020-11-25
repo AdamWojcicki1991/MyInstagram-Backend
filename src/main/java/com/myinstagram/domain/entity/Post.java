@@ -62,7 +62,7 @@ public final class Post implements Comparable<Post> {
     private List<Comment> comments;
 
     @Override
-    public int compareTo(Post post) {
+    public int compareTo(final Post post) {
         return this.postDate.compareTo(post.postDate);
     }
 }

@@ -36,11 +36,11 @@ public final class Role {
     )
     private Set<User> users;
 
-    public void addUser(User user) {
+    public void addUser(final User user) {
         users.add(user);
     }
 
-    public void removeUser(User user) {
+    public void removeUser(final User user) {
         users.remove(user);
     }
 }
