@@ -13,7 +13,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "users")
 @ToString
 @Getter
 @Entity
@@ -35,12 +35,4 @@ public final class Role {
             inverseJoinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}
     )
     private Set<User> users;
-
-    public void addUser(final User user) {
-        users.add(user);
-    }
-
-    public void removeUser(final User user) {
-        users.remove(user);
-    }
 }
