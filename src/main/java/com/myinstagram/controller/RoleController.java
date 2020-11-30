@@ -2,11 +2,9 @@ package com.myinstagram.controller;
 
 import com.myinstagram.domain.dto.RoleDto;
 import com.myinstagram.domain.role.RoleRequest;
-import com.myinstagram.exceptions.RoleNotFoundException;
 import com.myinstagram.facade.RoleFacade;
-import com.myinstagram.mapper.RoleMapper;
-import com.myinstagram.service.RoleServiceDb;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,28 +14,25 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/roles")
 public final class RoleController {
-    private final RoleMapper roleMapper;
-    private final RoleServiceDb roleServiceDb;
     private final RoleFacade roleFacade;
 
     @GetMapping
-    public List<RoleDto> getRoles() {
-        return roleMapper.mapToRolesDto(roleServiceDb.getAllRoles());
+    public ResponseEntity<List<RoleDto>> getRoles() {
+        return roleFacade.getRoles();
     }
 
     @GetMapping("/{id}")
-    public RoleDto getRole(@PathVariable final Long id) {
-        return roleMapper.mapToRoleDto(roleServiceDb.getRoleById(id)
-                                               .orElseThrow(() -> new RoleNotFoundException(id)));
+    public ResponseEntity<RoleDto> getRole(@PathVariable final Long id) {
+        return roleFacade.getRole(id);
     }
 
     @PostMapping("/assign")
-    public RoleDto assignRoleToUser(@RequestBody final RoleRequest roleRequest) {
+    public ResponseEntity<RoleDto> assignRoleToUser(@RequestBody final RoleRequest roleRequest) {
         return roleFacade.assignRoleToUser(roleRequest);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRoleById(@PathVariable final Long id) {
-        roleServiceDb.deleteRoleById(id);
+    public ResponseEntity<String> deleteRoleById(@PathVariable final Long id) {
+        return roleFacade.deleteRoleById(id);
     }
 }
