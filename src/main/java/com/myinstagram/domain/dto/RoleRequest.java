@@ -1,4 +1,4 @@
-package com.myinstagram.domain.role;
+package com.myinstagram.domain.dto;
 
 import com.myinstagram.domain.enums.RoleType;
 import lombok.*;

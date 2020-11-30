@@ -3,7 +3,7 @@ package com.myinstagram.facade;
 import com.myinstagram.domain.dto.RoleDto;
 import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.domain.role.RoleRequest;
+import com.myinstagram.domain.dto.RoleRequest;
 import com.myinstagram.exceptions.RoleAssignException;
 import com.myinstagram.exceptions.RoleNotFoundException;
 import com.myinstagram.exceptions.UserNotFoundException;
