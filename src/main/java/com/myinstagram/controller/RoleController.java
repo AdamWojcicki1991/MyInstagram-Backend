@@ -2,6 +2,7 @@ package com.myinstagram.controller;
 
 import com.myinstagram.domain.dto.RoleDto;
 import com.myinstagram.domain.role.RoleRequest;
+import com.myinstagram.exceptions.RoleNotFoundException;
 import com.myinstagram.facade.RoleFacade;
 import com.myinstagram.mapper.RoleMapper;
 import com.myinstagram.service.RoleServiceDb;
@@ -27,7 +28,7 @@ public final class RoleController {
     @GetMapping("/{id}")
     public RoleDto getRole(@PathVariable final Long id) {
         return roleMapper.mapToRoleDto(roleServiceDb.getRoleById(id)
-                                               .orElseThrow(() -> new RuntimeException("Role doesn't exist in database!")));
+                                               .orElseThrow(() -> new RoleNotFoundException(id)));
     }
 
     @PostMapping("/assign")

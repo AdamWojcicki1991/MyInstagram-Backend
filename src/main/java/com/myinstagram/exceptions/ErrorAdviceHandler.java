@@ -28,13 +28,19 @@ public class ErrorAdviceHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(KeyStoreNotLoadException.class)
-    public ResponseEntity<Object> userNotFoundHandler(KeyStoreNotLoadException e, WebRequest webRequest) {
+    public ResponseEntity<Object> keyStoreNotLoadHandler(KeyStoreNotLoadException e, WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }
 
     @ExceptionHandler(PublicKeyNotFoundException.class)
-    public ResponseEntity<Object> userNotFoundHandler(PublicKeyNotFoundException e, WebRequest webRequest) {
+    public ResponseEntity<Object> publicKeyNotFoundHandler(PublicKeyNotFoundException e, WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<Object> roleNotFoundHandler(RoleNotFoundException e, WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }
