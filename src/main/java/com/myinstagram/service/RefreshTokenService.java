@@ -1,11 +1,13 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.RefreshToken;
+import com.myinstagram.exceptions.InvalidRefreshTokenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -13,6 +15,10 @@ import java.time.Instant;
 public class RefreshTokenService {
     private final RefreshTokenServiceDb refreshTokenServiceDb;
     private final PasswordProcessorService passwordProcessorService;
+
+    public List<RefreshToken> getRefreshTokens() {
+        return refreshTokenServiceDb.getAllRefreshTokens();
+    }
 
     public RefreshToken generateRefreshToken() {
         return refreshTokenServiceDb.saveRefreshToken(RefreshToken.builder()
@@ -23,7 +29,7 @@ public class RefreshTokenService {
 
     public void validateRefreshToken(final String token) {
         refreshTokenServiceDb.getRefreshToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid refresh token"));
+                .orElseThrow(() -> new InvalidRefreshTokenException(token));
     }
 
     public void deleteRefreshToken(final String token) {

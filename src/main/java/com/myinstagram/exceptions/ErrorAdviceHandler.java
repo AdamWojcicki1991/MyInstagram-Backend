@@ -13,35 +13,53 @@ import java.util.Arrays;
 
 @Slf4j
 @RestControllerAdvice
-public class ErrorAdviceHandler extends ResponseEntityExceptionHandler {
+public final class ErrorAdviceHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(VerificationTokenNotFoundException.class)
-    public ResponseEntity<Object> verificationTokenNotFoundHandler(VerificationTokenNotFoundException e, WebRequest webRequest) {
+    public ResponseEntity<Object> verificationTokenNotFoundHandler(final VerificationTokenNotFoundException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> userNotFoundHandler(UserNotFoundException e, WebRequest webRequest) {
+    public ResponseEntity<Object> userNotFoundHandler(final UserNotFoundException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }
 
     @ExceptionHandler(KeyStoreNotLoadException.class)
-    public ResponseEntity<Object> keyStoreNotLoadHandler(KeyStoreNotLoadException e, WebRequest webRequest) {
+    public ResponseEntity<Object> keyStoreNotLoadHandler(final KeyStoreNotLoadException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }
 
     @ExceptionHandler(PublicKeyNotFoundException.class)
-    public ResponseEntity<Object> publicKeyNotFoundHandler(PublicKeyNotFoundException e, WebRequest webRequest) {
+    public ResponseEntity<Object> publicKeyNotFoundHandler(final PublicKeyNotFoundException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }
 
     @ExceptionHandler(RoleNotFoundException.class)
-    public ResponseEntity<Object> roleNotFoundHandler(RoleNotFoundException e, WebRequest webRequest) {
+    public ResponseEntity<Object> roleNotFoundHandler(final RoleNotFoundException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler(RoleAssignException.class)
+    public ResponseEntity<Object> roleAssignHandler(final RoleAssignException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.IM_USED, webRequest);
+    }
+
+    @ExceptionHandler(InvalidRefreshTokenException.class)
+    public ResponseEntity<Object> invalidRefreshTokenHandler(final InvalidRefreshTokenException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler(UserFoundException.class)
+    public ResponseEntity<Object> userFoundHandler(final UserFoundException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.FOUND, webRequest);
     }
 }

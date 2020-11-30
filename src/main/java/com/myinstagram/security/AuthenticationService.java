@@ -6,6 +6,7 @@ import com.myinstagram.domain.auth.RefreshTokenRequest;
 import com.myinstagram.domain.auth.RegisterRequest;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
+import com.myinstagram.exceptions.UserFoundException;
 import com.myinstagram.exceptions.UserNotFoundException;
 import com.myinstagram.exceptions.VerificationTokenNotFoundException;
 import com.myinstagram.service.*;
@@ -21,6 +22,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
 import static com.myinstagram.domain.util.Constants.NEW_USER_EMAIL;
@@ -40,11 +42,16 @@ public class AuthenticationService {
     private final VerificationTokenServiceDb verificationTokenServiceDb;
 
     public void signup(final RegisterRequest registerRequest) {
+        List<User> users = userServiceDb.getAllUsersByLoginContaining(registerRequest.getLogin());
+        if (users.isEmpty()){
         User user = createUser(registerRequest);
         String token = generateVerificationToken(user);
         imageService.loadDefaultUserImage(user);
         mailSenderService.sendPersonalizedEmail(user.getEmail(), NEW_USER_EMAIL,
                                                 mailCreationService.createNewUserEmail(user, token));
+        } else {
+            throw new UserFoundException(registerRequest.getLogin());
+        }
     }
 
     public void verifyToken(final String token) {

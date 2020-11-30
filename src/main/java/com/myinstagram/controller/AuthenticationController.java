@@ -4,6 +4,7 @@ import com.myinstagram.domain.auth.AuthenticationResponse;
 import com.myinstagram.domain.auth.LoginRequest;
 import com.myinstagram.domain.auth.RefreshTokenRequest;
 import com.myinstagram.domain.auth.RegisterRequest;
+import com.myinstagram.domain.entity.RefreshToken;
 import com.myinstagram.security.AuthenticationService;
 import com.myinstagram.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -22,6 +24,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public final class AuthenticationController {
     private final RefreshTokenService refreshTokenService;
     private final AuthenticationService authenticationService;
+
+    @GetMapping
+    public ResponseEntity<List<RefreshToken>> getRefreshTokens() {
+        List<RefreshToken> refreshTokens = refreshTokenService.getRefreshTokens();
+        return new ResponseEntity<>(refreshTokens, OK);
+    }
 
     @PostMapping(value = "/signup", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<String> signup(@RequestBody final RegisterRequest registerRequest) {
