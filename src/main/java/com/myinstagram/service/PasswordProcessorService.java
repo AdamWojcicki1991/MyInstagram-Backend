@@ -15,7 +15,7 @@ import static com.myinstagram.domain.util.Constants.CREATE_PASSWORD_SUCCESS;
 public class PasswordProcessorService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public String generateRandomPassword() {
+    public String generateUuid() {
         log.info(CREATE_PASSWORD_SUCCESS);
         return UUID.randomUUID().toString();
     }

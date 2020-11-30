@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public User registerUser(final String name, final String login, final String email) {
-        String password = passwordProcessorService.generateRandomPassword();
+        String password = passwordProcessorService.generateUuid();
         String encryptedPassword = passwordProcessorService.encryptPassword(password);
         User userWithRole = createUserWithRole(name, login, email, encryptedPassword);
         imageService.loadDefaultUserImage(userWithRole);
@@ -80,7 +80,7 @@ public class UserService {
     }
 
     public User resetUserPassword(final User user) {
-        String password = passwordProcessorService.generateRandomPassword();
+        String password = passwordProcessorService.generateUuid();
         String encryptedPassword = passwordProcessorService.encryptPassword(password);
         User userWithResetPassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
         mailSenderService.sendPersonalizedEmail(user.getEmail(), RESET_USER_PASSWORD_EMAIL,

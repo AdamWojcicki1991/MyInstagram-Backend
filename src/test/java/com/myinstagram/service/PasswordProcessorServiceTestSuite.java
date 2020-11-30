@@ -18,7 +18,7 @@ public class PasswordProcessorServiceTestSuite {
     @Test
     public void shouldGenerateRandomPassword() {
         // WHEN
-        String randomPassword = passwordProcessorService.generateRandomPassword();
+        String randomPassword = passwordProcessorService.generateUuid();
         // THEN
         assertNotNull(randomPassword);
         assertTrue(randomPassword.matches("[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"));
@@ -27,7 +27,7 @@ public class PasswordProcessorServiceTestSuite {
     @Test
     public void shouldEncryptPassword() {
         // GIVEN
-        String randomPassword = passwordProcessorService.generateRandomPassword();
+        String randomPassword = passwordProcessorService.generateUuid();
         // WHEN
         String encryptedPassword = passwordProcessorService.encryptPassword(randomPassword);
         // THEN
