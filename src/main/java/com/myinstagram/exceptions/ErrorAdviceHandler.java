@@ -62,4 +62,22 @@ public final class ErrorAdviceHandler extends ResponseEntityExceptionHandler {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.FOUND, webRequest);
     }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<Object> postNotFoundHandler(final PostNotFoundException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<Object> commentNotFoundHandler(final CommentNotFoundException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
+    }
+
+    @ExceptionHandler(UserValidationException.class)
+    public ResponseEntity<Object> userValidationHandler(final UserValidationException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.BAD_REQUEST, webRequest);
+    }
 }
