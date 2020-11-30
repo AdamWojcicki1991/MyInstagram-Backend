@@ -28,4 +28,8 @@ public class CommentServiceDb {
     public void deleteCommentById(final Long id) {
         commentDbRepository.deleteById(id);
     }
+
+    public void deleteComment(final Comment comment) {
+        commentDbRepository.delete(comment);
+    }
 }

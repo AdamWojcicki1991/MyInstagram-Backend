@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-import static com.myinstagram.domain.util.Constants.CREATE_PASSWORD_SUCCESS;
+import static com.myinstagram.domain.util.Constants.CREATE_UUID_SUCCESS;
+import static com.myinstagram.domain.util.Constants.ENCRYPT_PASSWORD_SUCCESS;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,11 +17,12 @@ public class PasswordProcessorService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String generateUuid() {
-        log.info(CREATE_PASSWORD_SUCCESS);
+        log.info(CREATE_UUID_SUCCESS);
         return UUID.randomUUID().toString();
     }
 
     public String encryptPassword(final String password) {
+        log.info(ENCRYPT_PASSWORD_SUCCESS);
         return bCryptPasswordEncoder.encode(password);
     }
 }

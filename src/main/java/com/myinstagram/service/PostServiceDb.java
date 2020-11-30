@@ -36,4 +36,8 @@ public class PostServiceDb {
     public void deletePostById(final Long id) {
         postDbRepository.deleteById(id);
     }
+
+    public void deletePost(final Post post) {
+        postDbRepository.delete(post);
+    }
 }

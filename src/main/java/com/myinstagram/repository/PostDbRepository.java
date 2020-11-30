@@ -35,4 +35,7 @@ public interface PostDbRepository extends JpaRepository<Post, Long> {
 
     @Override
     void deleteById(final Long id);
+
+    @Override
+    void delete(final Post post);
 }

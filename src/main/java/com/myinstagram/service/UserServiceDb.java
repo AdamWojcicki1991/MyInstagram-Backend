@@ -40,4 +40,8 @@ public class UserServiceDb {
     public void deleteUserById(final Long id) {
         userDbRepository.deleteById(id);
     }
+
+    public void deleteUser(final User user) {
+        userDbRepository.delete(user);
+    }
 }

@@ -91,7 +91,7 @@ public class PostServiceDbTestSuite {
     }
 
     @Test
-    public void shouldDeleteCommentById() {
+    public void shouldDeletePostById() {
         // GIVEN
         Long postId = postServiceDb.getAllPosts().get(0).getId();
         // WHEN
@@ -99,5 +99,16 @@ public class PostServiceDbTestSuite {
         // THEN
         assertEquals(3, postServiceDb.getAllPosts().size());
         assertEquals(Optional.empty(), postServiceDb.getPostById(postId));
+    }
+
+    @Test
+    public void shouldDeletePost() {
+        //GIVEN
+        Post post = postServiceDb.getAllPosts().get(0);
+        //WHEN
+        postServiceDb.deletePost(post);
+        //THEN
+        assertEquals(3, postServiceDb.getAllPosts().size());
+        assertEquals(Optional.empty(), postServiceDb.getPostById(post.getId()));
     }
 }

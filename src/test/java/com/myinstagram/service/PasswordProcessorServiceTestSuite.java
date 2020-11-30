@@ -16,7 +16,7 @@ public class PasswordProcessorServiceTestSuite {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Test
-    public void shouldGenerateRandomPassword() {
+    public void shouldGenerateUuid() {
         // WHEN
         String randomPassword = passwordProcessorService.generateUuid();
         // THEN

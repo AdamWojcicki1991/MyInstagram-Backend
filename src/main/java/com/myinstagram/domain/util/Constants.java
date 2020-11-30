@@ -12,7 +12,8 @@ public final class Constants {
     public static final String PICTURE_SAVED = "User picture Saved!";
     public static final String DEFAULT_PICTURE_SAVED = "User default picture Saved!";
     public static final String DEFAULT_PICTURE_SET_ERROR = "User default picture is not set!";
-    public static final String CREATE_PASSWORD_SUCCESS = "Password was successfully generated!";
+    public static final String CREATE_UUID_SUCCESS = "UUID was successfully generated!";
+    public static final String ENCRYPT_PASSWORD_SUCCESS = "Password was successfully encrypted!";
     public static final String NEW_USER_EMAIL = "MyInstagram - New User Created";
     public static final String UPDATE_USER_EMAIL = "MyInstagram - Update User Profile";
     public static final String UPDATE_USER_PASSWORD_EMAIL = "MyInstagram - Update User Password";

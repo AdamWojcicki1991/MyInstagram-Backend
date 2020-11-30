@@ -4,7 +4,6 @@ import com.myinstagram.config.MyInstagramConfig;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.mail.Mail;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -15,7 +14,6 @@ import org.thymeleaf.context.Context;
 import javax.mail.internet.InternetAddress;
 import java.util.Objects;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MailCreationService {

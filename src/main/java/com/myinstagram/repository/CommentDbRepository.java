@@ -22,4 +22,7 @@ public interface CommentDbRepository extends JpaRepository<Comment, Long> {
 
     @Override
     void deleteById(final Long id);
+
+    @Override
+    void delete(final Comment comment);
 }

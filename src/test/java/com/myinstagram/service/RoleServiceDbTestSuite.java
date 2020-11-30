@@ -6,11 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.myinstagram.domain.enums.RoleType.*;
@@ -47,6 +45,22 @@ public class RoleServiceDbTestSuite {
     }
 
     @Test
+    public void shouldGetRolesByRoleType() {
+        //WHEN
+        List<Role> roles = roleServiceDb.getRolesByRoleType(USER);
+        //THEN
+        assertEquals(1, roles.size());
+    }
+
+    @Test
+    public void shouldNotGetRolesByRoleTypeWhenRoleIsNotPresentInDataBase() {
+        //WHEN
+        List<Role> roles = roleServiceDb.getRolesByRoleType(NO_ROLE);
+        //THEN
+        assertTrue(roles.isEmpty());
+    }
+
+    @Test
     public void shouldGetRoleById() {
         //GIVEN
         Role role = roleServiceDb.getAllRoles().get(0);
@@ -54,38 +68,6 @@ public class RoleServiceDbTestSuite {
         Role saveRole = roleServiceDb.getRoleById(role.getId()).get();
         //THEN
         assertEquals(role, saveRole);
-    }
-
-    @Test
-    public void shouldGetRoleByRoleType() {
-        //WHEN
-        Role saveRole = roleServiceDb.getRoleByRoleType(USER).get();
-        //THEN
-        assertEquals(USER, saveRole.getRoleType());
-    }
-
-    @Test
-    public void shouldNotGetRoleByRoleTypeWhenRoleIsNotPresentInDataBase() {
-        //WHEN
-        NoSuchElementException noSuchElementException = assertThrows(
-                NoSuchElementException.class,
-                () -> roleServiceDb.getRoleByRoleType(NO_ROLE).get());
-        //THEN
-        assertEquals("No value present", noSuchElementException.getMessage());
-    }
-
-    @Test
-    public void shouldNotGetRoleByRoleTypeWhenDuplicateRoleIsSavedInDataBase() {
-        //GIVEN
-        roleServiceDb.saveRole(createRole(USER));
-        //WHEN
-        IncorrectResultSizeDataAccessException incorrectResultSizeDataAccessException = assertThrows(
-                IncorrectResultSizeDataAccessException.class,
-                () -> roleServiceDb.getRoleByRoleType(USER).get());
-        //THEN
-        assertEquals("query did not return a unique result: 2; nested exception is " +
-                             "javax.persistence.NonUniqueResultException: query did not return a unique result: 2",
-                     incorrectResultSizeDataAccessException.getMessage());
     }
 
     @Test
@@ -108,5 +90,16 @@ public class RoleServiceDbTestSuite {
         //THEN
         assertEquals(3, roleServiceDb.getAllRoles().size());
         assertEquals(Optional.empty(), roleServiceDb.getRoleById(roleId));
+    }
+
+    @Test
+    public void shouldDeleteRole() {
+        //GIVEN
+        Role role = roleServiceDb.getAllRoles().get(0);
+        //WHEN
+        roleServiceDb.deleteRole(role);
+        //THEN
+        assertEquals(3, roleServiceDb.getAllRoles().size());
+        assertEquals(Optional.empty(), roleServiceDb.getRoleById(role.getId()));
     }
 }

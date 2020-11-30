@@ -22,8 +22,8 @@ public class RoleServiceDb {
         return roleDbRepository.findById(id);
     }
 
-    public Optional<Role> getRoleByRoleType(final RoleType roleType) {
-        return roleDbRepository.findByRoleType(roleType);
+    public List<Role> getRolesByRoleType(final RoleType roleType) {
+        return roleDbRepository.findAllByRoleType(roleType);
     }
 
     public Role saveRole(final Role role) {
@@ -32,5 +32,9 @@ public class RoleServiceDb {
 
     public void deleteRoleById(final Long id) {
         roleDbRepository.deleteById(id);
+    }
+
+    public void deleteRole(final Role role) {
+        roleDbRepository.delete(role);
     }
 }

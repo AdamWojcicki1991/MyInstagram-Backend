@@ -74,4 +74,15 @@ public class CommentServiceDbTestSuite {
         assertEquals(0, commentServiceDb.getAllComments().size());
         assertEquals(Optional.empty(), commentServiceDb.getCommentById(commentId));
     }
+
+    @Test
+    public void shouldDeleteComment() {
+        //GIVEN
+        Comment comment = commentServiceDb.getAllComments().get(0);
+        //WHEN
+        commentServiceDb.deleteComment(comment);
+        //THEN
+        assertEquals(0, commentServiceDb.getAllComments().size());
+        assertEquals(Optional.empty(), commentServiceDb.getCommentById(comment.getId()));
+    }
 }

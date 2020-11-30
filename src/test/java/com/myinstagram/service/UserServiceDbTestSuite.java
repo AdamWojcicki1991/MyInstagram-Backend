@@ -111,4 +111,15 @@ public class UserServiceDbTestSuite {
         assertEquals(2, userServiceDb.getAllUsers().size());
         assertEquals(Optional.empty(), userServiceDb.getUserById(userId));
     }
+
+    @Test
+    public void shouldDeleteUser() {
+        //GIVEN
+        User user = userServiceDb.getAllUsers().get(0);
+        //WHEN
+        userServiceDb.deleteUser(user);
+        //THEN
+        assertEquals(2, userServiceDb.getAllUsers().size());
+        assertEquals(Optional.empty(), userServiceDb.getUserById(user.getId()));
+    }
 }

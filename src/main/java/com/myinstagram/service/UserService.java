@@ -1,20 +1,13 @@
 package com.myinstagram.service;
 
-import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
-import static com.myinstagram.domain.enums.RoleType.USER;
-import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
 import static com.myinstagram.domain.util.Constants.*;
 
 @Slf4j
@@ -22,43 +15,10 @@ import static com.myinstagram.domain.util.Constants.*;
 @Transactional
 @Service
 public class UserService {
-    private final ImageService imageService;
     private final UserServiceDb userServiceDb;
-    private final RoleServiceDb roleServiceDb;
     private final MailSenderService mailSenderService;
     private final MailCreationService mailCreationService;
     private final PasswordProcessorService passwordProcessorService;
-
-    public User createUserWithRole(final String name, final String login,
-                                   final String email, final String encryptedPassword) {
-        User user = userServiceDb.saveUser(User.builder()
-                                                   .userName(name)
-                                                   .login(login)
-                                                   .password(encryptedPassword)
-                                                   .email(email)
-                                                   .description("")
-                                                   .createDate(LocalDate.now())
-                                                   .userStatus(ACTIVE)
-                                                   .enabled(true)
-                                                   .posts(new ArrayList<>())
-                                                   .roles(new HashSet<>())
-                                                   .build());
-        roleServiceDb.saveRole(Role.builder()
-                                       .roleType(USER)
-                                       .users(new HashSet<>(Set.of(user)))
-                                       .build());
-        return user;
-    }
-
-    public User registerUser(final String name, final String login, final String email) {
-        String password = passwordProcessorService.generateUuid();
-        String encryptedPassword = passwordProcessorService.encryptPassword(password);
-        User userWithRole = createUserWithRole(name, login, email, encryptedPassword);
-        imageService.loadDefaultUserImage(userWithRole);
-        mailSenderService.sendPersonalizedEmail(email, NEW_USER_EMAIL,
-                                                mailCreationService.createNewUserEmail(userWithRole, password));
-        return userWithRole;
-    }
 
     public User updateUserProfile(final User user, final HashMap<String, String> request) {
         User updatedUser = userServiceDb.saveUser(user.toBuilder()

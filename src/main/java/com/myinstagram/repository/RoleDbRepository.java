@@ -18,11 +18,14 @@ public interface RoleDbRepository extends JpaRepository<Role, Long> {
     @Override
     Optional<Role> findById(final Long id);
 
-    Optional<Role> findByRoleType(final RoleType roleType);
+    List<Role> findAllByRoleType(final RoleType roleType);
 
     @Override
     Role save(final Role role);
 
     @Override
     void deleteById(final Long id);
+
+    @Override
+    void delete(final Role role);
 }
