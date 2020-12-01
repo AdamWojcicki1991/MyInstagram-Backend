@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions;
+package com.myinstagram.exceptions.custom;
 
 public class PublicKeyNotFoundException extends RuntimeException {
     public PublicKeyNotFoundException(String message) {

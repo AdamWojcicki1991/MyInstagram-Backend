@@ -6,6 +6,18 @@ public enum ValidationStatus {
     AUTHORIZED_CONTAINS_POST_LIKED(" is not authorized or post is already liked by this user!"),
     AUTHORIZED_CONTAINS_POST_UNLIKED(" is not authorized or post is already unliked by this user!");
 
-    ValidationStatus(String message) {
+    private final String message;
+
+    ValidationStatus(final String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }

@@ -1,7 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.mail.Mail;
-import com.myinstagram.exceptions.MailSenderException;
+import com.myinstagram.exceptions.custom.MailSenderException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;

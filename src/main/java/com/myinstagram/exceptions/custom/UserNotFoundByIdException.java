@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions;
+package com.myinstagram.exceptions.custom;
 
 public class UserNotFoundByIdException extends RuntimeException {
     public UserNotFoundByIdException(Long id) {

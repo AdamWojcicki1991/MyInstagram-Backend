@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions;
+package com.myinstagram.exceptions.custom;
 
 public class InvalidRefreshTokenException extends RuntimeException {
     public InvalidRefreshTokenException(String token) {

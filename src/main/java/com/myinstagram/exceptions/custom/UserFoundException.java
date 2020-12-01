@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions;
+package com.myinstagram.exceptions.custom;
 
 public class UserFoundException extends RuntimeException {
     public UserFoundException(String login) {

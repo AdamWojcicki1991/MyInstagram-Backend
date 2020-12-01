@@ -2,7 +2,7 @@ package com.myinstagram.controller;
 
 import com.myinstagram.domain.dto.CommentDto;
 import com.myinstagram.domain.dto.CommentRequest;
-import com.myinstagram.facade.CommentFacade;
+import com.myinstagram.facade.comment.CommentFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

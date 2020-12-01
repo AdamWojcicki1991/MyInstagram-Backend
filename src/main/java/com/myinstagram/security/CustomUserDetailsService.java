@@ -1,7 +1,7 @@
 package com.myinstagram.security;
 
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.exceptions.UserNotFoundException;
+import com.myinstagram.exceptions.custom.UserNotFoundException;
 import com.myinstagram.service.UserServiceDb;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

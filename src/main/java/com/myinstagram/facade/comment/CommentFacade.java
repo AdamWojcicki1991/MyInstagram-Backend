@@ -1,21 +1,18 @@
-package com.myinstagram.facade;
+package com.myinstagram.facade.comment;
 
 import com.myinstagram.domain.dto.CommentDto;
 import com.myinstagram.domain.dto.CommentRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.exceptions.CommentNotFoundException;
-import com.myinstagram.exceptions.PostNotFoundException;
-import com.myinstagram.exceptions.UserNotFoundException;
-import com.myinstagram.exceptions.UserValidationException;
+import com.myinstagram.exceptions.custom.CommentNotFoundException;
+import com.myinstagram.exceptions.custom.PostNotFoundException;
+import com.myinstagram.exceptions.custom.UserNotFoundException;
 import com.myinstagram.mapper.CommentMapper;
-import com.myinstagram.service.CommentService;
 import com.myinstagram.service.CommentServiceDb;
 import com.myinstagram.service.PostServiceDb;
 import com.myinstagram.service.UserServiceDb;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
-import static com.myinstagram.domain.enums.ValidationStatus.AUTHORIZED;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
@@ -35,8 +30,8 @@ public class CommentFacade {
     private final UserServiceDb userServiceDb;
     private final PostServiceDb postServiceDb;
     private final CommentMapper commentMapper;
-    private final CommentService commentService;
     private final CommentServiceDb commentServiceDb;
+    private final CommentFacadeUtils commentFacadeUtils;
 
     public ResponseEntity<List<CommentDto>> getComments() {
         log.info("Get published comments!");
@@ -57,22 +52,11 @@ public class CommentFacade {
                 .orElseThrow(() -> new PostNotFoundException(commentRequest.getPostId()));
         User user = userServiceDb.getUserByLogin(commentRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException(commentRequest.getLogin()));
-        if (user.isEnabled() && user.getUserStatus().equals(ACTIVE)) {
-            CommentDto commentDto = commentMapper.mapToCommentDto(
-                    commentService.createComment(post, commentRequest));
-            return new ResponseEntity<>(commentDto, OK);
-        } else {
-            throw new UserValidationException(commentRequest.getLogin(), AUTHORIZED);
-        }
+        return commentFacadeUtils.createCommentIfUserIsAuthorized(commentRequest, post, user);
     }
 
     public ResponseEntity<String> deleteCommentById(final Long id) {
         log.info("Delete published comment by id: " + id);
-        try {
-            commentServiceDb.deleteCommentById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new CommentNotFoundException(id);
-        }
-        return new ResponseEntity<>("Comment Deleted Successfully!!!", OK);
+        return commentFacadeUtils.deleteCommentIfExists(id);
     }
 }

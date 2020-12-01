@@ -1,13 +1,15 @@
-package com.myinstagram.facade;
+package com.myinstagram.facade.user;
 
 import com.myinstagram.domain.dto.PasswordRequest;
 import com.myinstagram.domain.dto.UserDto;
 import com.myinstagram.domain.dto.UserRequest;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
-import com.myinstagram.exceptions.*;
+import com.myinstagram.exceptions.custom.UserNotFoundByIdException;
+import com.myinstagram.exceptions.custom.UserNotFoundException;
 import com.myinstagram.mapper.UserMapper;
 import com.myinstagram.service.*;
+import com.myinstagram.validator.PasswordValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
-import static com.myinstagram.domain.enums.ValidationStatus.AUTHORIZED_CONTAINS_EMAIL;
 import static com.myinstagram.domain.util.Constants.PICTURE_SAVED_TO_SERVER;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
@@ -29,11 +27,12 @@ import static org.springframework.http.HttpStatus.OK;
 @Transactional
 @Service
 public class UserFacade {
+    private final PasswordValidator passwordValidator;
     private final UserMapper userMapper;
     private final UserService userService;
     private final ImageService imageService;
     private final UserServiceDb userServiceDb;
-    private final PasswordProcessorService passwordProcessorService;
+    private final UserFacadeUtils userFacadeUtils;
     private final VerificationTokenServiceDb verificationTokenServiceDb;
 
     public ResponseEntity<List<UserDto>> getUsers() {
@@ -44,12 +43,7 @@ public class UserFacade {
 
     public ResponseEntity<List<UserDto>> getUsersByLogin(final String login) {
         log.info("Get users contains passed login!");
-        try {
-            List<UserDto> users = userMapper.mapToUsersDto(userServiceDb.getAllUsersByLoginContaining(login));
-            return new ResponseEntity<>(users, OK);
-        } catch (Exception e) {
-            throw new UserNotFoundException(login);
-        }
+        return userFacadeUtils.getUserByLoginIfExists(login);
     }
 
     public ResponseEntity<UserDto> getUserById(final Long id) {
@@ -77,52 +71,27 @@ public class UserFacade {
         log.info("Try to update user profile!");
         User user = userServiceDb.getUserById(userRequest.getUserId())
                 .orElseThrow(() -> new UserNotFoundByIdException(userRequest.getUserId()));
-        List<User> users = userServiceDb.getAllUsers().stream()
-                .filter(userInDb -> userInDb.getEmail().contains(userRequest.getEmail()))
-                .collect(Collectors.toList());
-        if (user.isEnabled() && user.getUserStatus().equals(ACTIVE) && users.isEmpty()) {
-            UserDto userDto = userMapper.mapToUserDto(userService.updateUserProfile(user, userRequest));
-            return new ResponseEntity<>(userDto, OK);
-        } else {
-            throw new UserValidationException(user.getLogin(), AUTHORIZED_CONTAINS_EMAIL);
-        }
+        return userFacadeUtils.updateProfileIfUserIsValidated(userRequest, user);
     }
 
     public ResponseEntity<String> deleteUser(String login) {
         log.info("Delete user by login: " + login);
         User user = userServiceDb.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
-        List<VerificationToken> verificationTokens = verificationTokenServiceDb.getAllVerificationTokens().stream()
-                .filter(verificationToken -> verificationToken.getUser().getId().equals(user.getId()))
-                .collect(Collectors.toList());
-        if (verificationTokens.size() == 1) verificationTokenServiceDb.deleteVerificationToken(verificationTokens.get(0));
-        userServiceDb.deleteUser(user);
-        return new ResponseEntity<>("User Deleted Successfully!", OK);
+        List<VerificationToken> verificationTokens = verificationTokenServiceDb.getUserValidVerificationToken(user);
+        return userFacadeUtils.deleteUserWithValidatedToken(user, verificationTokens);
     }
 
     public ResponseEntity<String> uploadUserImage(final MultipartFile image) {
         log.info("Upload user image!");
         String result = imageService.loadUserImage(image, 1L);
-        return (result.equals(PICTURE_SAVED_TO_SERVER)) ?
-                new ResponseEntity<>(result, OK) :
-                new ResponseEntity<>(result, BAD_REQUEST);
+        return imageService.getResponseIfImageUploaded(result, PICTURE_SAVED_TO_SERVER);
     }
 
     public ResponseEntity<String> changePassword(final PasswordRequest passwordRequest) {
         log.info("Try to change user password!");
         User user = userServiceDb.getUserByLogin(passwordRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException(passwordRequest.getLogin()));
-        if (!passwordRequest.getNewPassword().equals(passwordRequest.getConfirmPassword())) throw new PasswordNotMatchedException();
-        try {
-            if (!passwordRequest.getNewPassword().isBlank() && passwordProcessorService.isEncryptedPasswordMatching(
-                    passwordRequest.getCurrentPassword(), user.getPassword())) {
-                userService.updateUserPassword(user, passwordRequest.getNewPassword());
-            } else {
-                return new ResponseEntity<>("Current Password is Incorrect", BAD_REQUEST);
-            }
-            return new ResponseEntity<>("Password Changed Successfully!", OK);
-        } catch (Exception e) {
-            throw new ChangePasswordException();
-        }
+        return userFacadeUtils.changePasswordIfUserPasswordIsValidated(passwordRequest, user);
     }
 
     public ResponseEntity<UserDto> resetPassword(final String email) {

@@ -3,6 +3,7 @@ package com.myinstagram.service;
 import com.myinstagram.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +14,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import static com.myinstagram.domain.util.Constants.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -55,5 +58,12 @@ public class ImageService {
         }
         log.info(CREATE_POST_IMAGE_SUCCESS);
         return CREATE_POST_IMAGE_SUCCESS;
+    }
+
+    public ResponseEntity<String> getResponseIfImageUploaded(final String result, final String validatedConstant) {
+        log.info("Validate that image is created successfully!");
+        return (result.equals(validatedConstant)) ?
+                new ResponseEntity<>(result, OK) :
+                new ResponseEntity<>(result, BAD_REQUEST);
     }
 }

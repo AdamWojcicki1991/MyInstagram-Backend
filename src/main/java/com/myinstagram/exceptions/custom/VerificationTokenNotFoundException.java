@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions;
+package com.myinstagram.exceptions.custom;
 
 public class VerificationTokenNotFoundException extends RuntimeException {
     public VerificationTokenNotFoundException(String token) {

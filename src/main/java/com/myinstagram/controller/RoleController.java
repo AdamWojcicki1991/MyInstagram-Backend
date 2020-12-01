@@ -2,7 +2,7 @@ package com.myinstagram.controller;
 
 import com.myinstagram.domain.dto.RoleDto;
 import com.myinstagram.domain.dto.RoleRequest;
-import com.myinstagram.facade.RoleFacade;
+import com.myinstagram.facade.role.RoleFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

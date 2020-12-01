@@ -3,7 +3,7 @@ package com.myinstagram.controller;
 import com.myinstagram.domain.dto.PasswordRequest;
 import com.myinstagram.domain.dto.UserDto;
 import com.myinstagram.domain.dto.UserRequest;
-import com.myinstagram.facade.UserFacade;
+import com.myinstagram.facade.user.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

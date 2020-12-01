@@ -3,7 +3,7 @@ package com.myinstagram.controller;
 import com.myinstagram.domain.dto.PostDto;
 import com.myinstagram.domain.dto.PostRequest;
 import com.myinstagram.domain.dto.SimplePostRequest;
-import com.myinstagram.facade.PostFacade;
+import com.myinstagram.facade.post.PostFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
