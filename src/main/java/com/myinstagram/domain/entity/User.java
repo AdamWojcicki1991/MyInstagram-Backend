@@ -75,6 +75,13 @@ public final class User {
     )
     private List<Post> posts;
 
+    @OneToMany(
+            targetEntity = Post.class,
+            fetch = LAZY
+    )
+    @JoinColumn(name = "LIKED_POSTS")
+    private List<Post> likedPosts;
+
     @ManyToMany(
             targetEntity = Role.class,
             mappedBy = "users",

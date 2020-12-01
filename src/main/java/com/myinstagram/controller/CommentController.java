@@ -27,7 +27,7 @@ public final class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> publishComment(@RequestBody final CommentRequest commentRequest) {
+    public ResponseEntity<CommentDto> publishComment(@RequestBody final CommentRequest commentRequest) {
         return commentFacade.publishComment(commentRequest);
     }
 
@@ -36,4 +36,3 @@ public final class CommentController {
         return commentFacade.deleteCommentById(id);
     }
 }
-

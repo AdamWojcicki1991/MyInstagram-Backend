@@ -1,5 +1,6 @@
 package com.myinstagram.service;
 
+import com.myinstagram.domain.dto.CommentRequest;
 import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,12 @@ public class CommentServiceTestSuite {
         Post post = postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
                         createUser("login", "email@gmail.com")), LocalDate.now()));
+        CommentRequest commentRequest = CommentRequest.builder()
+                .login("Test Comment")
+                .content("Test Content")
+                .build();
         //WHEN
-        Comment createComment = commentService.createComment(post, "Test Comment", "Test Content");
+        Comment createComment = commentService.createComment(post, commentRequest);
         //THEN
         assertEquals("Test Comment", createComment.getCommentName());
         assertEquals("Test Content", createComment.getContent());

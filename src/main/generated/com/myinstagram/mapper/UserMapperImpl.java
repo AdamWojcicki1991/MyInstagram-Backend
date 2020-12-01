@@ -1,10 +1,9 @@
 package com.myinstagram.mapper;
 
 import com.myinstagram.domain.dto.UserDto;
+import com.myinstagram.domain.dto.UserDto.UserDtoBuilder;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.User.UserBuilder;
-import com.myinstagram.domain.enums.UserStatus;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-30T17:28:40+0100",
+    date = "2020-12-01T02:54:42+0100",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.7 (Oracle Corporation)"
 )
 @Component
@@ -44,29 +43,19 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        Long id = null;
-        String userName = null;
-        String login = null;
-        String password = null;
-        String email = null;
-        String description = null;
-        LocalDate createDate = null;
-        UserStatus userStatus = null;
-        boolean enabled = false;
+        UserDtoBuilder userDto = UserDto.builder();
 
-        id = user.getId();
-        userName = user.getUserName();
-        login = user.getLogin();
-        password = user.getPassword();
-        email = user.getEmail();
-        description = user.getDescription();
-        createDate = user.getCreateDate();
-        userStatus = user.getUserStatus();
-        enabled = user.isEnabled();
+        userDto.id( user.getId() );
+        userDto.userName( user.getUserName() );
+        userDto.login( user.getLogin() );
+        userDto.password( user.getPassword() );
+        userDto.email( user.getEmail() );
+        userDto.description( user.getDescription() );
+        userDto.createDate( user.getCreateDate() );
+        userDto.userStatus( user.getUserStatus() );
+        userDto.enabled( user.isEnabled() );
 
-        UserDto userDto = new UserDto( id, userName, login, password, email, description, createDate, userStatus, enabled );
-
-        return userDto;
+        return userDto.build();
     }
 
     @Override

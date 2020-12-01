@@ -2,7 +2,6 @@ package com.myinstagram.mapper;
 
 import com.myinstagram.domain.dto.CommentDto;
 import com.myinstagram.domain.entity.Comment;
-import com.myinstagram.domain.entity.Comment.CommentBuilder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-30T17:28:40+0100",
+    date = "2020-12-01T02:46:32+0100",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.7 (Oracle Corporation)"
 )
 @Component
@@ -23,13 +22,9 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        CommentBuilder comment = Comment.builder();
+        Comment comment = new Comment();
 
-        comment.commentName( commentDto.getCommentName() );
-        comment.content( commentDto.getContent() );
-        comment.commentDate( commentDto.getCommentDate() );
-
-        return comment.build();
+        return comment;
     }
 
     @Override

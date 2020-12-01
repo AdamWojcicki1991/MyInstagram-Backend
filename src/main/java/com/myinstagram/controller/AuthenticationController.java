@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @CrossOrigin("*")
@@ -31,7 +30,7 @@ public final class AuthenticationController {
         return new ResponseEntity<>(refreshTokens, OK);
     }
 
-    @PostMapping(value = "/signup", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody final RegisterRequest registerRequest) {
         authenticationService.signup(registerRequest);
         return new ResponseEntity<>("User Registrar Successfully!", OK);
@@ -43,12 +42,12 @@ public final class AuthenticationController {
         return new ResponseEntity<>("Account Activated Successfully!", OK);
     }
 
-    @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody final LoginRequest loginRequest) {
         return authenticationService.login(loginRequest);
     }
 
-    @PostMapping(value = "/refresh", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping("/refresh")
     public AuthenticationResponse refreshToken(@Valid @RequestBody final RefreshTokenRequest refreshTokenRequest) {
         return authenticationService.refreshToken(refreshTokenRequest);
     }

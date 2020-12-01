@@ -2,7 +2,6 @@ package com.myinstagram.mapper;
 
 import com.myinstagram.domain.dto.PostDto;
 import com.myinstagram.domain.entity.Post;
-import com.myinstagram.domain.entity.Post.PostBuilder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-30T17:28:40+0100",
+    date = "2020-12-01T02:46:32+0100",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.7 (Oracle Corporation)"
 )
 @Component
@@ -23,16 +22,9 @@ public class PostMapperImpl implements PostMapper {
             return null;
         }
 
-        PostBuilder post = Post.builder();
+        Post post = new Post();
 
-        post.postName( postDto.getPostName() );
-        post.caption( postDto.getCaption() );
-        post.url( postDto.getUrl() );
-        post.imageSerialNumber( postDto.getImageSerialNumber() );
-        post.likesCount( postDto.getLikesCount() );
-        post.postDate( postDto.getPostDate() );
-
-        return post.build();
+        return post;
     }
 
     @Override

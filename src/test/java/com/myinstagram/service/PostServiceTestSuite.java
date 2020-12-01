@@ -1,5 +1,6 @@
 package com.myinstagram.service;
 
+import com.myinstagram.domain.dto.PostRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
 
 import static com.myinstagram.util.DataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,11 +26,13 @@ public class PostServiceTestSuite {
     public void shouldCreatePost() {
         //GIVEN
         User user = userServiceDb.saveUser(createUser("login", "email@gmail.com"));
-        HashMap<String, String> request = new HashMap<>();
-        request.put("caption", "Test caption");
-        request.put("url", "Test url");
+        PostRequest postRequest = PostRequest.builder()
+                .postName("Test Post")
+                .caption("Test caption")
+                .url("Test url")
+                .build();
         //WHEN
-        Post post = postService.createPost(user, request, "Test Post");
+        Post post = postService.createPost(user, postRequest);
         //THEN
         assertEquals("Test Post", post.getPostName());
         assertEquals("Test caption", post.getCaption());

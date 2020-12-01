@@ -11,6 +11,7 @@ import java.util.List;
 public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "posts", ignore = true)
+    @Mapping(target = "likedPosts", ignore = true)
     @Mapping(target = "roles", ignore = true)
     User mapToUser(UserDto userDto);
 

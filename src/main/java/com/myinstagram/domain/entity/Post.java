@@ -65,4 +65,12 @@ public final class Post implements Comparable<Post> {
     public int compareTo(final Post post) {
         return this.postDate.compareTo(post.postDate);
     }
+
+    public void countUp() {
+        this.likesCount++;
+    }
+
+    public void countDown() {
+        this.likesCount--;
+    }
 }

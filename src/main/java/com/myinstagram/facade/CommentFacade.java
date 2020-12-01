@@ -50,15 +50,15 @@ public class CommentFacade {
         return new ResponseEntity<>(commentDto, OK);
     }
 
-    public ResponseEntity<?> publishComment(@RequestBody final CommentRequest commentRequest) {
+    public ResponseEntity<CommentDto> publishComment(@RequestBody final CommentRequest commentRequest) {
         log.info("Try to publish comment!");
         Post post = postServiceDb.getPostById(commentRequest.getPostId())
                 .orElseThrow(() -> new PostNotFoundException(commentRequest.getPostId()));
         User user = userServiceDb.getUserByLogin(commentRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException(commentRequest.getLogin()));
-        if (user.isEnabled() || user.getUserStatus().equals(ACTIVE)) {
-            CommentDto commentDto = commentMapper.mapToCommentDto(commentService.createComment(
-                    post, commentRequest.getLogin(), commentRequest.getContent()));
+        if (user.isEnabled() && user.getUserStatus().equals(ACTIVE)) {
+            CommentDto commentDto = commentMapper.mapToCommentDto(
+                    commentService.createComment(post, commentRequest));
             return new ResponseEntity<>(commentDto, OK);
         } else {
             throw new UserValidationException(commentRequest.getLogin());

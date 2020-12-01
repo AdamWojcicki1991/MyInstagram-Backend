@@ -1,5 +1,6 @@
 package com.myinstagram.service;
 
+import com.myinstagram.domain.dto.CommentRequest;
 import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,10 @@ import java.time.LocalDate;
 public class CommentService {
     private final CommentServiceDb commentServiceDb;
 
-    public Comment createComment(final Post post, final String commentName, final String content) {
+    public Comment createComment(final Post post, final CommentRequest commentRequest) {
         return commentServiceDb.saveComment(Comment.builder()
-                                                    .commentName(commentName)
-                                                    .content(content)
+                                                    .commentName(commentRequest.getLogin())
+                                                    .content(commentRequest.getContent())
                                                     .commentDate(LocalDate.now())
                                                     .post(post)
                                                     .build());
