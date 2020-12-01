@@ -43,7 +43,7 @@ public final class PostController {
         return postFacade.deletePostById(id);
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/upload/{postImageName}")
     public ResponseEntity<String> uploadPostImage(@RequestParam("image") final MultipartFile image, @PathVariable final String postImageName) {
         return postFacade.uploadPostImage(image, postImageName);
     }
