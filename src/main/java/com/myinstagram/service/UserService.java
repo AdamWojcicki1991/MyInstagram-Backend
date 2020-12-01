@@ -1,12 +1,12 @@
 package com.myinstagram.service;
 
+import com.myinstagram.domain.dto.UserRequest;
 import com.myinstagram.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashMap;
 
 import static com.myinstagram.domain.util.Constants.*;
 
@@ -20,11 +20,11 @@ public class UserService {
     private final MailCreationService mailCreationService;
     private final PasswordProcessorService passwordProcessorService;
 
-    public User updateUserProfile(final User user, final HashMap<String, String> request) {
+    public User updateUserProfile(final User user, final UserRequest userRequest) {
         User updatedUser = userServiceDb.saveUser(user.toBuilder()
-                                                          .userName(request.get("userName"))
-                                                          .email(request.get("email"))
-                                                          .description(request.get("description"))
+                                                          .userName(userRequest.getUserName())
+                                                          .email(userRequest.getEmail())
+                                                          .description(userRequest.getDescription())
                                                           .build());
         mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_EMAIL,
                                                 mailCreationService.createUpdateUserProfileEmail(updatedUser));

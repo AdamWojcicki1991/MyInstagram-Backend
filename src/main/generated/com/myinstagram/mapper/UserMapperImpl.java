@@ -1,9 +1,9 @@
 package com.myinstagram.mapper;
 
 import com.myinstagram.domain.dto.UserDto;
-import com.myinstagram.domain.dto.UserDto.UserDtoBuilder;
 import com.myinstagram.domain.entity.User;
-import com.myinstagram.domain.entity.User.UserBuilder;
+import com.myinstagram.domain.enums.UserStatus;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-12-01T02:54:42+0100",
+    date = "2020-12-01T10:15:49+0100",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.7 (Oracle Corporation)"
 )
 @Component
@@ -23,18 +23,9 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        UserBuilder user = User.builder();
+        User user = new User();
 
-        user.userName( userDto.getUserName() );
-        user.login( userDto.getLogin() );
-        user.password( userDto.getPassword() );
-        user.email( userDto.getEmail() );
-        user.description( userDto.getDescription() );
-        user.createDate( userDto.getCreateDate() );
-        user.userStatus( userDto.getUserStatus() );
-        user.enabled( userDto.isEnabled() );
-
-        return user.build();
+        return user;
     }
 
     @Override
@@ -43,19 +34,29 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        UserDtoBuilder userDto = UserDto.builder();
+        Long id = null;
+        String userName = null;
+        String login = null;
+        String password = null;
+        String email = null;
+        String description = null;
+        LocalDate createDate = null;
+        UserStatus userStatus = null;
+        boolean enabled = false;
 
-        userDto.id( user.getId() );
-        userDto.userName( user.getUserName() );
-        userDto.login( user.getLogin() );
-        userDto.password( user.getPassword() );
-        userDto.email( user.getEmail() );
-        userDto.description( user.getDescription() );
-        userDto.createDate( user.getCreateDate() );
-        userDto.userStatus( user.getUserStatus() );
-        userDto.enabled( user.isEnabled() );
+        id = user.getId();
+        userName = user.getUserName();
+        login = user.getLogin();
+        password = user.getPassword();
+        email = user.getEmail();
+        description = user.getDescription();
+        createDate = user.getCreateDate();
+        userStatus = user.getUserStatus();
+        enabled = user.isEnabled();
 
-        return userDto.build();
+        UserDto userDto = new UserDto( id, userName, login, password, email, description, createDate, userStatus, enabled );
+
+        return userDto;
     }
 
     @Override

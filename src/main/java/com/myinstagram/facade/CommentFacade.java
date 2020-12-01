@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
+import static com.myinstagram.domain.enums.ValidationStatus.AUTHORIZED;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
@@ -61,7 +62,7 @@ public class CommentFacade {
                     commentService.createComment(post, commentRequest));
             return new ResponseEntity<>(commentDto, OK);
         } else {
-            throw new UserValidationException(commentRequest.getLogin());
+            throw new UserValidationException(commentRequest.getLogin(), AUTHORIZED);
         }
     }
 

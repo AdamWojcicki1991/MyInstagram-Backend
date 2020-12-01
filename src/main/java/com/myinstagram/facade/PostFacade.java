@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
+import static com.myinstagram.domain.enums.ValidationStatus.*;
 import static com.myinstagram.domain.util.Constants.CREATE_POST_IMAGE_SUCCESS;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
@@ -71,7 +72,7 @@ public class PostFacade {
             PostDto postDto = postMapper.mapToPostDto(postService.createPost(user, postRequest));
             return new ResponseEntity<>(postDto, OK);
         } else {
-            throw new UserValidationException(postRequest.getLogin());
+            throw new UserValidationException(postRequest.getLogin(), AUTHORIZED);
         }
     }
 
@@ -105,7 +106,7 @@ public class PostFacade {
             userServiceDb.saveUser(user);
             return new ResponseEntity<>(postMapper.mapToPostDto(post), OK);
         } else {
-            throw new UserValidationException(simplePostRequest.getLogin());
+            throw new UserValidationException(simplePostRequest.getLogin(), AUTHORIZED_CONTAINS_POST_LIKED);
         }
     }
 
@@ -121,7 +122,7 @@ public class PostFacade {
             userServiceDb.saveUser(user);
             return new ResponseEntity<>(postMapper.mapToPostDto(post), OK);
         } else {
-            throw new UserValidationException(simplePostRequest.getLogin());
+            throw new UserValidationException(simplePostRequest.getLogin(), AUTHORIZED_CONTAINS_POST_UNLIKED);
         }
     }
 }

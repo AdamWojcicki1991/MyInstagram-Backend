@@ -1,7 +1,9 @@
 package com.myinstagram.exceptions;
 
+import com.myinstagram.domain.enums.ValidationStatus;
+
 public class UserValidationException extends RuntimeException {
-    public UserValidationException(String login) {
-        super("User " + login + " is not authorized, active or can not vote again!");
+    public UserValidationException(String login, ValidationStatus validationStatus) {
+        super("User " + login + validationStatus.toString());
     }
 }

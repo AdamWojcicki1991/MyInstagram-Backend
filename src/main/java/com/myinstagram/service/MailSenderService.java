@@ -1,6 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.exceptions.MailSenderException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
@@ -20,7 +21,7 @@ public class MailSenderService {
             javaMailSender.send(mailCreationService.createMimeMessage(mail));
             log.info("Email has been sent.");
         } catch (MailException e) {
-            log.error("Failed to process email sending: ", e.getMessage(), e);
+            throw new MailSenderException();
         }
     }
 
