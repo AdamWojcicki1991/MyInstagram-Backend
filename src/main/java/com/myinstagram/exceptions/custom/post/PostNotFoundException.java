@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.post;
 
 public class PostNotFoundException extends RuntimeException {
     public PostNotFoundException(Long id) {

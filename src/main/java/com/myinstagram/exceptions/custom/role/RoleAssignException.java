@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.role;
 
 import com.myinstagram.domain.enums.RoleType;
 

@@ -1,9 +1,6 @@
 package com.myinstagram.exceptions.handler;
 
-import com.myinstagram.exceptions.custom.UserFoundException;
-import com.myinstagram.exceptions.custom.UserNotFoundByIdException;
-import com.myinstagram.exceptions.custom.UserNotFoundException;
-import com.myinstagram.exceptions.custom.UserValidationException;
+import com.myinstagram.exceptions.custom.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +37,12 @@ public final class UserErrorAdviceHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(UserValidationException.class)
     public ResponseEntity<Object> userValidationHandler(final UserValidationException e, final WebRequest webRequest) {
+        log.error(Arrays.toString(e.getStackTrace()));
+        return handleExceptionInternal(e, e.getMessage(), EMPTY, BAD_REQUEST, webRequest);
+    }
+
+    @ExceptionHandler(UserEnabledException.class)
+    public ResponseEntity<Object> userValidationHandler(final UserEnabledException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
         return handleExceptionInternal(e, e.getMessage(), EMPTY, BAD_REQUEST, webRequest);
     }

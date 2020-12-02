@@ -1,7 +1,7 @@
-package com.myinstagram.security;
+package com.myinstagram.security.jwt;
 
-import com.myinstagram.exceptions.custom.KeyStoreNotLoadException;
-import com.myinstagram.exceptions.custom.PublicKeyNotFoundException;
+import com.myinstagram.exceptions.custom.security.KeyStoreNotLoadException;
+import com.myinstagram.exceptions.custom.security.PublicKeyNotFoundException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,5 +1,6 @@
-package com.myinstagram.security;
+package com.myinstagram.security.config;
 
+import com.myinstagram.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/webjars/**").permitAll()

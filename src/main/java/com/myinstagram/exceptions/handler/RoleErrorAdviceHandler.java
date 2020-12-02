@@ -1,7 +1,7 @@
 package com.myinstagram.exceptions.handler;
 
-import com.myinstagram.exceptions.custom.RoleAssignException;
-import com.myinstagram.exceptions.custom.RoleNotFoundException;
+import com.myinstagram.exceptions.custom.role.RoleAssignException;
+import com.myinstagram.exceptions.custom.role.RoleNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

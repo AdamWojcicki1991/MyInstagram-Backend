@@ -1,6 +1,7 @@
 package com.myinstagram.exceptions.handler;
 
-import com.myinstagram.exceptions.custom.*;
+import com.myinstagram.exceptions.custom.post.PostNotFoundByLoginException;
+import com.myinstagram.exceptions.custom.post.PostNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

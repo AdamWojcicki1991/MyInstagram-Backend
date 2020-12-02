@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.comment;
 
 public class CommentNotFoundException extends RuntimeException {
     public CommentNotFoundException(Long id) {

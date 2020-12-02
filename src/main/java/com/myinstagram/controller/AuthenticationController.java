@@ -5,7 +5,7 @@ import com.myinstagram.domain.auth.LoginRequest;
 import com.myinstagram.domain.auth.RefreshTokenRequest;
 import com.myinstagram.domain.auth.RegisterRequest;
 import com.myinstagram.domain.entity.RefreshToken;
-import com.myinstagram.security.AuthenticationService;
+import com.myinstagram.security.service.AuthenticationService;
 import com.myinstagram.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ public final class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody final RegisterRequest registerRequest) {
         authenticationService.signup(registerRequest);
-        return new ResponseEntity<>("User Registrar Successfully!", OK);
+        return new ResponseEntity<>("User Register Successfully!", OK);
     }
 
     @GetMapping("/verify/{token}")

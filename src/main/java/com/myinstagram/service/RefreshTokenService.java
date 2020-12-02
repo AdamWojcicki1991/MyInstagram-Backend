@@ -1,7 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.RefreshToken;
-import com.myinstagram.exceptions.custom.InvalidRefreshTokenException;
+import com.myinstagram.exceptions.custom.security.InvalidRefreshTokenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

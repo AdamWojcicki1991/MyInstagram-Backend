@@ -1,6 +1,6 @@
 package com.myinstagram.exceptions.handler;
 
-import com.myinstagram.exceptions.custom.CommentNotFoundException;
+import com.myinstagram.exceptions.custom.comment.CommentNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

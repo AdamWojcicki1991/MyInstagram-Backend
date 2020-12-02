@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.user;
 
 import com.myinstagram.domain.enums.ValidationStatus;
 

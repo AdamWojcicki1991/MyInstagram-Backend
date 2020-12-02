@@ -30,10 +30,10 @@ public class RoleServiceDbTestSuite {
         //GIVEN
         User user = userServiceDb.saveUser(createUser("login_1", "email1@gmail.com"));
         User anotherUser = userServiceDb.saveUser(createUser("login_2", "email2@gmail.com"));
-        roleServiceDb.saveRole(createRole(GUEST, user));
+        roleServiceDb.saveRole(createRole(MODERATOR, user));
         roleServiceDb.saveRole(createRole(ADMIN, user, anotherUser));
         roleServiceDb.saveRole(createRole(USER, anotherUser));
-        roleServiceDb.saveRole(createRole(GUEST, anotherUser));
+        roleServiceDb.saveRole(createRole(MODERATOR, anotherUser));
     }
 
     @Test

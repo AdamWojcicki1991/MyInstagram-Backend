@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.security;
 
 public class ChangePasswordException extends RuntimeException {
     public ChangePasswordException() {

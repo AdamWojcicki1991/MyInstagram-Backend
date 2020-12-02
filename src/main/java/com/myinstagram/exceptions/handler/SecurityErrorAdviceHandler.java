@@ -1,6 +1,6 @@
 package com.myinstagram.exceptions.handler;
 
-import com.myinstagram.exceptions.custom.*;
+import com.myinstagram.exceptions.custom.security.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

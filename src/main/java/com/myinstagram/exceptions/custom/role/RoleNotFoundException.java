@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.role;
 
 public class RoleNotFoundException extends RuntimeException {
     public RoleNotFoundException(Long id) {

@@ -1,4 +1,4 @@
-package com.myinstagram.exceptions.custom;
+package com.myinstagram.exceptions.custom.post;
 
 public class PostNotFoundByLoginException extends RuntimeException {
     public PostNotFoundByLoginException(String login) {

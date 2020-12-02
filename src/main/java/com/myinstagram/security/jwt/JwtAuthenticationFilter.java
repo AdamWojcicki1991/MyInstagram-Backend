@@ -1,4 +1,4 @@
-package com.myinstagram.security;
+package com.myinstagram.security.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
