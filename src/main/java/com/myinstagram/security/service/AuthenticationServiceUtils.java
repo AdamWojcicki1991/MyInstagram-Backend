@@ -63,9 +63,9 @@ class AuthenticationServiceUtils {
         User user = userServiceDb.getUserByLogin(login).orElseThrow(() ->
                                                                             new UserNotFoundException(login));
         if (!user.isEnabled()) {
-            user.toBuilder().enabled(true).build();
-            assignRole(user, USER);
-            userServiceDb.saveUser(user);
+            User enabledUser = user.toBuilder().enabled(true).build();
+            assignRole(enabledUser, USER);
+            userServiceDb.saveUser(enabledUser);
             log.info("User authenticated correctly!");
         } else {
             throw new UserEnabledException(user.getLogin());

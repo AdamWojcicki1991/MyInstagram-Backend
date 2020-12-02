@@ -8,7 +8,10 @@ import com.myinstagram.domain.entity.VerificationToken;
 import com.myinstagram.exceptions.custom.user.UserNotFoundByIdException;
 import com.myinstagram.exceptions.custom.user.UserNotFoundException;
 import com.myinstagram.mapper.UserMapper;
-import com.myinstagram.service.*;
+import com.myinstagram.service.ImageService;
+import com.myinstagram.service.UserService;
+import com.myinstagram.service.UserServiceDb;
+import com.myinstagram.service.VerificationTokenServiceDb;
 import com.myinstagram.validator.PasswordValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,13 +77,6 @@ public class UserFacade {
         return userFacadeUtils.updateProfileIfUserIsValidated(userRequest, user);
     }
 
-    public ResponseEntity<String> deleteUser(String login) {
-        log.info("Delete user by login: " + login);
-        User user = userServiceDb.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
-        List<VerificationToken> verificationTokens = verificationTokenServiceDb.getUserValidVerificationToken(user);
-        return userFacadeUtils.deleteUserWithValidatedToken(user, verificationTokens);
-    }
-
     public ResponseEntity<String> uploadUserImage(final MultipartFile image) {
         log.info("Upload user image!");
         String result = imageService.loadUserImage(image, 1L);
@@ -99,5 +95,12 @@ public class UserFacade {
         User user = userServiceDb.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
         UserDto userDto = userMapper.mapToUserDto(userService.resetUserPassword(user));
         return new ResponseEntity<>(userDto, OK);
+    }
+
+    public ResponseEntity<String> deleteUser(String login) {
+        log.info("Delete user by login: " + login);
+        User user = userServiceDb.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
+        List<VerificationToken> verificationTokens = verificationTokenServiceDb.getUserValidVerificationToken(user);
+        return userFacadeUtils.deleteUserWithValidatedToken(user, verificationTokens);
     }
 }

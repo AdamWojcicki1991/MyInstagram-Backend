@@ -48,11 +48,6 @@ public final class UserController {
         return userFacade.updateProfile(userRequest);
     }
 
-    @DeleteMapping("/{login}")
-    public ResponseEntity<String> deleteUser(@PathVariable final String login) {
-        return userFacade.deleteUser(login);
-    }
-
     @PostMapping("/upload")
     public ResponseEntity<String> uploadUserImage(@RequestParam("image") final MultipartFile image) {
         return userFacade.uploadUserImage(image);
@@ -66,5 +61,10 @@ public final class UserController {
     @PutMapping("/resetPassword/{mail}")
     public ResponseEntity<UserDto> resetPassword(@PathVariable final String mail) {
         return userFacade.resetPassword(mail);
+    }
+
+    @DeleteMapping("/{login}")
+    public ResponseEntity<String> deleteUser(@PathVariable final String login) {
+        return userFacade.deleteUser(login);
     }
 }

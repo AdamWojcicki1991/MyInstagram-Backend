@@ -61,11 +61,6 @@ public class PostFacade {
         return postFacadeUtils.createPostIfUserIsAuthorized(postRequest, user);
     }
 
-    public ResponseEntity<String> deletePostById(final Long id) {
-        log.info("Delete published post by id: " + id);
-        return postFacadeUtils.deletePostIfExists(id);
-    }
-
     public ResponseEntity<String> uploadPostImage(final MultipartFile image, final String postImageName) {
         log.info("Upload post image with name: " + postImageName);
         String result = imageService.loadPostImage(image, postImageName);
@@ -88,5 +83,10 @@ public class PostFacade {
         User user = userServiceDb.getUserByLogin(simplePostRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException(simplePostRequest.getLogin()));
         return postFacadeUtils.unlikePostIfUserIsValidated(simplePostRequest, post, user);
+    }
+
+    public ResponseEntity<String> deletePostById(final Long id) {
+        log.info("Delete published post by id: " + id);
+        return postFacadeUtils.deletePostIfExists(id);
     }
 }

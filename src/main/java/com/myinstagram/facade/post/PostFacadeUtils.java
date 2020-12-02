@@ -56,16 +56,6 @@ class PostFacadeUtils {
         }
     }
 
-    ResponseEntity<String> deletePostIfExists(final Long id) {
-        try {
-            postServiceDb.deletePostById(id);
-            log.info("Post deleted successfully!");
-        } catch (EmptyResultDataAccessException e) {
-            throw new PostNotFoundException(id);
-        }
-        return new ResponseEntity<>("Post Deleted Successfully!!!", OK);
-    }
-
     ResponseEntity<PostDto> likePostIfUserIsValidated(final SimplePostRequest simplePostRequest, final Post post, final User user) {
         if (userValidator.isUserValidatedToLikePost(user, post)) {
             post.countUp();
@@ -88,5 +78,15 @@ class PostFacadeUtils {
         } else {
             throw new UserValidationException(simplePostRequest.getLogin(), AUTHORIZED_CONTAINS_POST_UNLIKED);
         }
+    }
+
+    ResponseEntity<String> deletePostIfExists(final Long id) {
+        try {
+            postServiceDb.deletePostById(id);
+            log.info("Post deleted successfully!");
+        } catch (EmptyResultDataAccessException e) {
+            throw new PostNotFoundException(id);
+        }
+        return new ResponseEntity<>("Post Deleted Successfully!!!", OK);
     }
 }

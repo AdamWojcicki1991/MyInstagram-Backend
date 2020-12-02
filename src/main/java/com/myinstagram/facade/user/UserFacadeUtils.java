@@ -59,15 +59,6 @@ class UserFacadeUtils {
         }
     }
 
-    ResponseEntity<String> deleteUserWithValidatedToken(final User user, final List<VerificationToken> verificationTokens) {
-        if (userValidator.hasUserVerificationToken(user)) {
-            verificationTokenServiceDb.deleteVerificationToken(verificationTokens.get(0));
-        }
-        userServiceDb.deleteUser(user);
-        log.info("User deleted successfully!");
-        return new ResponseEntity<>("User Deleted Successfully!", OK);
-    }
-
     ResponseEntity<String> changePasswordIfUserPasswordIsValidated(final PasswordRequest passwordRequest, final User user) {
         if (passwordValidator.validateNewPasswordWithConfirmed(passwordRequest))
             throw new PasswordNotMatchedException();
@@ -83,5 +74,14 @@ class UserFacadeUtils {
         } catch (Exception e) {
             throw new ChangePasswordException();
         }
+    }
+
+    ResponseEntity<String> deleteUserWithValidatedToken(final User user, final List<VerificationToken> verificationTokens) {
+        if (userValidator.hasUserVerificationToken(user)) {
+            verificationTokenServiceDb.deleteVerificationToken(verificationTokens.get(0));
+        }
+        userServiceDb.deleteUser(user);
+        log.info("User deleted successfully!");
+        return new ResponseEntity<>("User Deleted Successfully!", OK);
     }
 }

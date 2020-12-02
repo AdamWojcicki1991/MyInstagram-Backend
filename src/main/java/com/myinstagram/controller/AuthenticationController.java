@@ -30,16 +30,16 @@ public final class AuthenticationController {
         return new ResponseEntity<>(refreshTokens, OK);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody final RegisterRequest registerRequest) {
-        authenticationService.signup(registerRequest);
-        return new ResponseEntity<>("User Register Successfully!", OK);
-    }
-
     @GetMapping("/verify/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable final String token) {
         authenticationService.verifyToken(token);
         return new ResponseEntity<>("Account Activated Successfully!", OK);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup(@RequestBody final RegisterRequest registerRequest) {
+        authenticationService.signup(registerRequest);
+        return new ResponseEntity<>("User Register Successfully!", OK);
     }
 
     @PostMapping("/login")

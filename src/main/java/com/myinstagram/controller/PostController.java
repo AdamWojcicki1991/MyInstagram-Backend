@@ -38,11 +38,6 @@ public final class PostController {
         return postFacade.publishPost(postRequest);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePost(@PathVariable final Long id) {
-        return postFacade.deletePostById(id);
-    }
-
     @PostMapping("/upload/{postImageName}")
     public ResponseEntity<String> uploadPostImage(@RequestParam("image") final MultipartFile image, @PathVariable final String postImageName) {
         return postFacade.uploadPostImage(image, postImageName);
@@ -56,5 +51,10 @@ public final class PostController {
     @PostMapping("/unlike")
     public ResponseEntity<PostDto> unlikePost(@RequestBody final SimplePostRequest simplePostRequest) {
         return postFacade.unlikePost(simplePostRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePost(@PathVariable final Long id) {
+        return postFacade.deletePostById(id);
     }
 }
