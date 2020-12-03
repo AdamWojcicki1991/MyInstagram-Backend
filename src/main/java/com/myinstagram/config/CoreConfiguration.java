@@ -3,6 +3,7 @@ package com.myinstagram.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
@@ -17,9 +18,14 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
-@Configuration
 @EnableSwagger2
+@Configuration
 public class CoreConfiguration {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
     @Bean
     public Docket swaggerApi() {
