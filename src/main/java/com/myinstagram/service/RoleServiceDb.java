@@ -1,6 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.Role;
+import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.enums.RoleType;
 import com.myinstagram.repository.RoleDbRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +26,12 @@ public class RoleServiceDb {
 
     public List<Role> getRolesByRoleType(final RoleType roleType) {
         return roleDbRepository.findAllByRoleType(roleType);
+    }
+
+    public List<Role> getUserValidRoles(final User user) {
+        return roleDbRepository.findAll().stream()
+                .filter(role -> role.getUsers().contains(user))
+                .collect(Collectors.toList());
     }
 
     public Role saveRole(final Role role) {

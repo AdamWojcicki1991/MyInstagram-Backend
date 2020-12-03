@@ -7,7 +7,8 @@ import com.myinstagram.domain.auth.RegisterRequest;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
 import com.myinstagram.exceptions.custom.security.VerificationTokenNotFoundException;
-import com.myinstagram.exceptions.custom.user.UserFoundException;
+import com.myinstagram.exceptions.custom.user.UserRegistrationException;
+import com.myinstagram.mailboxlayer.validator.EmailValidator;
 import com.myinstagram.security.jwt.JwtProvider;
 import com.myinstagram.service.*;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class AuthenticationService {
     private final JwtProvider jwtProvider;
     private final ImageService imageService;
     private final UserServiceDb userServiceDb;
+    private final EmailValidator emailValidator;
     private final MailSenderService mailSenderService;
     private final RefreshTokenService refreshTokenService;
     private final MailCreationService mailCreationService;
@@ -39,14 +41,14 @@ public class AuthenticationService {
 
     public void signup(final RegisterRequest registerRequest) {
         List<User> users = userServiceDb.getAllUsersByLoginContaining(registerRequest.getLogin());
-        if (users.isEmpty()) {
+        if (users.isEmpty() && (emailValidator.validateUserEmail(registerRequest.getEmail()))) {
             User user = authenticationServiceUtils.assignUserWithRole(registerRequest, NO_ROLE);
             String token = authenticationServiceUtils.generateVerificationToken(user);
             imageService.loadDefaultUserImage(user);
             mailSenderService.sendPersonalizedEmail(user.getEmail(), NEW_USER_EMAIL,
                                                     mailCreationService.createNewUserEmail(user, token));
         } else {
-            throw new UserFoundException(registerRequest.getLogin());
+            throw new UserRegistrationException(registerRequest.getLogin(), registerRequest.getEmail());
         }
     }
 

@@ -3,6 +3,7 @@ package com.myinstagram.facade.user;
 import com.myinstagram.domain.dto.PasswordRequest;
 import com.myinstagram.domain.dto.UserDto;
 import com.myinstagram.domain.dto.UserRequest;
+import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
 import com.myinstagram.exceptions.custom.security.ChangePasswordException;
@@ -10,6 +11,7 @@ import com.myinstagram.exceptions.custom.security.PasswordNotMatchedException;
 import com.myinstagram.exceptions.custom.user.UserNotFoundException;
 import com.myinstagram.exceptions.custom.user.UserValidationException;
 import com.myinstagram.mapper.UserMapper;
+import com.myinstagram.service.RoleServiceDb;
 import com.myinstagram.service.UserService;
 import com.myinstagram.service.UserServiceDb;
 import com.myinstagram.service.VerificationTokenServiceDb;
@@ -35,6 +37,7 @@ class UserFacadeUtils {
     private final UserMapper userMapper;
     private final UserService userService;
     private final UserServiceDb userServiceDb;
+    private final RoleServiceDb roleServiceDb;
     private final UserValidator userValidator;
     private final PasswordValidator passwordValidator;
     private final VerificationTokenServiceDb verificationTokenServiceDb;
@@ -76,9 +79,17 @@ class UserFacadeUtils {
         }
     }
 
-    ResponseEntity<String> deleteUserWithValidatedToken(final User user, final List<VerificationToken> verificationTokens) {
+    ResponseEntity<String> deleteValidatedUser(final User user,
+                                               final List<VerificationToken> verificationTokens,
+                                               final List<Role> roles) {
         if (userValidator.hasUserVerificationToken(user)) {
             verificationTokenServiceDb.deleteVerificationToken(verificationTokens.get(0));
+        }
+        if (userValidator.hasUserRoles(user)) {
+            roles.forEach(role -> {
+                role.getUsers().remove(user);
+                roleServiceDb.saveRole(role);
+            });
         }
         userServiceDb.deleteUser(user);
         log.info("User deleted successfully!");

@@ -2,6 +2,8 @@ package com.myinstagram.service;
 
 import com.myinstagram.domain.dto.UserRequest;
 import com.myinstagram.domain.entity.User;
+import com.myinstagram.mailboxlayer.exceptions.MailBoxLayerApiException;
+import com.myinstagram.mailboxlayer.validator.EmailValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import static com.myinstagram.domain.util.Constants.*;
 @Service
 public class UserService {
     private final UserServiceDb userServiceDb;
+    private final EmailValidator emailValidator;
     private final MailSenderService mailSenderService;
     private final MailCreationService mailCreationService;
     private final PasswordProcessorService passwordProcessorService;
@@ -32,19 +35,27 @@ public class UserService {
     }
 
     public User updateUserPassword(final User user, final String newPassword) {
-        String encryptedPassword = passwordProcessorService.encryptPassword(newPassword);
-        User userWithUpdatePassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
-        mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_PASSWORD_EMAIL,
-                                                mailCreationService.createResetPasswordEmail(user, newPassword));
-        return userWithUpdatePassword;
+        if (emailValidator.validateUserEmail(user.getEmail())) {
+            String encryptedPassword = passwordProcessorService.encryptPassword(newPassword);
+            User userWithUpdatePassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
+            mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_PASSWORD_EMAIL,
+                                                    mailCreationService.createResetPasswordEmail(user, newPassword));
+            return userWithUpdatePassword;
+        } else {
+            throw new MailBoxLayerApiException(user.getEmail());
+        }
     }
 
     public User resetUserPassword(final User user) {
-        String password = passwordProcessorService.generateUuid();
-        String encryptedPassword = passwordProcessorService.encryptPassword(password);
-        User userWithResetPassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
-        mailSenderService.sendPersonalizedEmail(user.getEmail(), RESET_USER_PASSWORD_EMAIL,
-                                                mailCreationService.createResetPasswordEmail(user, password));
-        return userWithResetPassword;
+        if (emailValidator.validateUserEmail(user.getEmail())) {
+            String password = passwordProcessorService.generateUuid();
+            String encryptedPassword = passwordProcessorService.encryptPassword(password);
+            User userWithResetPassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
+            mailSenderService.sendPersonalizedEmail(user.getEmail(), RESET_USER_PASSWORD_EMAIL,
+                                                    mailCreationService.createResetPasswordEmail(user, password));
+            return userWithResetPassword;
+        } else {
+            throw new MailBoxLayerApiException(user.getEmail());
+        }
     }
 }

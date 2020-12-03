@@ -4,6 +4,7 @@ import com.myinstagram.domain.dto.RoleRequest;
 import com.myinstagram.domain.dto.UserRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
+import com.myinstagram.mailboxlayer.validator.EmailValidator;
 import com.myinstagram.service.RoleServiceDb;
 import com.myinstagram.service.UserServiceDb;
 import com.myinstagram.service.VerificationTokenServiceDb;
@@ -19,6 +20,7 @@ import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
 public final class UserValidator {
     private final RoleServiceDb roleServiceDb;
     private final UserServiceDb userServiceDb;
+    private final EmailValidator emailValidator;
     private final VerificationTokenServiceDb verificationTokenServiceDb;
 
     public boolean isUserValidated(final User user) {
@@ -49,6 +51,10 @@ public final class UserValidator {
         return verificationTokenServiceDb.getUserValidVerificationToken(user).size() == 1;
     }
 
+    public boolean hasUserRoles(final User user) {
+        log.info("Validate that user has assigned roles!");
+        return roleServiceDb.getUserValidRoles(user).size() > 0;
+    }
 
     private boolean validate(final String info, final boolean userValidated, final boolean contains) {
         log.info(info);
@@ -62,9 +68,19 @@ public final class UserValidator {
                 .noneMatch(user -> userFromDb.getId().equals(user.getId()));
     }
 
-    private boolean validateUserEmail(final UserRequest userRequest) {
+    private boolean isValidateUserEmail(final UserRequest userRequest) {
+        log.info("Validate that email address is correct!");
+        return emailValidator.validateUserEmail(userRequest.getEmail());
+    }
+
+    private boolean isNoneEmailMatch(final UserRequest userRequest) {
         log.info("Validate that email address is not already occupied!");
         return userServiceDb.getAllUsers().stream()
                 .noneMatch(userInDb -> userInDb.getEmail().contains(userRequest.getEmail()));
+    }
+
+    private boolean validateUserEmail(final UserRequest userRequest) {
+        log.info("Email validation process started!");
+        return (isNoneEmailMatch(userRequest) && isValidateUserEmail(userRequest));
     }
 }

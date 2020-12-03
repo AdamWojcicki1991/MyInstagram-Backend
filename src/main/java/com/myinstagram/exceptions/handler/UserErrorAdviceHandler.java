@@ -29,16 +29,16 @@ public final class UserErrorAdviceHandler extends ResponseEntityExceptionHandler
         return handleExceptionInternal(e, e.getMessage(), EMPTY, NOT_FOUND, webRequest);
     }
 
-    @ExceptionHandler(UserFoundException.class)
-    public ResponseEntity<Object> userFoundHandler(final UserFoundException e, final WebRequest webRequest) {
+    @ExceptionHandler(UserRegistrationException.class)
+    public ResponseEntity<Object> userFoundHandler(final UserRegistrationException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
-        return handleExceptionInternal(e, e.getMessage(), EMPTY, FOUND, webRequest);
+        return handleExceptionInternal(e, e.getMessage(), EMPTY, BAD_REQUEST, webRequest);
     }
 
     @ExceptionHandler(UserValidationException.class)
     public ResponseEntity<Object> userValidationHandler(final UserValidationException e, final WebRequest webRequest) {
         log.error(Arrays.toString(e.getStackTrace()));
-        return handleExceptionInternal(e, e.getMessage(), EMPTY, BAD_REQUEST, webRequest);
+        return handleExceptionInternal(e, e.getMessage(), EMPTY, FORBIDDEN, webRequest);
     }
 
     @ExceptionHandler(UserEnabledException.class)

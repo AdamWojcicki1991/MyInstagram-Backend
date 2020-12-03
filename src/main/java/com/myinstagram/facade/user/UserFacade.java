@@ -3,16 +3,13 @@ package com.myinstagram.facade.user;
 import com.myinstagram.domain.dto.PasswordRequest;
 import com.myinstagram.domain.dto.UserDto;
 import com.myinstagram.domain.dto.UserRequest;
+import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
 import com.myinstagram.exceptions.custom.user.UserNotFoundByIdException;
 import com.myinstagram.exceptions.custom.user.UserNotFoundException;
 import com.myinstagram.mapper.UserMapper;
-import com.myinstagram.service.ImageService;
-import com.myinstagram.service.UserService;
-import com.myinstagram.service.UserServiceDb;
-import com.myinstagram.service.VerificationTokenServiceDb;
-import com.myinstagram.validator.PasswordValidator;
+import com.myinstagram.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +27,11 @@ import static org.springframework.http.HttpStatus.OK;
 @Transactional
 @Service
 public class UserFacade {
-    private final PasswordValidator passwordValidator;
     private final UserMapper userMapper;
     private final UserService userService;
     private final ImageService imageService;
     private final UserServiceDb userServiceDb;
+    private final RoleServiceDb roleServiceDb;
     private final UserFacadeUtils userFacadeUtils;
     private final VerificationTokenServiceDb verificationTokenServiceDb;
 
@@ -97,10 +94,11 @@ public class UserFacade {
         return new ResponseEntity<>(userDto, OK);
     }
 
-    public ResponseEntity<String> deleteUser(String login) {
+    public ResponseEntity<String> deleteUser(final String login) {
         log.info("Delete user by login: " + login);
         User user = userServiceDb.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
         List<VerificationToken> verificationTokens = verificationTokenServiceDb.getUserValidVerificationToken(user);
-        return userFacadeUtils.deleteUserWithValidatedToken(user, verificationTokens);
+        List<Role> roles = roleServiceDb.getUserValidRoles(user);
+        return userFacadeUtils.deleteValidatedUser(user, verificationTokens, roles);
     }
 }
