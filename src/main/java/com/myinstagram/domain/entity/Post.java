@@ -55,6 +55,7 @@ public final class Post implements Comparable<Post> {
     private User user;
 
     @OneToMany(
+            cascade = CascadeType.REMOVE,
             targetEntity = Comment.class,
             mappedBy = "post",
             fetch = LAZY

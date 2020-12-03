@@ -43,14 +43,14 @@ public final class UserController {
         return userFacade.getUserByMail(mail);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<UserDto> updateProfile(@RequestBody final UserRequest userRequest) {
-        return userFacade.updateProfile(userRequest);
-    }
-
     @PostMapping("/upload")
     public ResponseEntity<String> uploadUserImage(@RequestParam("image") final MultipartFile image) {
         return userFacade.uploadUserImage(image);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserDto> updateProfile(@RequestBody final UserRequest userRequest) {
+        return userFacade.updateProfile(userRequest);
     }
 
     @PutMapping("/changePassword")

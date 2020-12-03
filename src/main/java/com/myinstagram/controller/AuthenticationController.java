@@ -38,7 +38,7 @@ public final class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody final RegisterRequest registerRequest) {
-        authenticationService.signup(registerRequest);
+        authenticationService.register(registerRequest);
         return new ResponseEntity<>("User Register Successfully!", OK);
     }
 

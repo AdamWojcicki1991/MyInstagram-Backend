@@ -43,12 +43,12 @@ public final class PostController {
         return postFacade.uploadPostImage(image, postImageName);
     }
 
-    @PostMapping("/like")
+    @PutMapping("/like")
     public ResponseEntity<PostDto> likePost(@RequestBody final SimplePostRequest simplePostRequest) {
         return postFacade.likePost(simplePostRequest);
     }
 
-    @PostMapping("/unlike")
+    @PutMapping("/unlike")
     public ResponseEntity<PostDto> unlikePost(@RequestBody final SimplePostRequest simplePostRequest) {
         return postFacade.unlikePost(simplePostRequest);
     }

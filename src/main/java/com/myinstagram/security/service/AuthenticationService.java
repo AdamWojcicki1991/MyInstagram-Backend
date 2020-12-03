@@ -39,7 +39,7 @@ public class AuthenticationService {
     private final VerificationTokenServiceDb verificationTokenServiceDb;
     private final AuthenticationServiceUtils authenticationServiceUtils;
 
-    public void signup(final RegisterRequest registerRequest) {
+    public void register(final RegisterRequest registerRequest) {
         List<User> users = userServiceDb.getAllUsersByLoginContaining(registerRequest.getLogin());
         if (users.isEmpty() && (emailValidator.validateUserEmail(registerRequest.getEmail()))) {
             User user = authenticationServiceUtils.assignUserWithRole(registerRequest, NO_ROLE);
