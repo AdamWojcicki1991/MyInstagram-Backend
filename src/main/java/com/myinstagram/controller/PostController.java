@@ -3,6 +3,7 @@ package com.myinstagram.controller;
 import com.myinstagram.domain.dto.PostDto;
 import com.myinstagram.domain.dto.PostRequest;
 import com.myinstagram.domain.dto.SimplePostRequest;
+import com.myinstagram.domain.dto.UpdatePostRequest;
 import com.myinstagram.facade.post.PostFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,11 @@ public final class PostController {
     @PostMapping("/upload/{postImageName}")
     public ResponseEntity<String> uploadPostImage(@RequestParam("image") final MultipartFile image, @PathVariable final String postImageName) {
         return postFacade.uploadPostImage(image, postImageName);
+    }
+
+    @PutMapping
+    public ResponseEntity<PostDto> updatePost(@RequestBody final UpdatePostRequest updatePostRequest) {
+        return postFacade.updatePost(updatePostRequest);
     }
 
     @PutMapping("/like")

@@ -34,7 +34,15 @@ public class RoleFacade {
         return new ResponseEntity<>(roles, OK);
     }
 
-    public ResponseEntity<RoleDto> getRole(final Long id) {
+    public ResponseEntity<List<RoleDto>> getRolesByLogin(final String login) {
+        log.info("Get available role by login: " + login);
+        User user = userServiceDb.getUserByLogin(login)
+                .orElseThrow(() -> new UserNotFoundException(login));
+        List<RoleDto> roles = roleMapper.mapToRolesDto(roleServiceDb.getUserValidRoles(user));
+        return new ResponseEntity<>(roles, OK);
+    }
+
+    public ResponseEntity<RoleDto> getRoleById(final Long id) {
         log.info("Get available role by id: " + id);
         RoleDto roleDto = roleMapper.mapToRoleDto(roleServiceDb.getRoleById(id)
                                                           .orElseThrow(() -> new RoleNotFoundException(id)));

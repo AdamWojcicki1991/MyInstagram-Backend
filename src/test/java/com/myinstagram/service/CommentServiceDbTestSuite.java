@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,8 @@ public class CommentServiceDbTestSuite {
         //GIVEN
         Post post = postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
-                        createUser("login", "email@gmail.com")), LocalDate.now()));
+                        createUser("login", "email@gmail.com")),
+                           Instant.now().truncatedTo(ChronoUnit.SECONDS)));
         commentServiceDb.saveComment(createComment(post));
     }
 

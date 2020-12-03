@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -48,7 +48,10 @@ public final class Post implements Comparable<Post> {
     @CreationTimestamp
     @NotNull(message = "Post creation date can not be Null !")
     @Column(name = "POST_DATE")
-    private LocalDate postDate;
+    private Instant postDate;
+
+    @Column(name = "UPDATE_DATE")
+    private Instant updateDate;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")

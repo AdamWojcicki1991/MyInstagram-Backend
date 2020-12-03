@@ -2,7 +2,7 @@ package com.myinstagram.domain.dto;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Builder(toBuilder = true)
 @EqualsAndHashCode
@@ -16,7 +16,8 @@ public final class PostDto {
     private final String url;
     private final Long imageSerialNumber;
     private final Long likesCount;
-    private final LocalDate postDate;
+    private final Instant postDate;
+    private final Instant updateDate;
     private final Long userId;
     private final String login;
 }

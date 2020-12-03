@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.DataFixture.createPost;
+import static com.myinstagram.util.DataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
@@ -30,17 +32,18 @@ public class CommentServiceTestSuite {
         //GIVEN
         Post post = postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
-                        createUser("login", "email@gmail.com")), LocalDate.now()));
+                        createUser("login", "email@gmail.com")), Instant.now()));
         CommentRequest commentRequest = CommentRequest.builder()
                 .login("Test Comment")
                 .content("Test Content")
                 .build();
         //WHEN
         Comment createComment = commentService.createComment(post, commentRequest);
+        Instant expectedTime = Instant.now().truncatedTo(ChronoUnit.SECONDS);
         //THEN
         assertEquals("Test Comment", createComment.getCommentName());
         assertEquals("Test Content", createComment.getContent());
-        assertEquals(LocalDate.now(), createComment.getCommentDate());
+        assertEquals(expectedTime, createComment.getCommentDate().truncatedTo(ChronoUnit.SECONDS));
         assertEquals(post, createComment.getPost());
         assertEquals(1, commentServiceDb.getAllComments().size());
     }

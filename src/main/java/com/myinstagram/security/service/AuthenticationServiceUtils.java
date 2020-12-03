@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,7 +84,7 @@ class AuthenticationServiceUtils {
                                               .password(passwordProcessorService.encryptPassword(registerRequest.getPassword()))
                                               .email(registerRequest.getEmail())
                                               .description("")
-                                              .createDate(LocalDate.now())
+                                              .createDate(Instant.now())
                                               .userStatus(ACTIVE)
                                               .enabled(false)
                                               .posts(new ArrayList<>())

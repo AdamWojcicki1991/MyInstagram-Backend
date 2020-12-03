@@ -3,6 +3,7 @@ package com.myinstagram.facade.post;
 import com.myinstagram.domain.dto.PostDto;
 import com.myinstagram.domain.dto.PostRequest;
 import com.myinstagram.domain.dto.SimplePostRequest;
+import com.myinstagram.domain.dto.UpdatePostRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.exceptions.custom.post.PostNotFoundException;
@@ -11,7 +12,6 @@ import com.myinstagram.mapper.PostMapper;
 import com.myinstagram.service.ImageService;
 import com.myinstagram.service.PostServiceDb;
 import com.myinstagram.service.UserServiceDb;
-import com.myinstagram.validator.PasswordValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,6 @@ import static org.springframework.http.HttpStatus.OK;
 @Transactional
 @Service
 public class PostFacade {
-    private final PasswordValidator passwordValidator;
     private final PostMapper postMapper;
     private final ImageService imageService;
     private final UserServiceDb userServiceDb;
@@ -65,6 +64,13 @@ public class PostFacade {
         log.info("Upload post image with name: " + postImageName);
         String result = imageService.loadPostImage(image, postImageName);
         return imageService.getResponseIfImageUploaded(result, CREATE_POST_IMAGE_SUCCESS);
+    }
+
+    public ResponseEntity<PostDto> updatePost(final UpdatePostRequest updatePostRequest) {
+        log.info("Try to update post!");
+        Post post = postServiceDb.getPostById(updatePostRequest.getPostId())
+                .orElseThrow(() -> new PostNotFoundException(updatePostRequest.getPostId()));
+        return postFacadeUtils.updatePostIfExist(post, updatePostRequest);
     }
 
     public ResponseEntity<PostDto> likePost(final SimplePostRequest simplePostRequest) {

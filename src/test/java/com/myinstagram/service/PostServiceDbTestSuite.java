@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,17 +31,18 @@ public class PostServiceDbTestSuite {
         //GIVEN
         User user = userServiceDb.saveUser(createUser("login_1", "email1@gmail.com"));
         postServiceDb.savePost(createPost(
-                userServiceDb.saveUser(user), LocalDate.now()));
+                userServiceDb.saveUser(user), Instant.now().truncatedTo(ChronoUnit.SECONDS)));
         postServiceDb.savePost(createPost(
-                userServiceDb.saveUser(user), LocalDate.now().plusMonths(1)));
+                userServiceDb.saveUser(user),
+                Instant.now().truncatedTo(ChronoUnit.SECONDS).plus(1, ChronoUnit.DAYS)));
         postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
                         createUser("login_2", "email2@gmail.com")),
-                           LocalDate.now().plusMonths(2)));
+                           Instant.now().truncatedTo(ChronoUnit.SECONDS).plus(2, ChronoUnit.DAYS)));
         postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
                         createUser("login_3", "email3@gmail.com")),
-                           LocalDate.now().plusMonths(3)));
+                           Instant.now().truncatedTo(ChronoUnit.SECONDS).plus(3, ChronoUnit.DAYS)));
     }
 
     @Test
@@ -82,7 +84,7 @@ public class PostServiceDbTestSuite {
     @Test
     public void shouldSavePost() {
         // GIVEN
-        Post post = createPost(userServiceDb.getAllUsers().get(0), LocalDate.now());
+        Post post = createPost(userServiceDb.getAllUsers().get(0), Instant.now());
         // WHEN
         Post savePost = postServiceDb.savePost(post);
         // THEN

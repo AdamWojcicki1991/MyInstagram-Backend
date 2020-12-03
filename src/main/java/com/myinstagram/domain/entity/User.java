@@ -10,7 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
@@ -57,7 +57,10 @@ public final class User {
     @CreationTimestamp
     @NotNull(message = "User create date cannot be Null !")
     @Column(name = "CREATE_DATE")
-    private LocalDate createDate;
+    private Instant createDate;
+
+    @Column(name = "UPDATE_DATE")
+    private Instant updateDate;
 
     @NotNull(message = "User status cannot be Null !")
     @Enumerated(STRING)

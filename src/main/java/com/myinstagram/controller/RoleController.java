@@ -21,9 +21,14 @@ public final class RoleController {
         return roleFacade.getRoles();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RoleDto> getRole(@PathVariable final Long id) {
-        return roleFacade.getRole(id);
+    @GetMapping("/{login}")
+    public ResponseEntity<List<RoleDto>> getRolesByLogin(@PathVariable final String login) {
+        return roleFacade.getRolesByLogin(login);
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<RoleDto> getRoleById(@PathVariable final Long id) {
+        return roleFacade.getRoleById(id);
     }
 
     @PostMapping("/assign")

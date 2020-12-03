@@ -2,6 +2,7 @@ package com.myinstagram.controller;
 
 import com.myinstagram.domain.dto.CommentDto;
 import com.myinstagram.domain.dto.CommentRequest;
+import com.myinstagram.domain.dto.UpdateCommentRequest;
 import com.myinstagram.facade.comment.CommentFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public final class CommentController {
     @PostMapping
     public ResponseEntity<CommentDto> publishComment(@RequestBody final CommentRequest commentRequest) {
         return commentFacade.publishComment(commentRequest);
+    }
+
+    @PutMapping
+    public ResponseEntity<CommentDto> updateComment(@RequestBody final UpdateCommentRequest updateCommentRequest) {
+        return commentFacade.updateComment(updateCommentRequest);
     }
 
     @DeleteMapping("/{id}")

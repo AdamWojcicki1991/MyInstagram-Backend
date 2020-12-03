@@ -6,7 +6,8 @@ import com.myinstagram.domain.entity.Role;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.enums.RoleType;
 
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +26,8 @@ public final class DataFixture {
                 .password("Password")
                 .email(mail)
                 .description("Description")
-                .createDate(LocalDate.now())
+                .createDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
                 .userStatus(ACTIVE)
                 .enabled(true)
                 .posts(new ArrayList<>())
@@ -33,7 +35,7 @@ public final class DataFixture {
                 .build();
     }
 
-    public static Post createPost(final User user, final LocalDate postDate) {
+    public static Post createPost(final User user, final Instant postDate) {
         return Post.builder()
                 .postName("Post")
                 .caption("Sign")
@@ -41,6 +43,7 @@ public final class DataFixture {
                 .imageSerialNumber(0L)
                 .likesCount(0L)
                 .postDate(postDate)
+                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
                 .user(user)
                 .comments(new ArrayList<>())
                 .build();
@@ -50,7 +53,8 @@ public final class DataFixture {
         return Comment.builder()
                 .commentName("Comment")
                 .content("Content")
-                .commentDate(LocalDate.now())
+                .commentDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
                 .post(post)
                 .build();
     }

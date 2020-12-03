@@ -2,6 +2,8 @@ package com.myinstagram.facade.comment;
 
 import com.myinstagram.domain.dto.CommentDto;
 import com.myinstagram.domain.dto.CommentRequest;
+import com.myinstagram.domain.dto.UpdateCommentRequest;
+import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.exceptions.custom.comment.CommentNotFoundException;
@@ -40,6 +42,13 @@ class CommentFacadeUtils {
         } else {
             throw new UserValidationException(commentRequest.getLogin(), AUTHORIZED);
         }
+    }
+
+    public ResponseEntity<CommentDto> updateCommentIfExists(final Comment comment, final UpdateCommentRequest updateCommentRequest) {
+        CommentDto commentDto = commentMapper.mapToCommentDto(
+                commentService.updateComment(comment, updateCommentRequest));
+        log.info("Comment updated successfully!");
+        return new ResponseEntity<>(commentDto, OK);
     }
 
     ResponseEntity<String> deleteCommentIfExists(final Long id) {

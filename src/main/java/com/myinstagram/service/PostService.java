@@ -1,13 +1,14 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.dto.PostRequest;
+import com.myinstagram.domain.dto.UpdatePostRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.ArrayList;
 
 @RequiredArgsConstructor
@@ -23,9 +24,17 @@ public class PostService {
                                               .url(postRequest.getUrl())
                                               .imageSerialNumber(user.getId())
                                               .likesCount(0L)
-                                              .postDate(LocalDate.now())
+                                              .postDate(Instant.now())
                                               .user(user)
                                               .comments(new ArrayList<>())
+                                              .build());
+    }
+
+    public Post updatePost(final Post post, final UpdatePostRequest updatePostRequest) {
+        return postServiceDb.savePost(post.toBuilder()
+                                              .postName(updatePostRequest.getPostName())
+                                              .caption(updatePostRequest.getCaption())
+                                              .updateDate(Instant.now())
                                               .build());
     }
 }

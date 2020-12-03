@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.Instant;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -36,7 +36,10 @@ public final class Comment {
     @CreationTimestamp
     @NotNull(message = "Comment creation date can not be Null !")
     @Column(name = "COMMENT_DATE")
-    private LocalDate commentDate;
+    private Instant commentDate;
+
+    @Column(name = "UPDATE_DATE")
+    private Instant updateDate;
 
     @ManyToOne
     @JoinColumn(name = "POST_ID")

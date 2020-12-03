@@ -2,6 +2,8 @@ package com.myinstagram.facade.comment;
 
 import com.myinstagram.domain.dto.CommentDto;
 import com.myinstagram.domain.dto.CommentRequest;
+import com.myinstagram.domain.dto.UpdateCommentRequest;
+import com.myinstagram.domain.entity.Comment;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.exceptions.custom.comment.CommentNotFoundException;
@@ -53,6 +55,13 @@ public class CommentFacade {
         User user = userServiceDb.getUserByLogin(commentRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException(commentRequest.getLogin()));
         return commentFacadeUtils.createCommentIfUserIsAuthorized(commentRequest, post, user);
+    }
+
+    public ResponseEntity<CommentDto> updateComment(final UpdateCommentRequest updateCommentRequest) {
+        log.info("Try to update comment!");
+        Comment comment = commentServiceDb.getCommentById(updateCommentRequest.getCommentId())
+                .orElseThrow(() -> new CommentNotFoundException(updateCommentRequest.getCommentId()));
+        return commentFacadeUtils.updateCommentIfExists(comment, updateCommentRequest);
     }
 
     public ResponseEntity<String> deleteCommentById(final Long id) {

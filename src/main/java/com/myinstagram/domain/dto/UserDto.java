@@ -3,7 +3,7 @@ package com.myinstagram.domain.dto;
 import com.myinstagram.domain.enums.UserStatus;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Builder(toBuilder = true)
 @EqualsAndHashCode
@@ -17,7 +17,8 @@ public final class UserDto {
     private final String password;
     private final String email;
     private final String description;
-    private final LocalDate createDate;
+    private final Instant createDate;
+    private final Instant updateDate;
     private final UserStatus userStatus;
     private final boolean enabled;
 }

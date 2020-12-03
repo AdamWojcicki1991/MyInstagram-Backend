@@ -1,8 +1,6 @@
 package com.myinstagram.facade.post;
 
-import com.myinstagram.domain.dto.PostDto;
-import com.myinstagram.domain.dto.PostRequest;
-import com.myinstagram.domain.dto.SimplePostRequest;
+import com.myinstagram.domain.dto.*;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.exceptions.custom.post.PostNotFoundByLoginException;
@@ -54,6 +52,12 @@ class PostFacadeUtils {
         } else {
             throw new UserValidationException(postRequest.getLogin(), AUTHORIZED);
         }
+    }
+
+    public ResponseEntity<PostDto> updatePostIfExist(final Post post, final UpdatePostRequest updatePostRequest) {
+        PostDto postDto = postMapper.mapToPostDto(postService.updatePost(post, updatePostRequest));
+        log.info("Post updated successfully!");
+        return new ResponseEntity<>(postDto, OK);
     }
 
     ResponseEntity<PostDto> likePostIfUserIsValidated(final SimplePostRequest simplePostRequest, final Post post, final User user) {
