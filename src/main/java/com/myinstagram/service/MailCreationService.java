@@ -3,6 +3,7 @@ package com.myinstagram.service;
 import com.myinstagram.config.MyInstagramConfig;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -42,6 +43,14 @@ public class MailCreationService {
         context.setVariable("user", user);
         context.setVariable("instagram_config", myInstagramConfig);
         return templateEngine.process("updateUserProfileEmailTemplate", context);
+    }
+
+    public String createWeatherEmail(final User user, final OpenWeatherResponseDto openWeatherResponseDto) {
+        Context context = new Context();
+        context.setVariable("user", user);
+        context.setVariable("weather", openWeatherResponseDto);
+        context.setVariable("instagram_config", myInstagramConfig);
+        return templateEngine.process("whetherEmailTemplate", context);
     }
 
     public MimeMessagePreparator createMimeMessage(final Mail mail) {

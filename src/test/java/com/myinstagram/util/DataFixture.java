@@ -25,6 +25,7 @@ public final class DataFixture {
                 .login(login)
                 .password("Password")
                 .email(mail)
+                .city("Poznan")
                 .description("Description")
                 .createDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
                 .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))

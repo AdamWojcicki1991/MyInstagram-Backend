@@ -6,11 +6,13 @@ import com.myinstagram.domain.auth.RefreshTokenRequest;
 import com.myinstagram.domain.auth.RegisterRequest;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
+import com.myinstagram.exceptions.custom.register.RegisterRequestException;
 import com.myinstagram.exceptions.custom.security.VerificationTokenNotFoundException;
 import com.myinstagram.exceptions.custom.user.UserRegistrationException;
 import com.myinstagram.mailboxlayer.validator.EmailValidator;
 import com.myinstagram.security.jwt.JwtProvider;
 import com.myinstagram.service.*;
+import com.myinstagram.validator.ValidateRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,19 +38,21 @@ public class AuthenticationService {
     private final RefreshTokenService refreshTokenService;
     private final MailCreationService mailCreationService;
     private final AuthenticationManager authenticationManager;
+    private final ValidateRegisterRequest validateRegisterRequest;
     private final VerificationTokenServiceDb verificationTokenServiceDb;
     private final AuthenticationServiceUtils authenticationServiceUtils;
 
     public void register(final RegisterRequest registerRequest) {
+        boolean isRegisterRequestValid = validateRegisterRequest.isRegisterRequestValid(registerRequest);
         List<User> users = userServiceDb.getAllUsersByLoginContaining(registerRequest.getLogin());
-        if (users.isEmpty() && (emailValidator.validateUserEmail(registerRequest.getEmail()))) {
+        if (isRegisterRequestValid && users.isEmpty() && (emailValidator.validateUserEmail(registerRequest.getEmail()))) {
             User user = authenticationServiceUtils.assignUserWithRole(registerRequest, NO_ROLE);
             String token = authenticationServiceUtils.generateVerificationToken(user);
             imageService.loadDefaultUserImage(user);
             mailSenderService.sendPersonalizedEmail(user.getEmail(), NEW_USER_EMAIL,
                                                     mailCreationService.createNewUserEmail(user, token));
         } else {
-            throw new UserRegistrationException(registerRequest.getLogin(), registerRequest.getEmail());
+            throwCustomExceptions(registerRequest, isRegisterRequestValid);
         }
     }
 
@@ -77,5 +81,13 @@ public class AuthenticationService {
                 token,
                 refreshTokenRequest.getRefreshToken(),
                 refreshTokenRequest.getLogin());
+    }
+
+    private void throwCustomExceptions(final RegisterRequest registerRequest, final boolean isRegisterRequestValid) {
+        if (!isRegisterRequestValid) {
+            throw new RegisterRequestException(registerRequest);
+        } else {
+            throw new UserRegistrationException(registerRequest.getLogin(), registerRequest.getEmail());
+        }
     }
 }

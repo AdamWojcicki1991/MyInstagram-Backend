@@ -17,6 +17,7 @@ public final class Constants {
     public static final String ENCRYPT_PASSWORD_MATCHES = "Try to validate that encrypted passwords is matching!";
     public static final String NEW_USER_EMAIL = "MyInstagram - New User Created";
     public static final String UPDATE_USER_EMAIL = "MyInstagram - Update User Profile";
+    public static final String WEATHER_EMAIL = "MyInstagram - Whether email";
     public static final String UPDATE_USER_PASSWORD_EMAIL = "MyInstagram - Update User Password";
     public static final String RESET_USER_PASSWORD_EMAIL = "MyInstagram - Reset User Password";
 

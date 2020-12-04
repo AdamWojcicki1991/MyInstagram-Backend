@@ -2,6 +2,8 @@ package com.myinstagram.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.PathSelectors;
@@ -18,7 +20,9 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
+@EnableAsync
 @EnableSwagger2
+@EnableScheduling
 @Configuration
 public class CoreConfiguration {
 

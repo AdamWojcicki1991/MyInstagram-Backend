@@ -83,6 +83,7 @@ class AuthenticationServiceUtils {
                                               .login(registerRequest.getLogin())
                                               .password(passwordProcessorService.encryptPassword(registerRequest.getPassword()))
                                               .email(registerRequest.getEmail())
+                                              .city(registerRequest.getCity())
                                               .description("")
                                               .createDate(Instant.now())
                                               .userStatus(ACTIVE)

@@ -49,6 +49,10 @@ public final class User {
     @Column(name = "EMAIL", unique = true)
     private String email;
 
+    @NotBlank(message = "City is required !")
+    @Column(name = "CITY")
+    private String city;
+
     @Nullable
     @Lob
     @Column(name = "DESCRIPTION")
