@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public final class EmailValidator {
+public class EmailValidator {
     private final MailBoxLayerService mailBoxLayerService;
 
     public boolean validateUserEmail(final String email) {

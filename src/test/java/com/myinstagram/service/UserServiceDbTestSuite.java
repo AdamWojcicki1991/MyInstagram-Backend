@@ -37,6 +37,22 @@ public class UserServiceDbTestSuite {
     }
 
     @Test
+    public void shouldGetAllUsersByEmailNoneMatch() {
+        //WHEN
+        boolean allUsersByEmailNoneMatch = userServiceDb.getAllUsersByEmailNoneMatch("test@gmail.com");
+        //THEN
+        assertTrue(allUsersByEmailNoneMatch);
+    }
+
+    @Test
+    public void shouldNotGetAllUsersByEmailNoneMatch() {
+        //WHEN
+        boolean allUsersByEmailNoneMatch = userServiceDb.getAllUsersByEmailNoneMatch("email1@gmail.com");
+        //THEN
+        assertFalse(allUsersByEmailNoneMatch);
+    }
+
+    @Test
     public void shouldGetAllUsersByLoginContaining() {
         //WHEN
         List<User> users = userServiceDb.getAllUsersByLoginContaining("login");

@@ -27,8 +27,8 @@ public class RefreshTokenService {
                                                               .build());
     }
 
-    public void validateRefreshToken(final String token) {
-        refreshTokenServiceDb.getRefreshToken(token)
+    public RefreshToken validateRefreshToken(final String token) {
+        return refreshTokenServiceDb.getRefreshToken(token)
                 .orElseThrow(() -> new InvalidRefreshTokenException(token));
     }
 

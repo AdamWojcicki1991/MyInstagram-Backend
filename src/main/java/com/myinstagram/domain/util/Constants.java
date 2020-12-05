@@ -9,7 +9,7 @@ public final class Constants {
     public static final String CREATE_POST_IMAGE_ERROR = "Error occurred. Photo not saved!";
     public static final String CREATE_POST_IMAGE_SUCCESS = "Photo saved successfully!";
     public static final String PICTURE_SAVED_TO_SERVER = "User picture saved in server!";
-    public static final String PICTURE_SAVED = "User picture Saved!";
+    public static final String PICTURE_SAVED_ERROR = "User picture Saved error!";
     public static final String DEFAULT_PICTURE_SAVED = "User default picture Saved!";
     public static final String DEFAULT_PICTURE_SET_ERROR = "User default picture is not set!";
     public static final String CREATE_UUID_SUCCESS = "UUID was successfully generated!";

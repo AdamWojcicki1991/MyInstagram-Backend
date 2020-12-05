@@ -20,12 +20,12 @@ public class RoleServiceDb {
         return roleDbRepository.findAll();
     }
 
-    public Optional<Role> getRoleById(final Long id) {
-        return roleDbRepository.findById(id);
-    }
-
     public List<Role> getRolesByRoleType(final RoleType roleType) {
         return roleDbRepository.findAllByRoleType(roleType);
+    }
+
+    public Optional<Role> getRoleById(final Long id) {
+        return roleDbRepository.findById(id);
     }
 
     public List<Role> getUserValidRoles(final User user) {

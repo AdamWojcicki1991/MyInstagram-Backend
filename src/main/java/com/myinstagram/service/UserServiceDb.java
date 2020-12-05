@@ -17,6 +17,11 @@ public class UserServiceDb {
         return userDbRepository.findAll();
     }
 
+    public boolean getAllUsersByEmailNoneMatch(final String email) {
+        return userDbRepository.findAll().stream()
+                .noneMatch(userInDb -> userInDb.getEmail().contains(email));
+    }
+
     public List<User> getAllUsersByLoginContaining(final String login) {
         return userDbRepository.findAllByLoginContaining(login);
     }

@@ -1,6 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.dto.PostRequest;
+import com.myinstagram.domain.dto.UpdatePostRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.DataFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
@@ -26,11 +27,7 @@ public class PostServiceTestSuite {
     public void shouldCreatePost() {
         //GIVEN
         User user = userServiceDb.saveUser(createUser("login", "email@gmail.com"));
-        PostRequest postRequest = PostRequest.builder()
-                .postName("Test Post")
-                .caption("Test caption")
-                .url("Test url")
-                .build();
+        PostRequest postRequest = createPostRequest("Test Post", "Test caption");
         //WHEN
         Post post = postService.createPost(user, postRequest);
         //THEN
@@ -39,5 +36,18 @@ public class PostServiceTestSuite {
         assertEquals("Test url", post.getUrl());
         assertEquals(user, post.getUser());
         assertEquals(1, postServiceDb.getAllPosts().size());
+    }
+
+    @Test
+    public void shouldUpdatePost() {
+        //GIVEN
+        User user = userServiceDb.saveUser(createUser("login", "email@gmail.com"));
+        PostRequest postRequest = createPostRequest("Post", "Caption");
+        UpdatePostRequest updatePostRequest = createUpdatePostRequest();
+        Post post = postService.createPost(user, postRequest);
+        //WHEN
+        Post updatePost = postService.updatePost(post, updatePostRequest);
+        //THEN
+        assertEquals(post, updatePost);
     }
 }

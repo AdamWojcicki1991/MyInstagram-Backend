@@ -2,16 +2,17 @@ package com.myinstagram.service;
 
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.DataFixture.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class MailCreatorTestSuite {
+public class MailCreationServiceTestSuite {
     @Autowired
     private MailCreationService mailCreationService;
 
@@ -49,13 +50,21 @@ public class MailCreatorTestSuite {
     }
 
     @Test
+    public void shouldCreateWeatherEmail() {
+        //GIVEN
+        User user = createUser("login", "email@gmail.com");
+        OpenWeatherResponseDto openWeatherResponseDto = createOpenWeatherResponseDto();
+        //WHEN
+        String weatherEmailTemplate = mailCreationService.createWeatherEmail(user, openWeatherResponseDto);
+        //THEN
+        assertNotNull(weatherEmailTemplate);
+        assertTrue(weatherEmailTemplate.contains("MyInstagram - Weather Email"));
+    }
+
+    @Test
     public void shouldCreateMimeMessage() {
         //GIVEN
-        Mail mail = new Mail.MailBuilder()
-                .mailTo("email@gmail.com")
-                .subject("Test Subject")
-                .text("Text Template")
-                .build();
+        Mail mail = createMail();
         //WHEN
         MimeMessagePreparator mimeMessage = mailCreationService.createMimeMessage(mail);
         //THEN
@@ -65,11 +74,7 @@ public class MailCreatorTestSuite {
     @Test
     public void shouldCreateMail() {
         //GIVEN
-        Mail mail = new Mail.MailBuilder()
-                .mailTo("email@gmail.com")
-                .subject("Test Subject")
-                .text("Text Template")
-                .build();
+        Mail mail = createMail();
         //WHEN
         Mail createdMail = mailCreationService.createMail(mail.getMailTo(), mail.getSubject(), mail.getText());
         //THEN

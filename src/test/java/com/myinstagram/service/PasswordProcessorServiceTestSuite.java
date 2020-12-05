@@ -17,20 +17,31 @@ public class PasswordProcessorServiceTestSuite {
 
     @Test
     public void shouldGenerateUuid() {
-        // WHEN
+        //WHEN
         String randomPassword = passwordProcessorService.generateUuid();
-        // THEN
+        //THEN
         assertNotNull(randomPassword);
         assertTrue(randomPassword.matches("[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"));
     }
 
     @Test
     public void shouldEncryptPassword() {
-        // GIVEN
+        //GIVEN
         String randomPassword = passwordProcessorService.generateUuid();
-        // WHEN
+        //WHEN
         String encryptedPassword = passwordProcessorService.encryptPassword(randomPassword);
-        // THEN
+        //THEN
         assertTrue(bCryptPasswordEncoder.matches(randomPassword, encryptedPassword));
+    }
+
+    @Test
+    public void shouldCheckThatIsEncryptedPasswordMatching() {
+        //GIVEN
+        String randomPassword = passwordProcessorService.generateUuid();
+        String encryptedPassword = passwordProcessorService.encryptPassword(randomPassword);
+        //WHEN
+        boolean result = passwordProcessorService.isEncryptedPasswordMatching(randomPassword, encryptedPassword);
+        //THEN
+        assertTrue(result);
     }
 }

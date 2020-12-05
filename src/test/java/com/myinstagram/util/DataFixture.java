@@ -1,10 +1,12 @@
 package com.myinstagram.util;
 
-import com.myinstagram.domain.entity.Comment;
-import com.myinstagram.domain.entity.Post;
-import com.myinstagram.domain.entity.Role;
-import com.myinstagram.domain.entity.User;
+import com.myinstagram.domain.auth.RegisterRequest;
+import com.myinstagram.domain.dto.*;
+import com.myinstagram.domain.entity.*;
 import com.myinstagram.domain.enums.RoleType;
+import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
+import org.springframework.mail.SimpleMailMessage;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -64,6 +66,127 @@ public final class DataFixture {
         return Role.builder()
                 .roleType(roleType)
                 .users(new HashSet<>(Set.of(users)))
+                .build();
+    }
+
+    public static RefreshToken createRefreshToken(final String token) {
+        return RefreshToken.builder()
+                .token(token)
+                .createdDate(Instant.now())
+                .build();
+    }
+
+    public static VerificationToken createVerificationToken(final User user, final String token) {
+        return VerificationToken.builder()
+                .token(token)
+                .user(user)
+                .expirationDate(Instant.now())
+                .build();
+    }
+
+    public static User updateUser(final User user, final UserRequest userRequest) {
+        return user.toBuilder()
+                .userName(userRequest.getUserName())
+                .email(userRequest.getEmail())
+                .description(userRequest.getDescription())
+                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
+    }
+
+    public static Mail createMail() {
+        return new Mail.MailBuilder()
+                .mailTo("email@gmail.com")
+                .subject("Test Subject")
+                .text("Test text")
+                .build();
+    }
+
+    public static SimpleMailMessage getSimpleMailMessage(final Mail mail) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getText());
+        return mailMessage;
+    }
+
+    public static OpenWeatherResponseDto createOpenWeatherResponseDto() {
+        return OpenWeatherResponseDto.builder()
+                .city("Paris")
+                .temperature(16)
+                .feltTemperature(12.2)
+                .pressure(1000)
+                .humidity(12)
+                .mainWeather("Test Weather")
+                .weatherDescription("Test Description")
+                .build();
+    }
+
+    public static CommentRequest createCommentRequest() {
+        return CommentRequest.builder()
+                .login("Test Comment")
+                .content("Test Content")
+                .build();
+    }
+
+    public static UpdateCommentRequest createUpdateCommentRequest(final Comment comment) {
+        return UpdateCommentRequest.builder()
+                .commentId(comment.getId())
+                .commentName("Test Comment")
+                .content("Test Content")
+                .build();
+    }
+
+    public static PostRequest createPostRequest(final String postName, final String caption) {
+        return PostRequest.builder()
+                .postName(postName)
+                .caption(caption)
+                .url("Test url")
+                .build();
+    }
+
+    public static UpdatePostRequest createUpdatePostRequest() {
+        return UpdatePostRequest.builder()
+                .postName("Test Post")
+                .caption("Test caption")
+                .build();
+    }
+
+    public static UserRequest createUserRequest(final User user) {
+        return UserRequest.builder()
+                .userId(user.getId())
+                .userName("Test User")
+                .email("test@gmail.com")
+                .description("Test Description")
+                .build();
+    }
+
+    public static User updateUserPassword(final User user, final String encryptedPassword) {
+        return user.toBuilder().password(encryptedPassword).build();
+    }
+
+    public static PasswordRequest createPasswordRequest(final String currentPassword, final String confirmPassword, final String newPassword) {
+        return PasswordRequest.builder()
+                .currentPassword(currentPassword)
+                .confirmPassword(confirmPassword)
+                .newPassword(newPassword)
+                .build();
+    }
+
+    public static RegisterRequest createRegisterRequest(final String name, final String login,
+                                                        final String city, final String email, final String password) {
+        return RegisterRequest.builder()
+                .name(name)
+                .login(login)
+                .city(city)
+                .email(email)
+                .password(password)
+                .build();
+    }
+
+    public static RoleRequest createRoleRequest(final RoleType roleType) {
+        return RoleRequest.builder()
+                .login("login")
+                .roleType(roleType)
                 .build();
     }
 }

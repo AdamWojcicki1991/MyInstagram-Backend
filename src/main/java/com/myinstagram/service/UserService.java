@@ -26,23 +26,20 @@ public class UserService {
     private final PasswordProcessorService passwordProcessorService;
 
     public User updateUserProfile(final User user, final UserRequest userRequest) {
-        User updatedUser = userServiceDb.saveUser(user.toBuilder()
-                                                          .userName(userRequest.getUserName())
-                                                          .email(userRequest.getEmail())
-                                                          .description(userRequest.getDescription())
-                                                          .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
-                                                          .build());
-        mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_EMAIL,
-                                                mailCreationService.createUpdateUserProfileEmail(updatedUser));
+        User updatedUser = userServiceDb.saveUser(updateUser(user, userRequest));
+        sendPersonalizedEmailToUser(updatedUser,
+                                    UPDATE_USER_EMAIL,
+                                    mailCreationService.createUpdateUserProfileEmail(updatedUser));
         return updatedUser;
     }
 
     public User updateUserPassword(final User user, final String newPassword) {
         if (emailValidator.validateUserEmail(user.getEmail())) {
             String encryptedPassword = passwordProcessorService.encryptPassword(newPassword);
-            User userWithUpdatePassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
-            mailSenderService.sendPersonalizedEmail(user.getEmail(), UPDATE_USER_PASSWORD_EMAIL,
-                                                    mailCreationService.createResetPasswordEmail(user, newPassword));
+            User userWithUpdatePassword = userServiceDb.saveUser(updatePassword(user, encryptedPassword));
+            sendPersonalizedEmailToUser(user,
+                                        UPDATE_USER_PASSWORD_EMAIL,
+                                        mailCreationService.createResetPasswordEmail(user, newPassword));
             return userWithUpdatePassword;
         } else {
             throw new MailBoxLayerApiException(user.getEmail());
@@ -53,12 +50,32 @@ public class UserService {
         if (emailValidator.validateUserEmail(user.getEmail())) {
             String password = passwordProcessorService.generateUuid();
             String encryptedPassword = passwordProcessorService.encryptPassword(password);
-            User userWithResetPassword = userServiceDb.saveUser(user.toBuilder().password(encryptedPassword).build());
-            mailSenderService.sendPersonalizedEmail(user.getEmail(), RESET_USER_PASSWORD_EMAIL,
-                                                    mailCreationService.createResetPasswordEmail(user, password));
+            User userWithResetPassword = userServiceDb.saveUser(updatePassword(user, encryptedPassword));
+            sendPersonalizedEmailToUser(user,
+                                        RESET_USER_PASSWORD_EMAIL,
+                                        mailCreationService.createResetPasswordEmail(user, password));
             return userWithResetPassword;
         } else {
             throw new MailBoxLayerApiException(user.getEmail());
         }
+    }
+
+    private User updateUser(final User user, final UserRequest userRequest) {
+        return user.toBuilder()
+                .userName(userRequest.getUserName())
+                .email(userRequest.getEmail())
+                .description(userRequest.getDescription())
+                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
+    }
+
+    private void sendPersonalizedEmailToUser(final User user, final String updateUserEmail, final String updateUserProfileEmail) {
+        mailSenderService.sendPersonalizedEmail(user.getEmail(),
+                                                updateUserEmail,
+                                                updateUserProfileEmail);
+    }
+
+    private User updatePassword(final User user, final String encryptedPassword) {
+        return user.toBuilder().password(encryptedPassword).build();
     }
 }

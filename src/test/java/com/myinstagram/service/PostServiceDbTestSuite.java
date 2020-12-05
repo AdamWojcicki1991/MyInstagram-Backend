@@ -73,32 +73,32 @@ public class PostServiceDbTestSuite {
 
     @Test
     public void shouldGetPostById() {
-        // GIVEN
+        //GIVEN
         Post post = postServiceDb.getAllPosts().get(0);
-        // WHEN
+        //WHEN
         Post savePost = postServiceDb.getPostById(post.getId()).get();
-        // THEN
+        //THEN
         assertEquals(post, savePost);
     }
 
     @Test
     public void shouldSavePost() {
-        // GIVEN
+        //GIVEN
         Post post = createPost(userServiceDb.getAllUsers().get(0), Instant.now());
-        // WHEN
+        //WHEN
         Post savePost = postServiceDb.savePost(post);
-        // THEN
+        //THEN
         assertEquals(5, postServiceDb.getAllPosts().size());
         assertNotEquals(0, savePost.getId());
     }
 
     @Test
     public void shouldDeletePostById() {
-        // GIVEN
+        //GIVEN
         Long postId = postServiceDb.getAllPosts().get(0).getId();
-        // WHEN
+        //WHEN
         postServiceDb.deletePostById(postId);
-        // THEN
+        //THEN
         assertEquals(3, postServiceDb.getAllPosts().size());
         assertEquals(Optional.empty(), postServiceDb.getPostById(postId));
     }

@@ -39,29 +39,29 @@ public class CommentServiceDbTestSuite {
 
     @Test
     public void shouldGetAllComments() {
-        // WHEN
+        //WHEN
         List<Comment> comments = commentServiceDb.getAllComments();
-        // THEN
+        //THEN
         assertEquals(1, comments.size());
     }
 
     @Test
     public void shouldGetCommentById() {
-        // GIVEN
+        //GIVEN
         Comment comment = commentServiceDb.getAllComments().get(0);
-        // WHEN
+        //WHEN
         Comment saveComment = commentServiceDb.getCommentById(comment.getId()).get();
-        // THEN
+        //THEN
         assertEquals(comment, saveComment);
     }
 
     @Test
     public void shouldSaveComment() {
-        // GIVEN
+        //GIVEN
         Comment comment = createComment(postServiceDb.getAllPosts().get(0));
-        // WHEN
+        //WHEN
         Comment saveComment = commentServiceDb.saveComment(comment);
-        // THEN
+        //THEN
         assertEquals(2, commentServiceDb.getAllComments().size());
         assertNotEquals(0, saveComment.getId());
     }

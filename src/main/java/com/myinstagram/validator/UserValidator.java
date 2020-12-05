@@ -75,8 +75,7 @@ public final class UserValidator {
 
     private boolean isNoneEmailMatch(final UserRequest userRequest) {
         log.info("Validate that email address is not already occupied!");
-        return userServiceDb.getAllUsers().stream()
-                .noneMatch(userInDb -> userInDb.getEmail().contains(userRequest.getEmail()));
+        return userServiceDb.getAllUsersByEmailNoneMatch(userRequest.getEmail());
     }
 
     private boolean validateUserEmail(final UserRequest userRequest) {

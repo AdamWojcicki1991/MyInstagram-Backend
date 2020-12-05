@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RoleServiceDbTestSuite {
     @Autowired
     private RoleServiceDb roleServiceDb;
-
     @Autowired
     private UserServiceDb userServiceDb;
 
@@ -68,6 +67,19 @@ public class RoleServiceDbTestSuite {
         Role saveRole = roleServiceDb.getRoleById(role.getId()).get();
         //THEN
         assertEquals(role, saveRole);
+    }
+
+    @Test
+    public void shouldGetUserValidRoles() {
+        //GIVEN
+        User anotherUser = userServiceDb.getUserByLogin("login_2").get();
+        //WHEN
+        List<Role> roles = roleServiceDb.getUserValidRoles(anotherUser);
+        //THEN
+        roles.forEach(role -> {
+            anotherUser.getRoles().forEach(
+                    userRole -> assertEquals(userRole.getRoleType(), role.getRoleType()));
+        });
     }
 
     @Test

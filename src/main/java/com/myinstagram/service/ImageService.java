@@ -28,8 +28,8 @@ public class ImageService {
             Path path = Paths.get(USER_FOLDER + userImageId + ".png");
             Files.write(path, multipartFile.getBytes());
         } catch (IOException e) {
-            log.error(PICTURE_SAVED + " " + e);
-            return PICTURE_SAVED;
+            log.error(PICTURE_SAVED_ERROR + " " + e);
+            return PICTURE_SAVED_ERROR;
         }
         log.info(PICTURE_SAVED_TO_SERVER);
         return PICTURE_SAVED_TO_SERVER;
