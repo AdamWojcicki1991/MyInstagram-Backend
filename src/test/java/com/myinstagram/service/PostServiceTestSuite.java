@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.EntityDataFixture.createUser;
+import static com.myinstagram.util.RequestDataFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional

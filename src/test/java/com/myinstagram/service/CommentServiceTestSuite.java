@@ -11,7 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 import java.time.Instant;
 
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.EntityDataFixture.*;
+import static com.myinstagram.util.RequestDataFixture.*;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

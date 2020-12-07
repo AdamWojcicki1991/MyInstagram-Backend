@@ -20,7 +20,9 @@ import java.time.Instant;
 
 import static com.myinstagram.domain.enums.RoleType.NO_ROLE;
 import static com.myinstagram.domain.util.Constants.VALID_UUID;
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.EntityDataFixture.createUser;
+import static com.myinstagram.util.EntityDataFixture.createVerificationToken;
+import static com.myinstagram.util.RequestDataFixture.createRegisterRequest;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.*;
 

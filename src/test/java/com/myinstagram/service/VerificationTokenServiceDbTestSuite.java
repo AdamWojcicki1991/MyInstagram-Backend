@@ -10,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static com.myinstagram.util.DataFixture.createUser;
-import static com.myinstagram.util.DataFixture.createVerificationToken;
+import static com.myinstagram.util.EntityDataFixture.createUser;
+import static com.myinstagram.util.EntityDataFixture.createVerificationToken;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

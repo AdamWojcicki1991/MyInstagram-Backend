@@ -10,10 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.transaction.Transactional;
-
 import static com.myinstagram.domain.util.Constants.*;
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.EntityDataFixture.createUser;
+import static com.myinstagram.util.RequestDataFixture.createUserRequest;
+import static com.myinstagram.util.UserSupportDataFixture.updateUser;
+import static com.myinstagram.util.UserSupportDataFixture.updateUserPassword;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,7 +24,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@Transactional
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTestSuite {
     @InjectMocks

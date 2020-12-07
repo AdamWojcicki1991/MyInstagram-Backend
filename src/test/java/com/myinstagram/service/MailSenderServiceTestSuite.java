@@ -10,8 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static com.myinstagram.util.DataFixture.createMail;
-import static com.myinstagram.util.DataFixture.getSimpleMailMessage;
+import static com.myinstagram.util.DomainDataFixture.createMail;
+import static com.myinstagram.util.DomainDataFixture.getSimpleMailMessage;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;

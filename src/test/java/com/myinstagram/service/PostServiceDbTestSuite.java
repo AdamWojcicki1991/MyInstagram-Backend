@@ -13,8 +13,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import static com.myinstagram.util.DataFixture.createPost;
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.EntityDataFixture.createPost;
+import static com.myinstagram.util.EntityDataFixture.createUser;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.*;

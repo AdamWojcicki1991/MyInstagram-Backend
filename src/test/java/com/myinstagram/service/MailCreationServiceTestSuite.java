@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.DomainDataFixture.createMail;
+import static com.myinstagram.util.DomainDataFixture.createOpenWeatherResponseDto;
+import static com.myinstagram.util.EntityDataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

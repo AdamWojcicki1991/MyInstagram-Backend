@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.EntityDataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional

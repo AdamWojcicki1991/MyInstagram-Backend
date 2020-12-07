@@ -29,7 +29,9 @@ import java.util.Optional;
 
 import static com.myinstagram.domain.enums.RoleType.NO_ROLE;
 import static com.myinstagram.domain.util.Constants.DEFAULT_PICTURE_SAVED;
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.DomainDataFixture.createAuthenticationResponse;
+import static com.myinstagram.util.EntityDataFixture.*;
+import static com.myinstagram.util.RequestDataFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;

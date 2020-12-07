@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static com.myinstagram.domain.util.Constants.*;
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.EntityDataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;

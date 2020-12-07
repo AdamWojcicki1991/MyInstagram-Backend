@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.transaction.Transactional;
 
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.EntityDataFixture.createUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

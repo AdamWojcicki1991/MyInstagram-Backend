@@ -17,7 +17,8 @@ import java.util.List;
 
 import static com.myinstagram.domain.enums.RoleType.*;
 import static com.myinstagram.domain.enums.UserStatus.BANNED;
-import static com.myinstagram.util.DataFixture.*;
+import static com.myinstagram.util.EntityDataFixture.*;
+import static com.myinstagram.util.RequestDataFixture.*;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

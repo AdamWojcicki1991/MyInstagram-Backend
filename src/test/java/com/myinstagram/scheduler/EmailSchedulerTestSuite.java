@@ -16,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static com.myinstagram.util.DataFixture.createOpenWeatherResponseDto;
-import static com.myinstagram.util.DataFixture.createUser;
+import static com.myinstagram.util.DomainDataFixture.createOpenWeatherResponseDto;
+import static com.myinstagram.util.EntityDataFixture.createUser;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
