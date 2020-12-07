@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public final class MailBoxLayerConfig {
+public class MailBoxLayerConfig {
     @Value("${mailboxlayer.api.endpoint.prod}")
     private String mailBoxLayerApiEndpoint;
     @Value("${mailboxlayer.api.key}")

@@ -31,7 +31,7 @@ public class EmailScheduler {
                     WEATHER_EMAIL,
                     mailCreationService.createWeatherEmail(
                             user,
-                            openWeatherFacade.getWeatherResponse(user.getCity())));
+                            openWeatherFacade.getWeatherResponse(user.getCity()).getBody()));
         });
     }
 }

@@ -19,7 +19,7 @@ public class MailBoxLayerService {
         log.info("Validation response from MailBoxLayer API sent for email: " + email);
         try {
             return mailBoxLayerClient.getValidatedEmailFromUrl(email).get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException | MailBoxLayerApiException e) {
             throw new MailBoxLayerApiException(email);
         }
     }

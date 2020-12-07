@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.http.HttpStatus.OK;
 
 @ExtendWith(MockitoExtension.class)
 public class EmailSchedulerTestSuite {
@@ -41,10 +43,11 @@ public class EmailSchedulerTestSuite {
         //GIVEN
         User user = createUser("login", "test@gmail.com");
         OpenWeatherResponseDto openWeatherResponseDto = createOpenWeatherResponseDto();
+        ResponseEntity<OpenWeatherResponseDto> openWeatherResponseDtoResponseEntity = new ResponseEntity<>(openWeatherResponseDto, OK);
         given(userServiceDb.getAllUsers()).willReturn(List.of(user));
         verify(mailSenderService, times(0)).sendPersonalizedEmail(anyString(), anyString(), anyString());
         given(mailCreationService.createWeatherEmail(user, openWeatherResponseDto)).willReturn("text");
-        given(openWeatherFacade.getWeatherResponse(anyString())).willReturn(openWeatherResponseDto);
+        given(openWeatherFacade.getWeatherResponse(anyString())).willReturn(openWeatherResponseDtoResponseEntity);
         //WHEN
         emailScheduler.sendWeatherEmail();
         //THEN

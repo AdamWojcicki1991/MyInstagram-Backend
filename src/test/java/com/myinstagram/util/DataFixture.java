@@ -8,6 +8,7 @@ import com.myinstagram.domain.dto.*;
 import com.myinstagram.domain.entity.*;
 import com.myinstagram.domain.enums.RoleType;
 import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.mailboxlayer.dto.ValidateMailResponseDto;
 import com.myinstagram.openweather.dto.OpenWeatherMainDto;
 import com.myinstagram.openweather.dto.OpenWeatherResponse;
 import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
@@ -241,6 +242,17 @@ public final class DataFixture {
                 .city("Poznan")
                 .openWeatherWeatherDto(openWeatherWeathers)
                 .openWeatherMainDto(openWeatherMainDto)
+                .build();
+    }
+
+    public static ValidateMailResponseDto createValidateResponseDto(final boolean emailFormatValid,
+                                                                    final boolean mxRecordsFound,
+                                                                    final boolean smtpValid) {
+        return ValidateMailResponseDto.builder()
+                .validatedEmail("test@gmail.com")
+                .emailFormatValid(emailFormatValid)
+                .mxRecordsFound(mxRecordsFound)
+                .smtpValid(smtpValid)
                 .build();
     }
 }

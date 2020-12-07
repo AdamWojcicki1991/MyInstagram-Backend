@@ -5,7 +5,10 @@ import com.myinstagram.openweather.mapper.OpenWeatherResponseMapper;
 import com.myinstagram.openweather.service.OpenWeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -14,9 +17,10 @@ public class OpenWeatherFacade {
     private final OpenWeatherService openWeatherService;
     private final OpenWeatherResponseMapper openWeatherResponseMapper;
 
-    public OpenWeatherResponseDto getWeatherResponse(final String city) {
+    public ResponseEntity<OpenWeatherResponseDto> getWeatherResponse(final String city) {
         log.info("Weather response correctly retrieved for city: " + city);
-        return openWeatherResponseMapper.mapToOpenWeatherResponseDto(
+        OpenWeatherResponseDto openWeatherResponseDto = openWeatherResponseMapper.mapToOpenWeatherResponseDto(
                 openWeatherService.getWeatherForCityResponseFromClient(city));
+        return new ResponseEntity<>(openWeatherResponseDto, OK);
     }
 }
