@@ -57,7 +57,7 @@ class AuthenticationServiceUtils {
         return token;
     }
 
-    void fetchUserAndEnable(final VerificationToken verificationToken) {
+    boolean fetchUserAndEnable(final VerificationToken verificationToken) {
         String login = verificationToken.getUser().getLogin();
         User user = userServiceDb.getUserByLogin(login).orElseThrow(() ->
                                                                             new UserNotFoundException(login));
@@ -69,6 +69,7 @@ class AuthenticationServiceUtils {
         } else {
             throw new UserEnabledException(user.getLogin());
         }
+        return true;
     }
 
     User assignUserWithRole(final RegisterRequest registerRequest, final RoleType roleType) {

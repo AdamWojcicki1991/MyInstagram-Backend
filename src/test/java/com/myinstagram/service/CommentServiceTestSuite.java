@@ -10,9 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import static com.myinstagram.util.DataFixture.*;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
@@ -36,11 +36,11 @@ public class CommentServiceTestSuite {
         CommentRequest commentRequest = createCommentRequest();
         //WHEN
         Comment createComment = commentService.createComment(post, commentRequest);
-        Instant expectedTime = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        Instant expectedTime = Instant.now().truncatedTo(SECONDS);
         //THEN
         assertEquals("Test Comment", createComment.getCommentName());
         assertEquals("Test Content", createComment.getContent());
-        assertEquals(expectedTime, createComment.getCommentDate().truncatedTo(ChronoUnit.SECONDS));
+        assertEquals(expectedTime, createComment.getCommentDate().truncatedTo(SECONDS));
         assertEquals(post, createComment.getPost());
         assertEquals(1, commentServiceDb.getAllComments().size());
     }

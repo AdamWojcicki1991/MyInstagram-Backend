@@ -10,12 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 import static com.myinstagram.util.DataFixture.createPost;
 import static com.myinstagram.util.DataFixture.createUser;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -31,18 +32,18 @@ public class PostServiceDbTestSuite {
         //GIVEN
         User user = userServiceDb.saveUser(createUser("login_1", "email1@gmail.com"));
         postServiceDb.savePost(createPost(
-                userServiceDb.saveUser(user), Instant.now().truncatedTo(ChronoUnit.SECONDS)));
+                userServiceDb.saveUser(user), Instant.now().truncatedTo(SECONDS)));
         postServiceDb.savePost(createPost(
                 userServiceDb.saveUser(user),
-                Instant.now().truncatedTo(ChronoUnit.SECONDS).plus(1, ChronoUnit.DAYS)));
+                Instant.now().truncatedTo(SECONDS).plus(1, DAYS)));
         postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
                         createUser("login_2", "email2@gmail.com")),
-                           Instant.now().truncatedTo(ChronoUnit.SECONDS).plus(2, ChronoUnit.DAYS)));
+                           Instant.now().truncatedTo(SECONDS).plus(2, DAYS)));
         postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
                         createUser("login_3", "email3@gmail.com")),
-                           Instant.now().truncatedTo(ChronoUnit.SECONDS).plus(3, ChronoUnit.DAYS)));
+                           Instant.now().truncatedTo(SECONDS).plus(3, DAYS)));
     }
 
     @Test

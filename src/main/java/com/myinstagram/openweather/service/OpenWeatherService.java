@@ -19,7 +19,7 @@ public class OpenWeatherService {
         log.info("Weather response from OpenWeather API sent for city: " + city);
         try {
             return openWeatherClient.getWeatherForCityFromUrl(city).get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException | OpenWeatherApiException e) {
             throw new OpenWeatherApiException(city);
         }
     }

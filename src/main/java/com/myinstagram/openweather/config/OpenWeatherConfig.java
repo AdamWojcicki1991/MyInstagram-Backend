@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public final class OpenWeatherConfig {
+public class OpenWeatherConfig {
     @Value("${openweather.api.endpoint.prod}")
     private String openWeatherApiEndpoint;
     @Value("${openweather.api.key}")

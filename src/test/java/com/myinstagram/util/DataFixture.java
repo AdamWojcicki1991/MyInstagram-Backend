@@ -1,11 +1,17 @@
 package com.myinstagram.util;
 
+import com.myinstagram.domain.auth.AuthenticationResponse;
+import com.myinstagram.domain.auth.LoginRequest;
+import com.myinstagram.domain.auth.RefreshTokenRequest;
 import com.myinstagram.domain.auth.RegisterRequest;
 import com.myinstagram.domain.dto.*;
 import com.myinstagram.domain.entity.*;
 import com.myinstagram.domain.enums.RoleType;
 import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.openweather.dto.OpenWeatherMainDto;
+import com.myinstagram.openweather.dto.OpenWeatherResponse;
 import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
+import com.myinstagram.openweather.dto.OpenWeatherWeatherDto;
 import org.springframework.mail.SimpleMailMessage;
 
 import java.time.Instant;
@@ -187,6 +193,54 @@ public final class DataFixture {
         return RoleRequest.builder()
                 .login("login")
                 .roleType(roleType)
+                .build();
+    }
+
+    public static LoginRequest createLoginRequest() {
+        return LoginRequest.builder()
+                .login("login")
+                .password("password")
+                .build();
+    }
+
+    public static AuthenticationResponse createAuthenticationResponse() {
+        return AuthenticationResponse.builder()
+                .login("login")
+                .authenticationToken("authenticationToken")
+                .expiresAt(Instant.now())
+                .refreshToken("refreshToken")
+                .build();
+    }
+
+    public static RefreshTokenRequest createRefreshTokenRequest() {
+        return RefreshTokenRequest.builder()
+                .login("login")
+                .refreshToken("refreshToken")
+                .build();
+    }
+
+    public static OpenWeatherMainDto createOpenWeatherMainDto() {
+        return OpenWeatherMainDto.builder()
+                .temperature(12.1)
+                .feltTemperature(12.3)
+                .humidity(60)
+                .pressure(999)
+                .build();
+    }
+
+    public static OpenWeatherWeatherDto createOpenWeatherWeatherDto() {
+        return OpenWeatherWeatherDto.builder()
+                .mainWeather("Cloud")
+                .weatherDescription("Cloudy weather")
+                .build();
+    }
+
+    public static OpenWeatherResponse createOpenWeatherResponse(final OpenWeatherMainDto openWeatherMainDto, final OpenWeatherWeatherDto openWeatherWeatherDto) {
+        OpenWeatherWeatherDto[] openWeatherWeathers = {openWeatherWeatherDto};
+        return OpenWeatherResponse.builder()
+                .city("Poznan")
+                .openWeatherWeatherDto(openWeatherWeathers)
+                .openWeatherMainDto(openWeatherMainDto)
                 .build();
     }
 }

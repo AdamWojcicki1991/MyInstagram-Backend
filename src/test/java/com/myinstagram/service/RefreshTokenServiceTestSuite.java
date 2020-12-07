@@ -9,9 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static com.myinstagram.domain.util.Constants.VALID_UUID;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -43,10 +44,9 @@ public class RefreshTokenServiceTestSuite {
         //THEN
         assertEquals(4, refreshTokenService.getRefreshTokens().size());
         assertNotNull(generateRefreshToken.getId());
-        assertTrue(generateRefreshToken.getToken().matches(
-                "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"));
-        assertEquals(generateRefreshToken.getCreatedDate().truncatedTo(ChronoUnit.SECONDS),
-                     Instant.now().truncatedTo(ChronoUnit.SECONDS));
+        assertTrue(generateRefreshToken.getToken().matches(VALID_UUID));
+        assertEquals(generateRefreshToken.getCreatedDate().truncatedTo(SECONDS),
+                     Instant.now().truncatedTo(SECONDS));
     }
 
     @Test

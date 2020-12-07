@@ -4,6 +4,7 @@ import java.io.File;
 
 public final class Constants {
     public static final File TEMP_USER = new File("src/main/resources/static/image/user/temp/profile.png");
+    public static final String VALID_UUID = "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
     public static final String USER_FOLDER = "src/main/resources/static/image/user//";
     public static final String POST_FOLDER = "src/main/resources/static/image/post//";
     public static final String CREATE_POST_IMAGE_ERROR = "Error occurred. Photo not saved!";

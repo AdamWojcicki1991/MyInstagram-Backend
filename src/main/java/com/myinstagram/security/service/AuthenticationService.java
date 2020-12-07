@@ -42,7 +42,7 @@ public class AuthenticationService {
     private final VerificationTokenServiceDb verificationTokenServiceDb;
     private final AuthenticationServiceUtils authenticationServiceUtils;
 
-    public void register(final RegisterRequest registerRequest) {
+    public boolean register(final RegisterRequest registerRequest) {
         boolean isRegisterRequestValid = validateRegisterRequest.isRegisterRequestValid(registerRequest);
         List<User> users = userServiceDb.getAllUsersByLoginContaining(registerRequest.getLogin());
         if (isRegisterRequestValid && users.isEmpty() && (emailValidator.validateUserEmail(registerRequest.getEmail()))) {
@@ -54,12 +54,13 @@ public class AuthenticationService {
         } else {
             throwCustomExceptions(registerRequest, isRegisterRequestValid);
         }
+        return true;
     }
 
-    public void verifyToken(final String token) {
+    public boolean verifyToken(final String token) {
         VerificationToken verificationToken = verificationTokenServiceDb.getVerificationTokenByToken(token)
                 .orElseThrow(() -> new VerificationTokenNotFoundException(token));
-        authenticationServiceUtils.fetchUserAndEnable(verificationToken);
+        return authenticationServiceUtils.fetchUserAndEnable(verificationToken);
     }
 
     public AuthenticationResponse login(final LoginRequest loginRequest) {

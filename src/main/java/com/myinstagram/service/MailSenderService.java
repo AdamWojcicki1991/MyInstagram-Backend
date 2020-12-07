@@ -22,7 +22,7 @@ public class MailSenderService {
         try {
             javaMailSender.send(mailCreationService.createMimeMessage(mail));
             log.info("Email has been sent.");
-        } catch (MailException e) {
+        } catch (MailException | MailSenderException e) {
             throw new MailSenderException();
         }
     }

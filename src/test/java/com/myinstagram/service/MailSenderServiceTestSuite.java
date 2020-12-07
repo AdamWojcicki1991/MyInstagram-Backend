@@ -1,6 +1,7 @@
 package com.myinstagram.service;
 
 import com.myinstagram.domain.mail.Mail;
+import com.myinstagram.exceptions.custom.mail.MailSenderException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,6 +12,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import static com.myinstagram.util.DataFixture.createMail;
 import static com.myinstagram.util.DataFixture.getSimpleMailMessage;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -32,6 +35,18 @@ public class MailSenderServiceTestSuite {
         mailSenderService.sendEmail(mail);
         //THEN
         verify(javaMailSender, times(0)).send(mailMessage);
+    }
+
+    @Test
+    public void shouldNotSendEmailAndThrowMailSenderException() {
+        //GIVEN
+        Mail mail = createMail();
+        SimpleMailMessage mailMessage = getSimpleMailMessage(mail);
+        given(mailCreationService.createMimeMessage(mail)).willThrow(MailSenderException.class);
+        //WHEN & THEN
+        assertThatThrownBy(() -> mailSenderService.sendEmail(mail))
+                .isInstanceOf(MailSenderException.class)
+                .hasMessage("Failed to process email sending!");
     }
 
     @Test

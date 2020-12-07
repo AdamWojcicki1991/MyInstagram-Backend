@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 import static com.myinstagram.util.DataFixture.*;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -33,7 +33,7 @@ public class CommentServiceDbTestSuite {
         Post post = postServiceDb.savePost(
                 createPost(userServiceDb.saveUser(
                         createUser("login", "email@gmail.com")),
-                           Instant.now().truncatedTo(ChronoUnit.SECONDS)));
+                           Instant.now().truncatedTo(SECONDS)));
         commentServiceDb.saveComment(createComment(post));
     }
 
