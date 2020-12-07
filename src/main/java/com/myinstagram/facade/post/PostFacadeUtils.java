@@ -1,6 +1,9 @@
 package com.myinstagram.facade.post;
 
-import com.myinstagram.domain.dto.*;
+import com.myinstagram.domain.dto.PostDto;
+import com.myinstagram.domain.dto.PostRequest;
+import com.myinstagram.domain.dto.SimplePostRequest;
+import com.myinstagram.domain.dto.UpdatePostRequest;
 import com.myinstagram.domain.entity.Post;
 import com.myinstagram.domain.entity.User;
 import com.myinstagram.exceptions.custom.post.PostNotFoundByLoginException;

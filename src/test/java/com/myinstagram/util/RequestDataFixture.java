@@ -31,14 +31,23 @@ public final class RequestDataFixture {
 
     public static PostRequest createPostRequest(final String postName, final String caption) {
         return PostRequest.builder()
+                .login("Test login")
                 .postName(postName)
                 .caption(caption)
                 .url("Test url")
                 .build();
     }
 
+    public static SimplePostRequest createSimplePostRequest() {
+        return SimplePostRequest.builder()
+                .postId(1L)
+                .login("login")
+                .build();
+    }
+
     public static UpdatePostRequest createUpdatePostRequest() {
         return UpdatePostRequest.builder()
+                .postId(1L)
                 .postName("Test Post")
                 .caption("Test caption")
                 .build();

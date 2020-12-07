@@ -30,6 +30,7 @@ public final class EntityDataFixture {
                 .enabled(true)
                 .posts(new ArrayList<>())
                 .roles(new HashSet<>())
+                .likedPosts(new ArrayList<>())
                 .build();
     }
 

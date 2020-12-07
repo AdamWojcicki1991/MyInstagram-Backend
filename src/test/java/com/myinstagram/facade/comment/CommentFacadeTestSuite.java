@@ -46,6 +46,7 @@ public class CommentFacadeTestSuite {
 
     @BeforeEach
     public void setUp() {
+        //GIVEN
         commentServiceDb.saveComment(createComment(
                 postServiceDb.savePost(createPost(
                         userServiceDb.saveUser(createUser("login1", "test1@gmail.com")),
@@ -172,9 +173,9 @@ public class CommentFacadeTestSuite {
         //GIVEN
         Comment comment = commentServiceDb.getAllComments().get(0);
         //WHEN
-        ResponseEntity<String> stringResponseEntity = commentFacade.deleteCommentById(comment.getId());
+        ResponseEntity<String> responseEntity = commentFacade.deleteCommentById(comment.getId());
         //THEN
-        assertEquals(OK, stringResponseEntity.getStatusCode());
+        assertEquals(OK, responseEntity.getStatusCode());
         assertEquals(2, commentServiceDb.getAllComments().size());
     }
 }
