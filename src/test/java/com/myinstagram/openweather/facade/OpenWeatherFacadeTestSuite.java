@@ -13,7 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import static com.myinstagram.util.DomainDataFixture.*;
+import static com.myinstagram.util.DomainDataFixture.createOpenWeatherResponse;
+import static com.myinstagram.util.DtoDataFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpStatus.OK;

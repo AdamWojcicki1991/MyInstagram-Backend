@@ -2,10 +2,8 @@ package com.myinstagram.util;
 
 import com.myinstagram.domain.auth.AuthenticationResponse;
 import com.myinstagram.domain.mail.Mail;
-import com.myinstagram.mailboxlayer.dto.ValidateMailResponseDto;
 import com.myinstagram.openweather.dto.OpenWeatherMainDto;
 import com.myinstagram.openweather.dto.OpenWeatherResponse;
-import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
 import com.myinstagram.openweather.dto.OpenWeatherWeatherDto;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -32,47 +30,8 @@ public final class DomainDataFixture {
         return mailMessage;
     }
 
-    public static ValidateMailResponseDto createValidateResponseDto(final boolean emailFormatValid,
-                                                                    final boolean mxRecordsFound,
-                                                                    final boolean smtpValid) {
-        return ValidateMailResponseDto.builder()
-                .validatedEmail("test@gmail.com")
-                .emailFormatValid(emailFormatValid)
-                .mxRecordsFound(mxRecordsFound)
-                .smtpValid(smtpValid)
-                .build();
-    }
-
-
-    public static OpenWeatherMainDto createOpenWeatherMainDto() {
-        return OpenWeatherMainDto.builder()
-                .temperature(12.1)
-                .feltTemperature(12.3)
-                .humidity(60)
-                .pressure(999)
-                .build();
-    }
-
-    public static OpenWeatherWeatherDto createOpenWeatherWeatherDto() {
-        return OpenWeatherWeatherDto.builder()
-                .mainWeather("Cloud")
-                .weatherDescription("Cloudy weather")
-                .build();
-    }
-
-    public static OpenWeatherResponseDto createOpenWeatherResponseDto() {
-        return OpenWeatherResponseDto.builder()
-                .city("Paris")
-                .temperature(16)
-                .feltTemperature(12.2)
-                .pressure(1000)
-                .humidity(12)
-                .mainWeather("Test Weather")
-                .weatherDescription("Test Description")
-                .build();
-    }
-
-    public static OpenWeatherResponse createOpenWeatherResponse(final OpenWeatherMainDto openWeatherMainDto, final OpenWeatherWeatherDto openWeatherWeatherDto) {
+    public static OpenWeatherResponse createOpenWeatherResponse(final OpenWeatherMainDto openWeatherMainDto,
+                                                                final OpenWeatherWeatherDto openWeatherWeatherDto) {
         OpenWeatherWeatherDto[] openWeatherWeathers = {openWeatherWeatherDto};
         return OpenWeatherResponse.builder()
                 .city("Poznan")

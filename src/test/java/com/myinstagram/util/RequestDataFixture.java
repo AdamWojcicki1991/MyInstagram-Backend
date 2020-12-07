@@ -17,6 +17,7 @@ public final class RequestDataFixture {
         return CommentRequest.builder()
                 .login("Test Comment")
                 .content("Test Content")
+                .postId(1L)
                 .build();
     }
 

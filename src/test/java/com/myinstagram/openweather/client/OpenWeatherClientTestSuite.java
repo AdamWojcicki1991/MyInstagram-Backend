@@ -18,6 +18,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static com.myinstagram.util.DomainDataFixture.*;
+import static com.myinstagram.util.DtoDataFixture.createOpenWeatherMainDto;
+import static com.myinstagram.util.DtoDataFixture.createOpenWeatherWeatherDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 
