@@ -4,7 +4,8 @@ import com.myinstagram.domain.dto.UserRequest;
 import com.myinstagram.domain.entity.User;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 public final class UserSupportDataFixture {
 
@@ -20,7 +21,7 @@ public final class UserSupportDataFixture {
                 .userName(userRequest.getUserName())
                 .email(userRequest.getEmail())
                 .description(userRequest.getDescription())
-                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .updateDate(Instant.now().truncatedTo(SECONDS))
                 .build();
     }
 }

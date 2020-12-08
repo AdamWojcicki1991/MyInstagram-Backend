@@ -53,7 +53,7 @@ public final class UserValidator {
 
     public boolean hasUserRoles(final User user) {
         log.info("Validate that user has assigned roles!");
-        return roleServiceDb.getUserValidRoles(user).size() > 0;
+        return roleServiceDb.getRolesByUserLogin(user.getLogin()).size() > 0;
     }
 
     private boolean validate(final String info, final boolean userValidated, final boolean contains) {

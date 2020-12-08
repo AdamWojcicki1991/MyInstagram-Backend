@@ -98,7 +98,7 @@ public class UserFacade {
         log.info("Delete user by login: " + login);
         User user = userServiceDb.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
         List<VerificationToken> verificationTokens = verificationTokenServiceDb.getUserValidVerificationToken(user);
-        List<Role> roles = roleServiceDb.getUserValidRoles(user);
+        List<Role> roles = roleServiceDb.getRolesByUserLogin(user.getLogin());
         return userFacadeUtils.deleteValidatedUser(user, verificationTokens, roles);
     }
 }

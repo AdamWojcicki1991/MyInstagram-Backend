@@ -74,7 +74,7 @@ public class RoleServiceDbTestSuite {
         //GIVEN
         User anotherUser = userServiceDb.getUserByLogin("login_2").get();
         //WHEN
-        List<Role> roles = roleServiceDb.getUserValidRoles(anotherUser);
+        List<Role> roles = roleServiceDb.getRolesByUserLogin(anotherUser.getLogin());
         //THEN
         roles.forEach(role -> {
             anotherUser.getRoles().forEach(

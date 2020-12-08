@@ -11,9 +11,9 @@ import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
 import com.myinstagram.openweather.dto.OpenWeatherWeatherDto;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 public final class DtoDataFixture {
 
@@ -69,8 +69,8 @@ public final class DtoDataFixture {
                 .password("Password")
                 .email(mail)
                 .description("Description")
-                .createDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
-                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .createDate(Instant.now().truncatedTo(SECONDS))
+                .updateDate(Instant.now().truncatedTo(SECONDS))
                 .userStatus(ACTIVE)
                 .enabled(true)
                 .build();
@@ -85,7 +85,7 @@ public final class DtoDataFixture {
                 .imageSerialNumber(0L)
                 .likesCount(0L)
                 .postDate(postDate)
-                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .updateDate(Instant.now().truncatedTo(SECONDS))
                 .userId(1L)
                 .login("login")
                 .build();
@@ -96,8 +96,8 @@ public final class DtoDataFixture {
                 .id(1L)
                 .commentName("Comment")
                 .content("Content")
-                .commentDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
-                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .commentDate(Instant.now().truncatedTo(SECONDS))
+                .updateDate(Instant.now().truncatedTo(SECONDS))
                 .postId(1L)
                 .postName("Post")
                 .userId(1L)

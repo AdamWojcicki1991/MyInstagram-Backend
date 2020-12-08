@@ -266,7 +266,7 @@ public class PostFacadeTestSuite {
         //GIVEN
         Post post = postServiceDb.getAllPosts().get(0);
         //WHEN
-        ResponseEntity<String> responseEntity = postFacadeUtils.deletePostIfExists(post.getId());
+        ResponseEntity<String> responseEntity = postFacade.deletePostById(post.getId());
         //THEN
         assertEquals(OK, responseEntity.getStatusCode());
         assertEquals(2, postServiceDb.getAllPosts().size());

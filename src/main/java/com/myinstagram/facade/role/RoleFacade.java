@@ -38,7 +38,7 @@ public class RoleFacade {
         log.info("Get available role by login: " + login);
         User user = userServiceDb.getUserByLogin(login)
                 .orElseThrow(() -> new UserNotFoundException(login));
-        List<RoleDto> roles = roleMapper.mapToRolesDto(roleServiceDb.getUserValidRoles(user));
+        List<RoleDto> roles = roleMapper.mapToRolesDto(roleServiceDb.getRolesByUserLogin(user.getLogin()));
         return new ResponseEntity<>(roles, OK);
     }
 

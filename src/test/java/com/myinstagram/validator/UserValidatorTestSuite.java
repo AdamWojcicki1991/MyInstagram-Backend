@@ -40,6 +40,7 @@ public class UserValidatorTestSuite {
         //GIVEN
         User user = userServiceDb.saveUser(createUser("login_1", "email1@gmail.com"));
         User anotherUser = userServiceDb.saveUser(createUser("login_2", "email2@gmail.com"));
+        userServiceDb.saveUser(createUser("login_3", "email3@gmail.com"));
         roleServiceDb.saveRole(createRole(MODERATOR, user));
         roleServiceDb.saveRole(createRole(ADMIN, user, anotherUser));
         roleServiceDb.saveRole(createRole(USER, anotherUser));
@@ -172,7 +173,6 @@ public class UserValidatorTestSuite {
     public void hasUserRoles() {
         //GIVEN
         User user = userServiceDb.getUserByLogin("login_1").get();
-        roleServiceDb.saveRole(createRole(MODERATOR, user));
         //WHEN
         boolean hasUserRoles = userValidator.hasUserRoles(user);
         //THEN
@@ -182,7 +182,7 @@ public class UserValidatorTestSuite {
     @Test
     public void hasNotUserRoles() {
         //GIVEN
-        User user = userServiceDb.getUserByLogin("login_1").get();
+        User user = userServiceDb.getUserByLogin("login_3").get();
         //WHEN
         boolean hasNotUserRoles = userValidator.hasUserRoles(user);
         //THEN

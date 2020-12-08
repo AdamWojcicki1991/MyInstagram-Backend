@@ -115,7 +115,6 @@ public class PostFacadeUtilsTestSuite {
                 PostNotFoundException.class,
                 () -> postFacadeUtils.deletePostIfExists(123L));
         //THEN
-        assertEquals("Could not find post by id: 123",
-                     postNotFoundException.getMessage());
+        assertEquals("Could not find post by id: 123", postNotFoundException.getMessage());
     }
 }
