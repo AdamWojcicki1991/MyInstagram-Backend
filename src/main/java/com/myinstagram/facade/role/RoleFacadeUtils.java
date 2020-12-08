@@ -49,6 +49,6 @@ class RoleFacadeUtils {
         } catch (EmptyResultDataAccessException e) {
             throw new RoleNotFoundException(id);
         }
-        return new ResponseEntity<>("Role Deleted Successfully!!!", OK);
+        return new ResponseEntity<>("Role Deleted Successfully!", OK);
     }
 }
