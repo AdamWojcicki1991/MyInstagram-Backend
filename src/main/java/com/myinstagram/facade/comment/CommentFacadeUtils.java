@@ -58,6 +58,6 @@ class CommentFacadeUtils {
         } catch (EmptyResultDataAccessException e) {
             throw new CommentNotFoundException(id);
         }
-        return new ResponseEntity<>("Comment Deleted Successfully!!!", OK);
+        return new ResponseEntity<>("Comment Deleted Successfully!", OK);
     }
 }

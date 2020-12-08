@@ -86,7 +86,7 @@ public class AuthenticationControllerTestSuite {
 
     @Test
     @DisplayName("/authentications/verify/{token} | GET")
-    public void verifyAccount() throws Exception {
+    public void shouldVerifyAccount() throws Exception {
         //GIVEN
         VerificationToken verificationToken = createVerificationToken(createUser("login_1", "test1@gmail.com"), FIRST_TOKEN);
         given(authenticationService.verifyToken(verificationToken.getToken())).willReturn(true);
@@ -98,7 +98,7 @@ public class AuthenticationControllerTestSuite {
 
     @Test
     @DisplayName("/authentications/signup | POST")
-    public void signup() throws Exception {
+    public void shouldSignup() throws Exception {
         //GIVEN
         RegisterRequest registerRequest = createRegisterRequest("Name", "login", "Poznan", "test@gmail.com", "Password");
         String jsonContent = gson.toJson(registerRequest);
@@ -114,7 +114,7 @@ public class AuthenticationControllerTestSuite {
 
     @Test
     @DisplayName("/authentications/login | POST")
-    public void login() throws Exception {
+    public void shouldLogin() throws Exception {
         //GIVEN
         LoginRequest loginRequest = createLoginRequest();
         AuthenticationResponse authenticationResponse = createAuthenticationResponse();
@@ -134,7 +134,7 @@ public class AuthenticationControllerTestSuite {
 
     @Test
     @DisplayName("/authentications/refresh | POST")
-    public void refreshToken() throws Exception {
+    public void shouldRefreshToken() throws Exception {
         //GIVEN
         RefreshTokenRequest refreshTokenRequest = createRefreshTokenRequest();
         AuthenticationResponse authenticationResponse = createAuthenticationResponse();
@@ -154,7 +154,7 @@ public class AuthenticationControllerTestSuite {
 
     @Test
     @DisplayName("/authentications/logout | DELETE")
-    public void logout() throws Exception {
+    public void shouldLogout() throws Exception {
         //GIVEN
         RefreshTokenRequest refreshTokenRequest = createRefreshTokenRequest();
         String jsonContent = gson.toJson(refreshTokenRequest);
