@@ -16,6 +16,7 @@ public final class UserDto {
     private final String login;
     private final String password;
     private final String email;
+    private final String city;
     private final String description;
     private final Instant createDate;
     private final Instant updateDate;

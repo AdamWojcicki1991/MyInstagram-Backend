@@ -22,7 +22,7 @@ public final class DomainDataFixture {
                 .build();
     }
 
-    public static SimpleMailMessage getSimpleMailMessage(final Mail mail) {
+    public static SimpleMailMessage createSimpleMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());

@@ -8,7 +8,6 @@ import com.myinstagram.domain.entity.User;
 import com.myinstagram.domain.entity.VerificationToken;
 import com.myinstagram.exceptions.custom.security.ChangePasswordException;
 import com.myinstagram.exceptions.custom.security.PasswordNotMatchedException;
-import com.myinstagram.exceptions.custom.user.UserNotFoundException;
 import com.myinstagram.exceptions.custom.user.UserValidationException;
 import com.myinstagram.mapper.UserMapper;
 import com.myinstagram.service.RoleServiceDb;
@@ -42,16 +41,6 @@ class UserFacadeUtils {
     private final PasswordValidator passwordValidator;
     private final VerificationTokenServiceDb verificationTokenServiceDb;
 
-    ResponseEntity<List<UserDto>> getUserByLoginIfExists(final String login) {
-        try {
-            List<UserDto> users = userMapper.mapToUsersDto(userServiceDb.getAllUsersByLoginContaining(login));
-            log.info("Users returned successfully!");
-            return new ResponseEntity<>(users, OK);
-        } catch (Exception e) {
-            throw new UserNotFoundException(login);
-        }
-    }
-
     ResponseEntity<UserDto> updateProfileIfUserIsValidated(final UserRequest userRequest, final User user) {
         if (userValidator.isUserValidateToAssignEmail(user, userRequest)) {
             UserDto userDto = userMapper.mapToUserDto(userService.updateUserProfile(user, userRequest));
@@ -63,8 +52,9 @@ class UserFacadeUtils {
     }
 
     ResponseEntity<String> changePasswordIfUserPasswordIsValidated(final PasswordRequest passwordRequest, final User user) {
-        if (passwordValidator.validateNewPasswordWithConfirmed(passwordRequest))
+        if (passwordValidator.validateNewPasswordWithConfirmed(passwordRequest)) {
             throw new PasswordNotMatchedException();
+        }
         try {
             if (passwordValidator.validatePasswords(user, passwordRequest)) {
                 userService.updateUserPassword(user, passwordRequest.getNewPassword());

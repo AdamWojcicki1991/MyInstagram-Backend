@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import static com.myinstagram.domain.util.Constants.*;
 
@@ -65,7 +64,7 @@ public class UserService {
                 .userName(userRequest.getUserName())
                 .email(userRequest.getEmail())
                 .description(userRequest.getDescription())
-                .updateDate(Instant.now().truncatedTo(ChronoUnit.SECONDS))
+                .updateDate(Instant.now())
                 .build();
     }
 

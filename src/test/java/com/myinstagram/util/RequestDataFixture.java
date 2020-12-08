@@ -64,6 +64,7 @@ public final class RequestDataFixture {
 
     public static PasswordRequest createPasswordRequest(final String currentPassword, final String confirmPassword, final String newPassword) {
         return PasswordRequest.builder()
+                .login("login")
                 .currentPassword(currentPassword)
                 .confirmPassword(confirmPassword)
                 .newPassword(newPassword)

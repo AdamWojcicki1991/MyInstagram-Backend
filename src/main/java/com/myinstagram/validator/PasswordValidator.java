@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public final class PasswordValidator {
+public class PasswordValidator {
     private final PasswordProcessorService passwordProcessorService;
 
     public boolean validateNewPasswordWithConfirmed(final PasswordRequest passwordRequest) {

@@ -43,7 +43,8 @@ public class UserFacade {
 
     public ResponseEntity<List<UserDto>> getUsersByLogin(final String login) {
         log.info("Get users contains passed login!");
-        return userFacadeUtils.getUserByLoginIfExists(login);
+        List<UserDto> users = userMapper.mapToUsersDto(userServiceDb.getAllUsersByLoginContaining(login));
+        return new ResponseEntity<>(users, OK);
     }
 
     public ResponseEntity<UserDto> getUserById(final Long id) {

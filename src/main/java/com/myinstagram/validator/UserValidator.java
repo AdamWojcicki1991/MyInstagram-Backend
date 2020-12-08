@@ -17,7 +17,7 @@ import static com.myinstagram.domain.enums.UserStatus.ACTIVE;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public final class UserValidator {
+public class UserValidator {
     private final RoleServiceDb roleServiceDb;
     private final UserServiceDb userServiceDb;
     private final EmailValidator emailValidator;
