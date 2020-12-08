@@ -68,7 +68,7 @@ public final class EntityDataFixture {
     public static RefreshToken createRefreshToken(final String token) {
         return RefreshToken.builder()
                 .token(token)
-                .createdDate(Instant.now())
+                .createDate(Instant.now().truncatedTo(SECONDS))
                 .build();
     }
 
@@ -76,7 +76,7 @@ public final class EntityDataFixture {
         return VerificationToken.builder()
                 .token(token)
                 .user(user)
-                .expirationDate(Instant.now())
+                .expirationDate(Instant.now().truncatedTo(SECONDS))
                 .build();
     }
 }

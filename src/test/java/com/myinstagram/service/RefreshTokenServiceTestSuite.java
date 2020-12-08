@@ -45,7 +45,7 @@ public class RefreshTokenServiceTestSuite {
         assertEquals(4, refreshTokenService.getRefreshTokens().size());
         assertNotNull(generateRefreshToken.getId());
         assertTrue(generateRefreshToken.getToken().matches(VALID_UUID));
-        assertEquals(generateRefreshToken.getCreatedDate().truncatedTo(SECONDS),
+        assertEquals(generateRefreshToken.getCreateDate().truncatedTo(SECONDS),
                      Instant.now().truncatedTo(SECONDS));
     }
 

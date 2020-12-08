@@ -24,5 +24,5 @@ public final class RefreshToken {
     private String token;
 
     @Column(name = "CREATE_DATE")
-    private Instant createdDate;
+    private Instant createDate;
 }

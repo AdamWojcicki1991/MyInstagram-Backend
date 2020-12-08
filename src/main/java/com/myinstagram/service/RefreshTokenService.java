@@ -23,7 +23,7 @@ public class RefreshTokenService {
     public RefreshToken generateRefreshToken() {
         return refreshTokenServiceDb.saveRefreshToken(RefreshToken.builder()
                                                               .token(passwordProcessorService.generateUuid())
-                                                              .createdDate(Instant.now())
+                                                              .createDate(Instant.now())
                                                               .build());
     }
 

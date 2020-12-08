@@ -9,6 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 
 import java.time.Instant;
 
+import static java.time.temporal.ChronoUnit.SECONDS;
+
 public final class DomainDataFixture {
 
     private DomainDataFixture() {
@@ -44,7 +46,7 @@ public final class DomainDataFixture {
         return AuthenticationResponse.builder()
                 .login("login")
                 .authenticationToken("authenticationToken")
-                .expiresAt(Instant.now())
+                .expiresAt(Instant.now().truncatedTo(SECONDS))
                 .refreshToken("refreshToken")
                 .build();
     }
