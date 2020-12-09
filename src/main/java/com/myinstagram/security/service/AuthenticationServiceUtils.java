@@ -80,7 +80,6 @@ class AuthenticationServiceUtils {
 
     private User assignUser(final RegisterRequest registerRequest) {
         return userServiceDb.saveUser(User.builder()
-                                              .userName(registerRequest.getName())
                                               .login(registerRequest.getLogin())
                                               .password(passwordProcessorService.encryptPassword(registerRequest.getPassword()))
                                               .email(registerRequest.getEmail())

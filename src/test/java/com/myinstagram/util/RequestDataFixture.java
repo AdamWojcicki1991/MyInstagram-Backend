@@ -71,10 +71,9 @@ public final class RequestDataFixture {
                 .build();
     }
 
-    public static RegisterRequest createRegisterRequest(final String name, final String login,
+    public static RegisterRequest createRegisterRequest(final String login,
                                                         final String city, final String email, final String password) {
         return RegisterRequest.builder()
-                .name(name)
                 .login(login)
                 .city(city)
                 .email(email)

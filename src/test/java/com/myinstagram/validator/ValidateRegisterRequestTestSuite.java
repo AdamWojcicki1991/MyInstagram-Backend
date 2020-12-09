@@ -17,7 +17,7 @@ public class ValidateRegisterRequestTestSuite {
     @Test
     public void isRegisterRequestValid() {
         //GIVEN
-        RegisterRequest registerRequest = createRegisterRequest("name", "login",
+        RegisterRequest registerRequest = createRegisterRequest("login",
                                                                 "password", "test@gmail.com", "Poznan");
         //WHEN
         boolean result = validateRegisterRequest.isRegisterRequestValid(registerRequest);
@@ -28,9 +28,9 @@ public class ValidateRegisterRequestTestSuite {
     @Test
     public void isRegisterRequestNotValid() {
         //GIVEN
-        RegisterRequest blankRegisterRequest = createRegisterRequest("", "login",
+        RegisterRequest blankRegisterRequest = createRegisterRequest("",
                                                                      "password", "test@gmail.com", "Poznan");
-        RegisterRequest nullRegisterRequest = createRegisterRequest(null, "login",
+        RegisterRequest nullRegisterRequest = createRegisterRequest(null,
                                                                     "password", "test@gmail.com", "Poznan");
         //WHEN
         boolean resultForBlankField = validateRegisterRequest.isRegisterRequestValid(blankRegisterRequest);

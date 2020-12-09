@@ -73,7 +73,7 @@ public class AuthenticationServiceTestSuite {
     public void shouldRegister() {
         //GIVEN
         User user = createUser("login", "test@gmail.com");
-        RegisterRequest registerRequest = createRegisterRequest("adam", "login",
+        RegisterRequest registerRequest = createRegisterRequest("login",
                                                                 "Poznan", "test@gmail.com", "Password");
         given(validateRegisterRequest.isRegisterRequestValid(any())).willReturn(true);
         given(userServiceDb.getAllUsersByLoginContaining(anyString())).willReturn(new ArrayList<>());
@@ -91,7 +91,7 @@ public class AuthenticationServiceTestSuite {
     @Test
     public void shouldThrowUserRegistrationExceptionBecauseOfInvalidEmailDuringRegister() {
         //GIVEN
-        RegisterRequest registerRequest = createRegisterRequest("adam", "login",
+        RegisterRequest registerRequest = createRegisterRequest("login",
                                                                 "Poznan", "test@gmail.com", "Password");
         given(validateRegisterRequest.isRegisterRequestValid(any())).willReturn(true);
         given(userServiceDb.getAllUsersByLoginContaining(anyString())).willReturn(new ArrayList<>());
@@ -106,7 +106,7 @@ public class AuthenticationServiceTestSuite {
     public void shouldThrowUserRegistrationExceptionBecauseUsereAlreadyExistDuringRegister() {
         //GIVEN
         User user = createUser("login", "test@gmail.com");
-        RegisterRequest registerRequest = createRegisterRequest("adam", "login",
+        RegisterRequest registerRequest = createRegisterRequest("login",
                                                                 "Poznan", "test@gmail.com", "Password");
         given(validateRegisterRequest.isRegisterRequestValid(any())).willReturn(true);
         given(userServiceDb.getAllUsersByLoginContaining(anyString())).willReturn(new ArrayList<>(List.of(user)));
@@ -119,13 +119,13 @@ public class AuthenticationServiceTestSuite {
     @Test
     public void shouldThrowRegisterRequestExceptionBecauseOfInvalidRegistrationRequestDuringRegister() {
         //GIVEN
-        RegisterRequest registerRequest = createRegisterRequest("adam", "login",
+        RegisterRequest registerRequest = createRegisterRequest("login",
                                                                 "Poznan", "test@gmail.com", "Password");
         given(validateRegisterRequest.isRegisterRequestValid(any())).willReturn(false);
         //WHEN && THEN
         assertThatThrownBy(() -> authenticationService.register(registerRequest))
                 .isInstanceOf(RegisterRequestException.class)
-                .hasMessage("RegisterRequest(name=adam, login=login, password=Password, email=test@gmail.com, city=Poznan) is not valid!");
+                .hasMessage("RegisterRequest(login=login, password=Password, email=test@gmail.com, city=Poznan) is not valid!");
     }
 
     @Test

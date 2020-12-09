@@ -114,13 +114,11 @@ public class AuthenticationServiceUtilsTestSuite {
     @Test
     public void shouldAssignUserWithRole() {
         //GIVEN
-        RegisterRequest registerRequest = createRegisterRequest("adam", "testLogin",
-                                                                "Paris", "test@gmail.com", "testPassword");
+        RegisterRequest registerRequest = createRegisterRequest("testLogin", "Paris", "test@gmail.com", "testPassword");
         //WHEN
         User userWithAssignedRole = authenticationServiceUtils.assignUserWithRole(registerRequest, NO_ROLE);
         //THEN
         assertEquals(1, userServiceDb.getAllUsers().size());
-        assertEquals(registerRequest.getName(), userWithAssignedRole.getUserName());
         assertEquals(registerRequest.getLogin(), userWithAssignedRole.getLogin());
         assertTrue(passwordProcessorService.isEncryptedPasswordMatching(registerRequest.getPassword(),
                                                                         userWithAssignedRole.getPassword()));

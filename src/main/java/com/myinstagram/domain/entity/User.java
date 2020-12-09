@@ -32,7 +32,6 @@ public final class User {
     @GeneratedValue(strategy = SEQUENCE)
     private Long id;
 
-    @NotBlank(message = "User name is required !")
     @Column(name = "USER_NAME")
     private String userName;
 

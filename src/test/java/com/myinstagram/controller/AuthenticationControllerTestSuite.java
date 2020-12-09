@@ -100,7 +100,7 @@ public class AuthenticationControllerTestSuite {
     @DisplayName("/authentications/signup | POST")
     public void shouldSignup() throws Exception {
         //GIVEN
-        RegisterRequest registerRequest = createRegisterRequest("Name", "login", "Poznan", "test@gmail.com", "Password");
+        RegisterRequest registerRequest = createRegisterRequest("login", "Poznan", "test@gmail.com", "Password");
         String jsonContent = gson.toJson(registerRequest);
         given(authenticationService.register(registerRequest)).willReturn(true);
         //WHEN & THEN

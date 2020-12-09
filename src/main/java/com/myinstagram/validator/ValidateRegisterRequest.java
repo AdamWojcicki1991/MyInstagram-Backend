@@ -12,8 +12,7 @@ public class ValidateRegisterRequest {
 
     public boolean isRegisterRequestValid(final RegisterRequest registerRequest) {
         log.info("Start to validate register: " + registerRequest);
-        return isValid(registerRequest.getName()) &&
-                isValid(registerRequest.getLogin()) &&
+        return isValid(registerRequest.getLogin()) &&
                 isValid(registerRequest.getPassword()) &&
                 isValid(registerRequest.getEmail()) &&
                 isValid(registerRequest.getCity());
