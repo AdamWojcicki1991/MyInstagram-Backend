@@ -1,8 +1,9 @@
 # MyInstagram-Backend
 
-This project was generated with java jdk-11.0.7 LTS version Spring Boot WEB
+This project was generated with java jdk-11.0.7 LTS version with Spring Boot WEB
 
-Backend application is ready and you can easily test it by swagger-io that is implemented in Backend project on endpoint:
+Backend application is ready and you can easily test it using swagger-io that is implemented in Backend project on an
+endpoint:
 
 http://localhost:8080/swagger-ui.html
 
@@ -10,7 +11,7 @@ http://localhost:8080/swagger-ui.html
 
 You can connect this Backend with Frontend application on a repository:
 
-https://github.com/AdamWojcicki1991/MyInstagram-Backend
+https://github.com/AdamWojcicki1991/MyInstagram-Frontend
 
 Only one endpoint is running from Frontend side POST http://localhost:8080/authentications/signup
 
@@ -22,9 +23,9 @@ Navigate to `http://localhost:8080/`.
 
 ## Code scaffolding
 
-To correctly run project you must go to application.properties files in main and in test folders and implement commented
-lines of code by passing apis keys and valid email addresses with passwords. After this you can run application and
-tests !
+To correctly run project you must go to application.properties files in main and in test folders and implement lines
+using environment variables by passing apis keys, valid email and database credentials. After this you can run
+application and tests !
 
 ## Build
 
