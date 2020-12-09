@@ -72,8 +72,7 @@ public class RoleControllerTestSuite {
     @Test
     @DisplayName("/roles | GET")
     public void shouldGetEmptyRoles() throws Exception {
-        ResponseEntity<List<RoleDto>> responseEntities = new ResponseEntity<>(
-                List.of(), OK);
+        ResponseEntity<List<RoleDto>> responseEntities = new ResponseEntity<>(List.of(), OK);
         //GIVEN
         given(roleFacade.getRoles()).willReturn(responseEntities);
         //WHEN & THEN

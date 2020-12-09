@@ -1,7 +1,6 @@
 package com.myinstagram.controller;
 
 import com.google.gson.Gson;
-import com.myinstagram.mailboxlayer.dto.ValidateMailResponseDto;
 import com.myinstagram.openweather.dto.OpenWeatherResponseDto;
 import com.myinstagram.openweather.facade.OpenWeatherFacade;
 import com.myinstagram.security.jwt.JwtProvider;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.myinstagram.util.DtoDataFixture.createOpenWeatherResponseDto;
-import static com.myinstagram.util.DtoDataFixture.createValidateResponseDto;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpStatus.OK;
@@ -47,7 +45,6 @@ public class OpenWeatherControllerTestSuite {
     public void shouldGetWeatherForCity() throws Exception {
         //GIVEN
         OpenWeatherResponseDto openWeatherResponseDto = createOpenWeatherResponseDto();
-        ValidateMailResponseDto validateResponseDto = createValidateResponseDto(true, true, true);
         ResponseEntity<OpenWeatherResponseDto> responseEntity = new ResponseEntity<>(openWeatherResponseDto, OK);
         given(openWeatherFacade.getWeatherResponse("Paris")).willReturn(responseEntity);
         //WHEN & THEN

@@ -94,6 +94,6 @@ class PostFacadeUtils {
         } catch (EmptyResultDataAccessException e) {
             throw new PostNotFoundException(id);
         }
-        return new ResponseEntity<>("Post Deleted Successfully!!!", OK);
+        return new ResponseEntity<>("Post Deleted Successfully!", OK);
     }
 }
