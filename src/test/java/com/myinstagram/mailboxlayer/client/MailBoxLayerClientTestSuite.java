@@ -31,7 +31,7 @@ public class MailBoxLayerClientTestSuite {
 
     @BeforeEach
     public void setUp() {
-        given(mailBoxLayerConfig.getMailBoxLayerApiEndpoint()).willReturn("http://apilayer.net/check");
+        given(mailBoxLayerConfig.getMailBoxLayerApiEndpoint()).willReturn("http://test.net/check");
         given(mailBoxLayerConfig.getMailBoxLayerApiKey()).willReturn("test");
     }
 
@@ -39,7 +39,7 @@ public class MailBoxLayerClientTestSuite {
     public void shouldGetValidatedEmailFromUrl() throws URISyntaxException, ExecutionException, InterruptedException {
         //GIVEN
         ValidateMailResponseDto validateResponseDto = createValidateResponseDto(true, true, true);
-        URI uri = new URI("http://apilayer.net/check" + "?access_key=test&email=test@gmail.com");
+        URI uri = new URI("http://test.net/check" + "?access_key=test&email=test@gmail.com");
         given(restTemplate.getForObject(uri, ValidateMailResponseDto.class)).willReturn(validateResponseDto);
         //WHEN
         CompletableFuture<ValidateMailResponseDto> validatedEmailFromUrl = mailBoxLayerClient.getValidatedEmailFromUrl("test@gmail.com");
